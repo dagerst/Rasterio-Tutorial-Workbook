@@ -43,6 +43,9 @@ NLCD_LandCover_PhiladelphiaRegion_2021.tiff
 
 
 
+**https://www.esri.com/arcgis-blog/products/product/analytics/deriving-temperature-from-landsat-8-thermal-bands-tirs/**
+
+
 
 
 
