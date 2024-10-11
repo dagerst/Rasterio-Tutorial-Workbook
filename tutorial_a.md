@@ -19,6 +19,18 @@ Coordinate Reference Systems: Rasterio allows reading and transforming coordinat
 
 **https://www.mrlc.gov/viewer/**
 
+Topics:
+
+**Color**
+
+**Georeferencing**
+
+**Masking raster using shapefile**
+
+**Reclassify**
+
+**Raster Calculator**
+
 
 
 
