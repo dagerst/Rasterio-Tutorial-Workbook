@@ -47,6 +47,8 @@ NLCD_LandCover_PhiladelphiaRegion_2021.tiff
 
 Band 10 data in this case, follow formulas
 
+July and August data recommended
+
 
 
 
