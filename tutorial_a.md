@@ -56,7 +56,7 @@ July and August data recommended
 
 
 
-
+***********David to change raster tiff landsat to temperature and check out meta data for dates for that data and tree cover and land cover*************
 
 
 
