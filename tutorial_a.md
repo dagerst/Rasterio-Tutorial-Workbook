@@ -35,14 +35,11 @@ Topics:
 
 
 
-https://dataspace.copernicus.eu/explore-data/data-collections/sentinel-data/sentinel-5p
+NLCD_TreeCoverCanopy_PhiladelphiaRegion_2021.tiff
 
 
 
-
-
-
-
+NLCD_LandCover_PhiladelphiaRegion_2021.tiff
 
 
 
