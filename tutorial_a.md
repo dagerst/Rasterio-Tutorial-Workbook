@@ -71,3 +71,7 @@ This how we are going to tell them to install rasterio using conda on anaconda p
 conda install -c conda-forge rasterio
 
 conda create -n new_environment_name -c conda-forge rasterio
+
+conda activate new_environment_name
+
+conda rasterio
