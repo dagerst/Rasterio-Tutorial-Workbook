@@ -68,10 +68,6 @@ July and August data recommended
 
 This how we are going to tell them to install rasterio using conda on anaconda powershell prompt
 
-conda install -c conda-forge rasterio
+gus5031 = environment name
 
-conda create -n new_environment_name -c conda-forge rasterio
-
-conda activate new_environment_name
-
-conda rasterio
+conda create -n gus5031 -c conda-forge pysal geopandas
