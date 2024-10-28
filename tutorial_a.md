@@ -85,15 +85,22 @@ conda create -n gus5031 -c conda-forge pysal geopandas
 
 
 import pysal
+
 import os
 
 from rasterio.enums import Resampling
+
 import rasterio
+
 #I set the current directory folder to the workspace below
+
 workspace = os.getcwd()
+
 overwriteOutput = True
 
+
 downscale_factor = 1/2
+
 
 with rasterio.open("NLCD_LandCover_PhiladelphiaRegion_2021.tiff") as dataset:
 
