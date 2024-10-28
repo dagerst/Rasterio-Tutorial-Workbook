@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<metadata>
+	<idinfo>
+		<citation>
+			<citeinfo>
+				<origin>U.S. Geological Survey (USGS) Earth Resources Observation and Science (EROS) Center</origin>
+				<pubdate>20060510</pubdate>
+				<title>Landsat 8-9 OLI/TIRS Collection 2</title>
+				<geoform>Remote-Sensing Image</geoform>
+				<pubinfo>
+					<publish>U.S. Geological Survey (USGS) Earth Resources Observation and Science (EROS) Center</publish>
+					<pubplace>Sioux Falls, South Dakota, USA</pubplace>
+				</pubinfo>
+				<onlink>https://doi.org//10.5066/P975CC9B</onlink>
+			</citeinfo>
+		</citation>
+		<descript>
+			<abstract>The USGS Earth Resources Observation and Science (EROS) Center archive holds data collected by the Landsat suite of satellites, beginning with Landsat 1 in 1972 through the latest Landsat mission.</abstract>
+			<purpose>The Landsat archive provides a rich collection of information about the Earth's land surface.  Major characteristics of changes to the surface of the planet can be detected, measured, and analyzed using Landsat data.  The information obtainable from the historical and current Landsat data play a key role in studying surface changes through time.</purpose>
+			<supplinf>Landsat represents the world's longest continuously acquired collection of space-based moderate-resolution land remote sensing data.  As a joint initiative between the U.S. Geological Survey (USGS) and the National Aeronautical Space Administration (NASA), the Landsat Project and the data it collects support government, commercial, industrial, civilian, military, and educational communities throughout the United States and world.  Landsat Collection 2 provides a quality-controlled selection of radiometrically calibrated and consistently geolocated data; particular geodetic accuracy and error tolerances are specified to align pixels for time series analysis through the full Landsat record. (https://www.usgs.gov/core-science-systems/nli/landsat/landsat-collections)</supplinf>
+		</descript>
+		<timeperd>
+			<current>Ground Condition</current>
+			<timeinfo>
+				<grouping>
+					<rngdates>
+						<begdate>Start of Sensor</begdate>
+						<enddate>Present</enddate>
+					</rngdates>
+					<sngdate>
+						<caldate>20210826</caldate>
+					</sngdate>
+				</grouping>
+			</timeinfo>
+		</timeperd>
+		<status>
+			<progress>In Work</progress>
+			<update>Continually</update>
+		</status>
+		<keywords>
+			<theme>
+				<grouping>
+					<themekey>ImageryBaseMapsEarthCover</themekey>
+					<themekey>Visible Wavelengths</themekey>
+					<themekey>Earth Science</themekey>
+					<themekey>Infrared Wavelengths</themekey>
+					<themekey>Infrared Imagery</themekey>
+					<themekey>Imagery </themekey>
+					<themekey>Earth Resources Observation and Science (EROS) Center</themekey>
+					<themekey>Coastal Aerosol </themekey>
+					<themekey>Visible Imagery</themekey>
+					<themekey>U.S. Geological Survey (USGS)</themekey>
+					<themekey>Thermal Infrared Sensor (TIRS)</themekey>
+					<themekey>Landsat 8-9 Collection 2</themekey>
+					<themekey>Operational Land Imager (OLI)</themekey>
+					<themekey>Radiance</themekey>
+					<themekey>Remote Sensing</themekey>
+					<themekey>Satellite</themekey>
+					<themekt>ISO 19115 Topic Category</themekt>
+				</grouping>
+			</theme>
+			<place>
+				<grouping>
+					<placekey>Asia</placekey>
+					<placekt>U.S. Department of Commerce, 1995, Countries, dependencies, areas of special sovereignty, and their principal administrative divisions, Federal Information Processing Standard 10-4, Washington, D.C., National Institute of Standards and Technology</placekt>
+				</grouping>
+			</place>
+		</keywords>
+		<spdom>
+			<dsgpoly>
+				<dsgpolyx>
+					<grouping>
+						<gringlat>39.26063</gringlat>
+						<gringlon>-76.21241</gringlon>
+					</grouping>
+				</dsgpolyx>
+			</dsgpoly>
+		</spdom>
+		<accconst>Downloading and using these data signifies that the user comprehends and will comply with the USGS Privacy Policy.  Reading and understanding all portions of the metadata will protect the interests of both the user and the USGS. Please refer to https://www.usgs.gov/privacy.html.</accconst>
+		<useconst>There is no guarantee of warranty concerning the accuracy of these data. Users should not use these data for critical applications without a full awareness of their limitations. Temporal changes may have occurred since the data were collected and some parts of these data may no longer represent actual surface conditions.  There are no restrictions regarding the use of Landsat data distributed by the U.S. Geological Survey (USGS), unless expressly identified prior to or at the time of receipt. For Landsat, we request the following statement be used: Data available from the U.S. Geological Survey. Please refer to https://www.usgs.gov/centers/eros/data-citation for more information on data citation.</useconst>
+		<ptcontac>
+			<cntinfo>
+				<grouping>
+					<cntorgp>
+						<cntper>custserv@usgs.gov</cntper>
+						<cntorg>U.S. Geological Survey (USGS) Earth Resources Observation and Science (EROS) Center</cntorg>
+					</cntorgp>
+				</grouping>
+				<cntpos>Customer Service Representative</cntpos>
+				<cntaddr>
+					<addrtype>Mailing and Physical Address</addrtype>
+					<address>U.S. Geological Survey (USGS) Earth Resources Observation and Science (EROS) Center 47914 252nd Street</address>
+					<city>Sioux Falls</city>
+					<state>SD</state>
+					<postal>57198-0001</postal>
+					<country>USA</country>
+				</cntaddr>
+				<cntemail>custserv@usgs.gov</cntemail>
+				<hours>0800 - 1600 CT, M-F, 1400 - 2200 h GMT</hours>
+				<cntinst>custserv@usgs.gov</cntinst>
+			</cntinfo>
+		</ptcontac>
+		<browse>
+			<browsed>This is a compressed and resampled version of the Landsat image to help validate area of interest, data quality, and the impact of cloud cover, if it exists.</browsed>
+			<browsen>Browse graphic for: https://ims.cr.usgs.gov/browse/landsat_8/browse/full/landsat_8/LC08_L1TP_014032_20210826_20210901_02_T1</browsen>
+			<browset>JPEG</browset>
+		</browse>
+		<secinfo>
+			<secclass>Unclassified</secclass>
+			<sechandl>None</sechandl>
+			<secsys>None</secsys>
+		</secinfo>
+		<native>Oracle</native>
+		<crossref>
+			<citeinfo>
+				<geoform>Remote-Sensing Image</geoform>
+				<onlink>https://doi.org//10.5066/P975CC9B</onlink>
+				<origin>U.S. Geological Survey (USGS) Earth Resources Observation and Science (EROS) Center</origin>
+				<pubdate>20060510</pubdate>
+				<pubinfo>
+					<publish>U.S. Geological Survey (USGS) Earth Resources Observation and Science (EROS) Center</publish>
+					<pubplace>Sioux Falls, South Dakota, USA</pubplace>
+				</pubinfo>
+				<title>Landsat 8-9 OLI/TIRS Collection 2</title>
+			</citeinfo>
+		</crossref>
+		<datacred>The Landsat Program, as defined by Congress in 1992 and amended by Presidential Decision Directive/NSTC-3 in May 1994, is managed cooperatively by the NASA and the USGS.  Responsibility for construction of the spacecraft and instrument lies with NASA.  The Landsat Program is part of NASA's Earth Observing System, a global change initiative administered by NASA's Earth Science Enterprise.  Data processing, archiving, and distribution are performed by the USGS.  The primary ground station, the data handling facility and archive are located at the USGS Earth Resources Observation and Science (EROS) Center in Sioux Falls, SD.  The following statement should be used when citing, copying, or reprinting Landsat imagery or data: Data available from the U.S. Geological Survey.  The USGS Visual Identity System Guidance webpage (\"Acknowledging or Crediting USGS as Information Source\") provides additional details:  https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits.</datacred>
+	</idinfo>
+	<dataqual>
+		<attracc>
+			<attraccr>The identification of features is provided by the spectral signature which is the distinct electromagnetic energy it emits, reflects, or otherwise transmits.  Other signatures such as tone (lightness or darkness), texture (surface roughness or smoothness), pattern, shadow, shape, and size are just as important.  Thus, through the use of Landsat data, such elements as water features, soils, and vegetation can be identified and distinguished from each other.</attraccr>
+		</attracc>
+		<cloud>8.840 percent</cloud>
+		<complete>The Landsat satellites circle the Earth on a sun-synchronous, near-polar orbit imaging the same 185 km (115 miles) ground swath every 16 days.</complete>
+		<lineage>
+			<procstep>
+				<proccont>
+					<cntinfo>
+						<grouping>
+							<cntorgp>
+								<cntper>custserv@usgs.gov</cntper>
+								<cntorg>U.S. Geological Survey (USGS) Earth Resources Observation and Science (EROS) Center</cntorg>
+							</cntorgp>
+						</grouping>
+						<cntpos>Customer Service Representative</cntpos>
+						<cntaddr>
+							<addrtype>Mailing and Physical Address</addrtype>
+							<address>U.S. Geological Survey (USGS) Earth Resources Observation and Science (EROS) Center 47914 252nd Street</address>
+							<city>Sioux Falls</city>
+							<state>SD</state>
+							<postal>57198-0001</postal>
+							<country>USA</country>
+						</cntaddr>
+						<cntemail>custserv@usgs.gov</cntemail>
+						<hours>0800 - 1600 CT, M-F, 1400 - 2200 h GMT</hours>
+						<cntinst>custserv@usgs.gov</cntinst>
+					</cntinfo>
+				</proccont>
+				<procdate>20161030</procdate>
+				<procdesc>Landsat Collection 2 Level-1 standard data products are processed using the Landsat Product Generation System (LPGS), and are processed to the best level of correction possible (Level-1TP = Precision Terrain correction).  If full terrain correction is not possible, the data is processed to Level-1GS (Systematic) or Level-1GT (Systematic Terrain) correction.  All Landsat Collection 2 Level-1 data have been reprocessed and organized by a tiered inventory structure.  During Collection 2 processing, each Landsat scene in the USGS archive is assigned to a specific \"Tier\" based on data quality and level of processing.  Details about Collection 2 level-1 data can be found at https://www.usgs.gov/core-science-systems/nli/landsat/landsat-collection-2.</procdesc>
+			</procstep>
+			<srcinfo>
+				<srccite>
+					<citeinfo>
+						<geoform>Remote-Sensing Image</geoform>
+						<onlink>https://doi.org//10.5066/P975CC9B</onlink>
+						<origin>U.S. Geological Survey (USGS) Earth Resources Observation and Science (EROS) Center</origin>
+						<pubdate>20060510</pubdate>
+						<pubinfo>
+							<publish>U.S. Geological Survey (USGS) Earth Resources Observation and Science (EROS) Center</publish>
+							<pubplace>Sioux Falls, South Dakota, USA</pubplace>
+						</pubinfo>
+						<title>Landsat 8-9 OLI/TIRS Collection 2</title>
+					</citeinfo>
+				</srccite>
+				<srctime>
+					<timeinfo>
+						<grouping>
+							<rngdates>
+								<begdate>Start of Sensor</begdate>
+								<enddate>Present</enddate>
+							</rngdates>
+							<sngdate>
+								<caldate>20210826</caldate>
+							</sngdate>
+						</grouping>
+					</timeinfo>
+				</srctime>
+			</srcinfo>
+		</lineage>
+		<logic>N/A</logic>
+		<posacc>
+			<horizpa>
+				<horizpar>L8 Level-1 systematic products meet the system requirement of 65 meters at a circular error with 90 percent confidence (CE90) horizontal accuracy.</horizpar>
+			</horizpa>
+		</posacc>
+	</dataqual>
+	<spdoinfo>
+		<grouping>
+			<direct>Raster</direct>
+			<grouping>
+				<rastinfo>
+					<rasttype>Pixel</rasttype>
+				</rastinfo>
+			</grouping>
+		</grouping>
+		<indspref>Landsat 8 collects data at 30-meter resolution (Panchromatic band 8 at 15 meters; thermal at 100 meters) </indspref>
+	</spdoinfo>
+	<distinfo>
+		<grouping>
+			<availabl>
+				<timeinfo>
+					<grouping>
+						<rngdates>
+							<begdate>Start of Sensor</begdate>
+							<enddate>Present</enddate>
+						</rngdates>
+						<sngdate>
+							<caldate>20210826</caldate>
+						</sngdate>
+					</grouping>
+				</timeinfo>
+			</availabl>
+			<distliab>Although these data have been processed successfully by the USGS, no warranty expressed or implied is made by the USGS regarding the use of the data on any other system, nor does the act of distribution constitute any such warranty.</distliab>
+			<distrib>
+				<cntinfo>
+					<grouping>
+						<cntorgp>
+							<cntper>custserv@usgs.gov</cntper>
+							<cntorg>U.S. Geological Survey (USGS) Earth Resources Observation and Science (EROS) Center</cntorg>
+						</cntorgp>
+					</grouping>
+					<cntpos>Customer Service Representative</cntpos>
+					<cntaddr>
+						<addrtype>Mailing and Physical Address</addrtype>
+						<address>U.S. Geological Survey (USGS) Earth Resources Observation and Science (EROS) Center 47914 252nd Street</address>
+						<city>Sioux Falls</city>
+						<state>SD</state>
+						<postal>57198-0001</postal>
+						<country>USA</country>
+					</cntaddr>
+					<cntemail>custserv@usgs.gov</cntemail>
+					<hours>0800 - 1600 CT, M-F, 1400 - 2200 h GMT</hours>
+					<cntinst>custserv@usgs.gov</cntinst>
+				</cntinfo>
+			</distrib>
+			<stdorder>
+				<fees>All Landsat data held in the USGS EROS archive are downloadable at no cost to all users.</fees>
+				<grouping>
+					<digform>
+						<digtinfo>
+							<formname>Geographcal-Tagged Image File Format (GeoTIFF), or Joint Photographic Experts Group (JPEG)</formname>
+						</digtinfo>
+						<digtopt>
+							<grouping>
+								<onlinopt>
+									<computer>
+										<grouping>
+											<networka>
+												<networkr>https://earthexplorer.usgs.gov</networkr>
+											</networka>
+										</grouping>
+									</computer>
+								</onlinopt>
+							</grouping>
+						</digtopt>
+					</digform>
+				</grouping>
+				<ordering>You may DOWNLOAD Landsat data online using EarthExplorer at http://earthexplorer.usgs.gov </ordering>
+			</stdorder>
+			<techpreq>Adequate computer capability is the only technical prerequisite for viewing data in digital form.
+
+</techpreq>
+		</grouping>
+	</distinfo>
+	<metainfo>
+		<grouping>
+			<metrd>As Needed</metrd>
+		</grouping>
+		<metac>None</metac>
+		<metc>
+			<cntinfo>
+				<grouping>
+					<cntorgp>
+						<cntper>custserv@usgs.gov</cntper>
+						<cntorg>U.S. Geological Survey (USGS) Earth Resources Observation and Science (EROS) Center</cntorg>
+					</cntorgp>
+				</grouping>
+				<cntpos>Customer Service Representative</cntpos>
+				<cntaddr>
+					<addrtype>Mailing and Physical Address</addrtype>
+					<city>Sioux Falls</city>
+					<address>U.S. Geological Survey (USGS) Earth Resources Observation and Science (EROS) Center 47914 252nd Street</address>
+					<state>SD</state>
+					<postal>57198-0001</postal>
+					<country>USA</country>
+				</cntaddr>
+				<cntemail>custserv@usgs.gov</cntemail>
+				<hours>0800 - 1600 CT, M-F, 1400 - 2200 h GMT</hours>
+				<cntinst>custserv@usgs.gov</cntinst>
+			</cntinfo>
+		</metc>
+		<metd>20161128</metd>
+		<metsi>
+			<metsc>Unclassified</metsc>
+			<metscs>None</metscs>
+			<metshd>None</metshd>
+		</metsi>
+		<metstdn>Content Standard for Digital Geospatial Metadata</metstdn>
+		<metstdv>FGDC-STD-001-1998, Version 2</metstdv>
+		<mettc>Local Time</mettc>
+		<metuc>None</metuc>
+	</metainfo>
+</metadata>
