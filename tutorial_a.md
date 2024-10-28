@@ -77,3 +77,38 @@ This how we are going to tell them to install rasterio using conda on anaconda p
 gus5031 = environment name
 
 conda create -n gus5031 -c conda-forge pysal geopandas
+
+
+
+
+
+
+
+import pysal
+import os
+
+from rasterio.enums import Resampling
+import rasterio
+#I set the current directory folder to the workspace below
+workspace = os.getcwd()
+overwriteOutput = True
+
+downscale_factor = 1/2
+
+with rasterio.open("NLCD_LandCover_PhiladelphiaRegion_2021.tiff") as dataset:
+
+    #resample data to target shape
+    data = dataset.read(
+        out_shape = (
+            dataset.count,
+            int(dataset.height * downscale_factor),
+            int(dataset.width * downscale_factor)
+        ),
+        resampling=Resampling.bilinear
+    )
+    #scale image transform
+    transform = dataset.transform * dataset.transform.scale(
+        (dataset.width / data.shape[-1]), 
+        (dataset.height / data.shape[-2])
+    )
+
