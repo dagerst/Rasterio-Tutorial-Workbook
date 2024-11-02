@@ -156,6 +156,19 @@ Use rasterio to create an output map with legend etc…
 
 *******************
 
+    #import extensions
+    import pysal
+    import os
+    import geopandas as gpd
+    import numpy as np
+    import rasterio
+    import fiona
+    import rasterio.mask
+    from rasterio import Affine as A
+    from rasterio.warp import calculate_default_transform, reproject, Resampling
+    from rasterio.transform import from_origin
+    from rasterio.enums import Resampling
+    
     #Reprojected variables:
     lst_prj = 'LST_2021.tif'
     lc_prj = 'LC_2021.tif'
