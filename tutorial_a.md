@@ -19,7 +19,7 @@ Coordinate Reference Systems: Rasterio allows reading and transforming coordinat
 *Analytical business need* = *We are doing an analysis for the City of Philadelphia Planning Department and Sustinability Office on heat island issues comapred to current land cover & tree canpoy rates across the city.*
 
 
-
+*majority be in rasterio for processing of data, then geopanda for doing final statistical analysis, and then matplotlib for output of map*
 
 **https://rasterio.readthedocs.io/en/stable/topics/index.html**
 
