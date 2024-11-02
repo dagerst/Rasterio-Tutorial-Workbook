@@ -16,7 +16,7 @@ NumPy Integration: The raster data can be loaded directly into NumPy arrays for 
 Coordinate Reference Systems: Rasterio allows reading and transforming coordinate systems, making it easy to project raster data into different spatial reference systems.
 
 
-
+*Analytical business need* = *We are doing an analysis for the City of Philadelphia Planning Department and Sustinability Office on heat island issues comapred to current land cover & tree canpoy rates across the city.*
 
 
 
