@@ -55,9 +55,20 @@ Band 10 data in this case, follow formulas
 
 July and August data recommended
 
+*******************************
+ORIGINAL PROJECTIONS:
 
+Land_Surface_Temp = UTM Projection, WGS 84 Datum
 
+Land_Cover = PROJCS: Albers Conical Equal Area, WGS 84 Datum
 
+Tree_Cover = PROJCS: Albers Conical Equal Area, WGS 84 Datum
+
+PHL_Census_Tracts = GEOGCSN: D83 
+
+Planning_Districts = 
+
+*****************************
 
 
 
