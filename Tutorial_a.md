@@ -73,7 +73,7 @@ Planning_Districts = WGS 84 Datum
 
 *****************************
 
-
+*After masking to Philadelphia County we are then going to remove all data with zero values*
 
 
 ***********David to change raster tiff landsat to temperature and check out meta data for dates for that data and tree cover and land cover*************
