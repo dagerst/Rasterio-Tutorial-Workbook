@@ -109,6 +109,28 @@ overwriteOutput = True
 
 downscale_factor = 1/2
 
+*******************
+
+Download data (3 datasets)
+
+Resample so 
+
+Make sure all same projections (projection)
+
+Do some sort of analysis to datasets to make only philadelphia (masking to only philly)
+
+Landsat data (change color* to reds?)
+
+Clip datasets
+
+Reclassify tree cover and land cover datasets
+
+Use zonal statistics to compute average surface temperature in and without tree cover and in and without land cover uses
+
+Use rasterio to create an output map with legend etc…
+
+*******************
+
 
 with rasterio.open("NLCD_LandCover_PhiladelphiaRegion_2021.tiff") as dataset:
 
