@@ -264,7 +264,9 @@ my script
     tree_cover = "NLCD_TreeCoverCanopy_PhiladelphiaRegion_2021.tif"
     lst_prj = 'LST_2021.tif'
     lc_prj = 'LC_2021.tif'
+    tcc_prj = 'TCC_2021.tif'
     census_prj = 'census_nad_83.shp'
+    planning_prj = 'planning_nad_83.shp'
 
     # Specify the source and destination CRS
     src_crs = (5070)  # Albers Conical Equal Area (NAD83)
