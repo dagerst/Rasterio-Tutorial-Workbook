@@ -69,10 +69,12 @@ July and August data recommended
 Links:
 
 Land Cover and Tree Canopy Cover: https://www.mrlc.gov/viewer/
+Downloaded using custom extent
 
 Landsat Data: https://earthexplorer.usgs.gov/
+Downloaded Band 10 dataset and metadata file. Band 10 data came in as raw pixel data, which had to converted to radiance, then to Kelvin, and then to Fahrenheit
 
-Census Tracts: https://www.pasda.psu.edu/uci/DataSummary.aspx?dataset=3113
+Census Tracts: https://www.census.gov/cgi-bin/geo/shapefiles/index.php?year=2021&layergroup=Census+Tracts
 
 Planning Districts: https://opendataphilly.org/datasets/planning-districts/
 
