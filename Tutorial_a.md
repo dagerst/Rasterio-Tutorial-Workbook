@@ -156,6 +156,11 @@ Use rasterio to create an output map with legend etc…
 
 *******************
 
+    #Reprojected variables:
+    lst_prj = 'LST_2021.tif'
+    lc_prj = 'LC_2021.tif'
+    census_prj = 'census_nad_83.shp'
+
     #  Specify the source and destination CRS
     src_crs = (5070)  # Albers Conical Equal Area (NAD83)
     dst_crs = (2272)  # NAD 1983 State Plane Pennsylvania South (EPSG:2272)
