@@ -65,7 +65,7 @@ July and August data recommended
 ***********David to change raster tiff landsat to temperature and check out meta data for dates for that data and tree cover and land cover*************
 
 
-
+*************
 Links:
 
 Land Cover and Tree Canopy Cover: https://www.mrlc.gov/viewer/
@@ -76,7 +76,7 @@ Census Tracts: https://www.pasda.psu.edu/uci/DataSummary.aspx?dataset=3113
 
 Planning Districts: https://opendataphilly.org/datasets/planning-districts/
 
-
+*************
 
 
 
