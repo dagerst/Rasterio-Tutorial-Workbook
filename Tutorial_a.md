@@ -64,9 +64,9 @@ Land_Cover = PROJCS: Albers Conical Equal Area, WGS 84 Datum
 
 Tree_Cover = PROJCS: Albers Conical Equal Area, WGS 84 Datum
 
-PHL_Census_Tracts = GEOGCSN: D83 
+PHL_Census_Tracts = GEOGCSN: GCS_North_American_1983 
 
-Planning_Districts = 
+Planning_Districts = WGS 84 Datum
 
 *****************************
 
