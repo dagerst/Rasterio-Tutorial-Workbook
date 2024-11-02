@@ -238,7 +238,7 @@ Use rasterio to create an output map with legend etc…
 my script
 
     #import extensions
-     import pysal
+    import pysal
     import os
     import geopandas as gpd
     import numpy as np
