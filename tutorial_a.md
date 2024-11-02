@@ -66,6 +66,15 @@ July and August data recommended
 
 
 
+Links:
+
+Land Cover and Tree Canopy Cover: https://www.mrlc.gov/viewer/
+
+Landsat Data: https://earthexplorer.usgs.gov/
+
+Census Tracts: https://www.pasda.psu.edu/uci/DataSummary.aspx?dataset=3113
+
+Planning Districts: https://opendataphilly.org/datasets/planning-districts/
 
 
 
