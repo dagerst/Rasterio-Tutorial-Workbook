@@ -79,6 +79,14 @@ gus5031 = environment name
 conda create -n gus5031 -c conda-forge pysal geopandas
 
 
+*************
+*now code rough draft
+
+*next week make code finalized and work on rough draft of text
+
+* last week make text finalized and powerpoint?
+  
+****************
 
 
 
