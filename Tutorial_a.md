@@ -154,86 +154,6 @@ Use rasterio to create an output map with legend etc…
 
 *******************
 
-    import pysal
-    import os
-    import geopandas as gpd
-    import numpy as np
-    import rasterio
-    import fiona
-    import rasterio.mask
-    from rasterio import Affine as A
-    from rasterio.warp import calculate_default_transform, reproject, Resampling
-    from rasterio.transform import from_origin
-    from rasterio.enums import Resampling
-    
-    
-    lst_prj = 'LST_2021.tif'
-    lc_prj = 'LC_2021.tif'
-    tcc_prj = 'TCC_2021.tif'
-    census_prj = 'census_nad_83.shp'
-    planning_prj = 'planning_nad_83.shp'
-
-    
-    src_crs = (5070)
-    dst_crs = (2272) 
-
-   
-    with rasterio.open(land_cover) as src:
-      source = src.read(1)
-      src_transform = src.transform
-      src_shape = source.shape
-
-    
-    dst_transform, dst_width, dst_height = calculate_default_transform(
-        src_crs, dst_crs, src_shape[1], src_shape[0], *src.bounds)
-
-    
-    destination = np.zeros((dst_height, dst_width), dtype=source.dtype)
-
-    
-    reproject(
-        source,
-        destination,
-        src_transform=src_transform,
-        src_crs=src_crs,
-        dst_transform=dst_transform,
-        dst_crs=dst_crs,
-        resampling=Resampling.nearest
-    )
-
-    
-    with rasterio.open(
-        lc_prj,
-        'w',
-        driver='GTiff',
-        height=dst_height,
-        width=dst_width,
-        count=1,
-        dtype=destination.dtype,
-        crs=dst_crs,
-        transform=dst_transform
-    ) as dst:
-        dst.write(destination, 1)
-
-    
-    gdf = gpd.read_file(census_tracts)
-
-    
-    print("Original CRS:", gdf.crs)
-
-    
-    target_crs = "EPSG:2272"
-
-    
-    gdf_reprojected = gdf.to_crs(target_crs)
-
-    
-    print("New CRS:", gdf_reprojected.crs)
-
-    
-    output_shapefile = census_prj
-    gdf_reprojected.to_file(output_shapefile, driver='ESRI Shapefile')
-
 current script
 
     import pysal
@@ -484,21 +404,4 @@ current script
     cmap = plt.get_cmap('coolwarm')  # Choose a suitable continuous colormap
 
     plt.show()
-
-
-
-    with rasterio.open("NLCD_LandCover_PhiladelphiaRegion_2021.tiff") as dataset:
-
-    data = dataset.read(
-        out_shape = (
-            dataset.count,
-            int(dataset.height * downscale_factor),
-            int(dataset.width * downscale_factor)
-        ),
-        resampling=Resampling.bilinear
-    )
-    transform = dataset.transform * dataset.transform.scale(
-        (dataset.width / data.shape[-1]), 
-        (dataset.height / data.shape[-2])
-    )
 
