@@ -181,7 +181,7 @@ Use rasterio to create an output map with legend etc…
 
    
     with rasterio.open(land_cover) as src:
-      source = src.read(1)  # Read the first band
+      source = src.read(1)
       src_transform = src.transform
       src_shape = source.shape
 
@@ -269,11 +269,11 @@ current script
 
 
     
-    src_crs = (5070)  # Albers Conical Equal Area (NAD83)
-    dst_crs = (2272)  # NAD 1983 State Plane Pennsylvania South (EPSG:2272)
+    src_crs = (5070)
+    dst_crs = (2272)
 
     with rasterio.open(land_cover) as src:
-      source = src.read(1)  # Read the first band
+      source = src.read(1)
       src_transform = src.transform
       src_shape = source.shape
 
@@ -313,7 +313,7 @@ current script
     src_crs = (32618) 
 
     with rasterio.open(land_surf_temp) as src:
-      source = src.read(1)  # Read the first band
+      source = src.read(1)
       src_transform = src.transform
       src_shape = source.shape
 
@@ -349,10 +349,10 @@ current script
 
 
 
-    src_crs = (5070)  # Albers Conical Equal Area (NAD83)
+    src_crs = (5070)
 
     with rasterio.open(tree_cover) as src:
-      source = src.read(1)  # Read the first band
+      source = src.read(1)
       src_transform = src.transform
       src_shape = source.shape
 
