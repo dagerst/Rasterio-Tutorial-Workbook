@@ -1,7 +1,7 @@
 Rasterio Tutorial 
 
 David Gerstenfeld, Adrian Terech
-ssdfsdf
+
 Month Day, 2024
 
 This tutorial will showcase tools from the Rasterio library for Python.
