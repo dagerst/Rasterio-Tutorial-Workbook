@@ -192,7 +192,7 @@ current script
     
     src_crs = (5070)
     dst_crs = (2272)
-#CODES FOR PROJECTIONS
+#CODES FOR REPROJECTIONS ALL TO NAD1983 STATE PLANE US PA SOUTH EPSG CODE #2272
 
 #BELOW IS REPROJECTION OF LAND_COVER RASTER FILE
 
@@ -392,7 +392,7 @@ current script
 
     print(f'{tcc_prj} has been masked.')
 
-################## COLOR CODING BEING WORKED ON CURRENTLY##########3
+################## COLOR CODING BEING WORKED ON CURRENTLY##########
 
     output_path = 'lst_mask_color.tif'
 
