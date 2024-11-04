@@ -1,7 +1,6 @@
 Rasterio Tutorial 
 
-David Gerstenfeld, Adrian Terech<br>
-Month Day, 2024
+David Gerstenfeld, Adrian Terech<br> Month Day, 2024
 
 This tutorial will showcase tools from the Rasterio library for Python.
 Rasterio is a Python library designed for reading and writing geospatial raster data. It provides a high-level API to interact with raster datasets, particularly those stored in formats like GeoTIFF. Raster data typically represents satellite imagery, aerial photography, or any spatially continuous variable (e.g., elevation or temperature) as a grid of pixels or cells.
