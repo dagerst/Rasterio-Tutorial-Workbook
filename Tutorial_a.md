@@ -170,6 +170,9 @@ current script
     from rasterio.transform import from_origin
     from rasterio.enums import Resampling
 
+#ABOVE IS ALL IMPORTING
+
+
     workspace = os.getcwd()
     overwriteOutput = True
 
@@ -185,10 +188,13 @@ current script
     planning_prj = 'planning_nad_83.shp'
 
 
-
+#VARIABLE NAMING
     
     src_crs = (5070)
     dst_crs = (2272)
+#CODES FOR PROJECTIONS
+
+#BELOW IS REPROJECTION OF LAND_COVER RASTER FILE
 
     with rasterio.open(land_cover) as src:
       source = src.read(1)
@@ -227,6 +233,7 @@ current script
 
 
 
+#BELOW IS REPROJECTION OF LAND_SURF_TEMP LANDSAT RASTER DATA FILE
 
     src_crs = (32618) 
 
@@ -265,7 +272,7 @@ current script
 
 
 
-
+#BELOW IS REPROJECTION OF TREE_COVER RASTER DATA FILE
 
     src_crs = (5070)
 
@@ -302,7 +309,7 @@ current script
     ) as dst:
         dst.write(destination, 1)
 
-
+#BELOW IS REPROJECTION OF CENSUS_TRACTS SHAPEFILE
 
     gdf = gpd.read_file(census_tracts)
 
@@ -318,6 +325,7 @@ current script
     gdf_reprojected.to_file(census_prj, driver='ESRI Shapefile')
 
 
+#BELOW IS REPROJECTION OF PLANNING_DISTRICT SHAPEFILE
 
     gdf = gpd.read_file(planning_dist)
 
@@ -333,7 +341,7 @@ current script
     gdf_reprojected.to_file(planning_prj, driver='ESRI Shapefile')
 
 
-
+##################
 
     with fiona.open(census_prj, "r") as shapefile:
       shapes = [feature["geometry"] for feature in shapefile]
