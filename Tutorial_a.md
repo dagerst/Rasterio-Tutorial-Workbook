@@ -341,7 +341,7 @@ current script
     gdf_reprojected.to_file(planning_prj, driver='ESRI Shapefile')
 
 
-##################
+#BELOW IS MASKING OF LAND_COVER RASTER FILE TO CENSUS FILE SINCE CENSUS HAS OUTLINE OF PHILADELPHIA COUNTY
 
     with fiona.open(census_prj, "r") as shapefile:
       shapes = [feature["geometry"] for feature in shapefile]
@@ -360,7 +360,7 @@ current script
 
     print(f'{lc_prj} has been masked.')
 
-
+#BELOW IS MASKING OF LAND_SURFACE_TEMP LANDSAT DATA RASTER FILE TO CENSUS FILE SINCE CENSUS HAS OUTLINE OF PHILADELPHIA COUNTY
 
     with rasterio.open(lst_prj) as src:
       out_image, out_transform = rasterio.mask.mask(src, shapes, crop=True)
@@ -376,7 +376,7 @@ current script
 
     print(f'{lst_prj} has been masked.')
 
-
+#BELOW IS MASKING OF TREE_COVER RASTER FILE TO CENSUS FILE SINCE CENSUS HAS OUTLINE OF PHILADELPHIA COUNTY
 
     with rasterio.open(tcc_prj) as src:
       out_image, out_transform = rasterio.mask.mask(src, shapes, crop=True)
@@ -392,7 +392,7 @@ current script
 
     print(f'{tcc_prj} has been masked.')
 
-
+################## COLOR CODING BEING WORKED ON CURRENTLY##########3
 
     output_path = 'lst_mask_color.tif'
 
