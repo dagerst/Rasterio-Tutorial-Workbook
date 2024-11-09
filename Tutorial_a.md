@@ -28,31 +28,37 @@ Key features of Rasterio include:
 
 **https://www.mrlc.gov/viewer/**
 
-Topics:
+*******************************
 
-**Color**
+# Topics
+- **Reprojection**
+- **Looping**
+- **Vector Reprojection**
+- **Masking raster using shapefile**
+- **Reclassifying rasters**
+- **Zonal Statistics**
+- **Color Coding**
+- **Preparing the Final Map**
 
-**Georeferencing**
+*******************************
 
-**Masking raster using shapefile**
+# Notable Information
 
-**Reclassify**
-
-**Raster Calculator**
-
-**Vector to Raster Conversion**
+**CRS Codes**
 
 2272 = NAD83 State Plain Pennsylvania South
 
-
 5070 = Albers Conical
 
-NLCD_TreeCoverCanopy_PhiladelphiaRegion_2021.tiff
+**Raster files used**
 
+NLCD_TreeCoverCanopy_PhiladelphiaRegion_2021.tif
 
+NLCD_LandCover_PhiladelphiaRegion_2021.tif
 
-NLCD_LandCover_PhiladelphiaRegion_2021.tiff
+Land_Surface_Temperature_Lansat_2021.tif
 
+*******************************
 
 
 **https://www.esri.com/arcgis-blog/products/product/analytics/deriving-temperature-from-landsat-8-thermal-bands-tirs/**
