@@ -628,3 +628,36 @@ New Reprojection Code
         dst.write(destination, 1)
 
     print(f"Reprojected source raster saved as {output_raster_path}")
+
+
+
+#NEW MASKED LOOPING
+
+        # File paths
+    input_files = [lc_prj, tcc_prj, lst_prj]
+    output_files = ["land_cover_mask.tif", "tree_cover_mask.tif", "land_surface_temp_mask.tif"]
+    
+    # Read the geometry shapes from the shapefile
+    with fiona.open(census_prj, "r") as shapefile:
+        shapes = [feature["geometry"] for feature in shapefile]
+    
+    # Loop through each raster, apply mask, and save the output
+    for lc_prj, output_path in zip(input_files, output_files):
+        with rasterio.open(lc_prj) as src:
+            # Mask the raster with the shapefile geometries
+            out_image, out_transform = rasterio.mask.mask(src, shapes, crop=True)
+            out_meta = src.meta
+    
+            # Update metadata to reflect the new dimensions and transform
+            out_meta.update({
+                "driver": "GTiff",
+                "height": out_image.shape[1],
+                "width": out_image.shape[2],
+                "transform": out_transform
+            })
+    
+            # Save the masked raster to the output file
+            with rasterio.open(output_path, "w", **out_meta) as dest:
+                dest.write(out_image)
+    
+        print(f'{lc_prj} has been masked and saved to {output_path}')
