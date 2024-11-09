@@ -436,7 +436,7 @@ current script
     reclassified_data = np.zeros_like(raster_data)
 
     # Apply reclassification rules
-    reclassified_data[(raster_data > 24) or (raster_data < 21)] = 1
+    reclassified_data[(raster_data > 24) | (raster_data < 21)] = 1
     reclassified_data[(raster_data == 21)] = 2
     reclassified_data[(raster_data == 22)] = 3
     reclassified_data[(raster_data == 23)] = 4
