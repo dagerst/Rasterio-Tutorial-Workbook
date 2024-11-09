@@ -484,3 +484,12 @@ Tree cover raster was split using the 5-class Jenks (Natural Breaks) method. Sin
 Landsat data was reclassified into a 6-class method, where the highest and lowest class contain the outlier data while the interior 4 classes are split by 10 degrees. Higher temperature was given a higher reclassified value.
 
 ********************
+
+
+# Generate the choropleth and store the axis
+ax = districts_trees.plot(column='n_trees_per_area', scheme='quantiles',
+                          k=7, cmap='YlGn', legend=True)
+
+# Remove frames, ticks and tick labels from the axis
+ax.set_axis_off()
+plt.show()
