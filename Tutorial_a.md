@@ -590,7 +590,7 @@ New Reprojection Code
     for source_raster_path, output_raster_path in zip(source_rasters, output_raster_paths):
       with rasterio.open(source_raster_path) as source_raster:
         source_data = source_raster.read(1)  # Read the first band
-         source_transform = source_raster.transform
+        source_transform = source_raster.transform
         source_crs = source_raster.crs
         source_dtype = source_data.dtype
 
