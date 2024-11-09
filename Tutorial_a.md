@@ -630,6 +630,29 @@ New Reprojection Code
     print(f"Reprojected source raster saved as {output_raster_path}")
 
 
+Vector Reprojection Loop
+
+    #Defining input and output files for reprojection
+    shapefile_paths = [
+    (census_tracts, census_prj),
+    (planning_dist, planning_prj)
+    ]
+    # Target CRS for reprojection
+    target_crs = 2272
+
+    # Looping through each shapefile and reproject it
+    for input_shapefile, output_shapefile in shapefile_paths:
+      gdf = gpd.read_file(input_shapefile)
+      print(f"Original CRS for {input_shapefile}:", gdf.crs)
+    
+    # Reproject to the target CRS
+    gdf_reprojected = gdf.to_crs(target_crs)
+    print(f"New CRS for {input_shapefile}:", gdf_reprojected.crs)
+    
+    # Save the reprojected shapefile
+    gdf_reprojected.to_file(output_shapefile, driver='ESRI Shapefile')
+    print(f"Reprojected shapefile saved as {output_shapefile}")
+
 
 #NEW MASKED LOOPING
 
