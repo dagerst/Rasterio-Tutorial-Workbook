@@ -418,7 +418,6 @@ current script
 ****************** RECLASSIFYING LAND COVER****************
 
 
-
     with rasterio.open("land_cover_mask.tif") as src:
     raster_data = src.read(1)
     profile = src.profile 
@@ -436,6 +435,7 @@ current script
     with rasterio.open('land_cover_mask_reclassified.tif', 'w', **profile) as dst:
       dst.write(reclassified_data, 1)
 
+Land Cover was reclassified this way because values 21 to 24 indicate developed land, varying in development intensity (21 is the lowest intenity, 24 is the highest). Values of 1 to 5 were added to reclassified raster, with a high value indicating higher density and higher risk to urban heat island effect.
 
 
 ****************** RECLASSIFYING TREE COVER****************
@@ -455,6 +455,7 @@ current script
     with rasterio.open('tree_cover_mask_reclassified.tif', 'w', **profile) as dst:
       dst.write(reclassified_data, 1)
 
+Tree cover raster was split using the 5-class Jenks (Natural Breaks) method. Since lower tree cover increases risk to urban heat island effect, values were reclassified from 5 to 1. 
 
 
 ****************** RECLASSIFYING LAND SURFACE TEMPERATURE****************
@@ -479,5 +480,7 @@ current script
     
     with rasterio.open('tree_cover_mask_reclassified.tif', 'w', **profile) as dst:
         dst.write(reclassified_data, 1)
+
+Landsat data was reclassified into a 6-class method, where the highest and lowest class contain the outlier data while the interior 4 classes are split by 10 degrees. Higher temperature was given a higher reclassified value.
 
 ********************
