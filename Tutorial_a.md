@@ -188,12 +188,12 @@ current script
 
 #VARIABLE NAMING
     
-    src_crs = 5070
+    
     dst_crs = 2272
 #CODES FOR REPROJECTIONS ALL TO NAD1983 STATE PLANE US PA SOUTH EPSG CODE #2272
 
 #BELOW IS REPROJECTION OF LAND_COVER RASTER FILE
-
+src_crs = 5070
     with rasterio.open(land_cover) as src:
       source = src.read(1)
       src_transform = src.transform
