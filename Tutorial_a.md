@@ -647,8 +647,8 @@ New Reprojection Code
         shapes = [feature["geometry"] for feature in shapefile]
     
     # Loop through each raster, apply mask, and save the output
-    for lc_prj, output_path in zip(input_files, output_files):
-        with rasterio.open(lc_prj) as src:
+    for input_path, output_path in zip(input_files, output_files):
+        with rasterio.open(input_path) as src:
             # Mask the raster with the shapefile geometries
             out_image, out_transform = rasterio.mask.mask(src, shapes, crop=True)
             out_meta = src.meta
