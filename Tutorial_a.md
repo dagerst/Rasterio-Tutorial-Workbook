@@ -162,134 +162,6 @@ current script
     dst_crs = 2272
 #CODES FOR REPROJECTIONS ALL TO NAD1983 STATE PLANE US PA SOUTH EPSG CODE #2272
 
-#BELOW IS REPROJECTION OF LAND_COVER RASTER FILE
-
-    src_crs = 5070
-    with rasterio.open(land_cover) as src:
-      source = src.read(1) # Read the first band
-      src_transform = src.transform
-      src_shape = source.shape
-
-    # Calculate the transform and shape for the destination
-    dst_transform, dst_width, dst_height = calculate_default_transform(
-        src_crs, dst_crs, src_shape[1], src_shape[0], *src.bounds)
-    
-    # Initialize the destination array
-    destination = np.zeros((dst_height, dst_width), dtype=source.dtype)
-
-
-    
-    reproject(
-        source,
-        destination,
-        src_transform=src_transform,
-        src_crs=src_crs,
-        dst_transform=dst_transform,
-        dst_crs=dst_crs,
-        resampling=Resampling.nearest
-    )
-
-    with rasterio.open(
-        lc_prj,
-        'w',
-        driver='GTiff',
-        height=dst_height,
-        width=dst_width,
-        count=1,
-        dtype=destination.dtype,
-        crs=dst_crs,
-        transform=dst_transform
-    ) as dst:
-        dst.write(destination, 1)
-
-
-
-
-#BELOW IS REPROJECTION OF LAND_SURF_TEMP LANDSAT RASTER DATA FILE
-
-    with rasterio.open(lc_prj) as target_raster:
-      target_transform = target_raster.transform
-      target_crs = target_raster.crs
-      target_shape = (target_raster.height, target_raster.width)
-
-    # Open the source raster and read its data
-    with rasterio.open(land_surf_temp) as source_raster:
-      source_data = source_raster.read(1)  # Read the first band
-      source_transform = source_raster.transform
-      source_crs = source_raster.crs
-      source_dtype = source_data.dtype
-
-    # Create an empty array with the shape and dtype of the target resolution
-    destination = np.empty(target_shape, dtype=source_dtype)
-
-    # Perform the reprojection and resampling
-    reproject(
-        source=source_data,
-        destination=destination,
-        src_transform=source_transform,
-        src_crs=source_crs,
-        dst_transform=target_transform,
-        dst_crs=target_crs,
-        resampling=Resampling.nearest  # You can use other methods like bilinear, cubic, etc.
-    )
-
-    # Save the resampled raster to a new file
-    with rasterio.open(
-      lst_prj,
-      'w',
-      driver='GTiff',
-      height=target_shape[0],
-      width=target_shape[1],
-      count=1,
-      dtype=source_dtype,
-      crs=target_crs,
-      transform=target_transform
-    ) as dst:
-      dst.write(destination, 1)
-
-
-
-#BELOW IS REPROJECTION OF TREE_COVER RASTER DATA FILE
-
-    with rasterio.open(lc_prj) as target_raster:
-      target_transform = target_raster.transform
-      target_crs = target_raster.crs
-      target_shape = (target_raster.height, target_raster.width)
-
-    # Open the source raster and read its data
-    with rasterio.open(tree_cover) as source_raster:
-      source_data = source_raster.read(1)  # Read the first band
-      source_transform = source_raster.transform
-      source_crs = source_raster.crs
-      source_dtype = source_data.dtype
-
-    # Create an empty array with the shape and dtype of the target resolution
-    destination = np.empty(target_shape, dtype=source_dtype)
-
-    # Perform the reprojection and resampling
-    reproject(
-        source=source_data,
-        destination=destination,
-        src_transform=source_transform,
-        src_crs=source_crs,
-        dst_transform=target_transform,
-        dst_crs=target_crs,
-        resampling=Resampling.nearest  # You can use other methods like bilinear, cubic, etc.
-    )
-
-    # Save the resampled raster to a new file
-    with rasterio.open(
-      tcc_prj,
-      'w',
-      driver='GTiff',
-      height=target_shape[0],
-      width=target_shape[1],
-      count=1,
-      dtype=source_dtype,
-       crs=target_crs,
-      transform=target_transform
-    ) as dst:
-      dst.write(destination, 1)
 
 #BELOW IS REPROJECTION OF CENSUS_TRACTS SHAPEFILE
 
@@ -307,73 +179,105 @@ current script
     gdf_reprojected.to_file(census_prj, driver='ESRI Shapefile')
 
 
-#BELOW IS REPROJECTION OF PLANNING_DISTRICT SHAPEFILE
+New Reprojection Code
 
-    gdf = gpd.read_file(planning_dist)
+    first_raster = land_cover  # The first raster (target)
+    source_rasters = tree_cover, land_surf_temp  # Other rasters (to be reprojected)
+    output_raster_paths = tcc_prj, lst_prj  # Output paths for the reprojected rasters
+    output_first_raster_path = lc_prj  # Output for the reprojected target raster
 
-    print("Original CRS:", gdf.crs)
+    # Open the first raster (target) and get its specifications
+    with rasterio.open(first_raster) as target_raster:
+      target_transform = target_raster.transform
+      target_crs = target_raster.crs
+      target_shape = (target_raster.height, target_raster.width)
+      target_data = target_raster.read(1)  # Read the first band of the target raster
+      source_dtype = target_data.dtype
+      source_crs = target_raster.crs
 
-    target_crs = "EPSG:2272"
+    # Create an empty array for the reprojected target raster data
+    destination_target = np.empty(target_shape, dtype=source_dtype)
 
-    gdf_reprojected = gdf.to_crs(target_crs)
+    # If you want to reproject the target raster (for example, to another CRS), use the same process
+    # Reproject the target raster (just in case you want to change the CRS or resolution)
+    with rasterio.open(first_raster) as target_raster:
+      target_data = target_raster.read(1)  # Read the first band of the target raster
+      target_transform = target_raster.transform
+      target_crs = target_raster.crs
 
-    print("New CRS:", gdf_reprojected.crs)
+    # Define the target CRS and resolution (if different from the original)
+    # For example, let's reproject it to EPSG:4326 (or any other CRS)
+    dst_crs = 2272  # Change this to your desired target CRS
+    dst_transform, dst_width, dst_height = rasterio.warp.calculate_default_transform(
+        target_crs, dst_crs, target_raster.width, target_raster.height, *target_raster.bounds)
 
-    output_shapefile = planning_prj
-    gdf_reprojected.to_file(planning_prj, driver='ESRI Shapefile')
+    # Create a new empty destination array for the reprojected target
+    destination_target = np.empty((dst_height, dst_width), dtype=source_dtype)
 
+    # Perform the reprojection
+    reproject(
+        source=target_data,
+        destination=destination_target,
+        src_transform=target_transform,
+        src_crs=target_crs,
+        dst_transform=dst_transform,
+        dst_crs=dst_crs,
+        resampling=Resampling.nearest  # Use your preferred resampling method
+    )
 
-#BELOW IS MASKING OF LAND_COVER RASTER FILE TO CENSUS FILE SINCE CENSUS HAS OUTLINE OF PHILADELPHIA COUNTY
+    # Save the reprojected target raster
+    with rasterio.open(
+      lc_prj,
+      'w',
+      driver='GTiff',
+      height=dst_height,
+      width=dst_width,
+      count=1,
+      dtype=source_dtype,
+      crs=dst_crs,
+      transform=dst_transform
+    ) as dst:
+      dst.write(destination_target, 1)
 
-    with fiona.open(census_prj, "r") as shapefile:
-      shapes = [feature["geometry"] for feature in shapefile]
+    print(f"Reprojected target raster saved as {lc_prj}")
 
-    with rasterio.open(lc_prj) as src:
-      out_image, out_transform = rasterio.mask.mask(src, shapes, crop=True)
-      out_meta = src.meta
+    # Now loop through the source rasters and reproject each to match the new specifications of the target
+    for source_raster_path, output_raster_path in zip(source_rasters, output_raster_paths):
+      with rasterio.open(source_raster_path) as source_raster:
+        source_data = source_raster.read(1)  # Read the first band
+        source_transform = source_raster.transform
+        source_crs = source_raster.crs
+        source_dtype = source_data.dtype
 
-    out_meta.update({"driver": "GTiff",
-                 "height": out_image.shape[1],
-                 "width": out_image.shape[2],
-                 "transform": out_transform})
+        # Create an empty array with the shape and dtype of the target resolution
+        destination = np.empty((dst_height, dst_width), dtype=source_dtype)
 
-    with rasterio.open("land_cover_mask.tif", "w", **out_meta) as dest:
-      dest.write(out_image)
+        # Perform the reprojection and resampling
+        reproject(
+            source=source_data,
+            destination=destination,
+            src_transform=source_transform,
+            src_crs=source_crs,
+            dst_transform=dst_transform,
+            dst_crs=dst_crs,
+            resampling=Resampling.nearest  # You can use other methods like bilinear, cubic, etc.
+        )
 
-    print(f'{lc_prj} has been masked.')
+    # Save the resampled source raster to a new file
+    with rasterio.open(
+        output_raster_path,
+        'w',
+        driver='GTiff',
+        height=dst_height,
+        width=dst_width,
+        count=1,
+        dtype=source_dtype,
+        crs=dst_crs,
+        transform=dst_transform
+    ) as dst:
+        dst.write(destination, 1)
 
-#BELOW IS MASKING OF LAND_SURFACE_TEMP LANDSAT DATA RASTER FILE TO CENSUS FILE SINCE CENSUS HAS OUTLINE OF PHILADELPHIA COUNTY
-
-    with rasterio.open(lst_prj) as src:
-      out_image, out_transform = rasterio.mask.mask(src, shapes, crop=True)
-      out_meta = src.meta
-
-    out_meta.update({"driver": "GTiff",
-                 "height": out_image.shape[1],
-                 "width": out_image.shape[2],
-                 "transform": out_transform})
-
-    with rasterio.open("land_surf_temp_mask.tif", "w", **out_meta) as dest:
-      dest.write(out_image)
-
-    print(f'{lst_prj} has been masked.')
-
-#BELOW IS MASKING OF TREE_COVER RASTER FILE TO CENSUS FILE SINCE CENSUS HAS OUTLINE OF PHILADELPHIA COUNTY
-
-    with rasterio.open(tcc_prj) as src:
-      out_image, out_transform = rasterio.mask.mask(src, shapes, crop=True)
-      out_meta = src.meta
-
-    out_meta.update({"driver": "GTiff",
-                 "height": out_image.shape[1],
-                 "width": out_image.shape[2],
-                 "transform": out_transform})
-
-    with rasterio.open("tree_cover_mask.tif", "w", **out_meta) as dest:
-      dest.write(out_image)
-
-    print(f'{tcc_prj} has been masked.')
-
+    print(f"Reprojected source raster saved as {output_raster_path}")
 
 
 ****************RECLASSIFYING LAND COVER****************
@@ -494,105 +398,7 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
     plt.show()
 
 
-New Reprojection Code
 
-    first_raster = land_cover  # The first raster (target)
-    source_rasters = tree_cover, land_surf_temp  # Other rasters (to be reprojected)
-    output_raster_paths = tcc_prj, lst_prj  # Output paths for the reprojected rasters
-    output_first_raster_path = lc_prj  # Output for the reprojected target raster
-
-    # Open the first raster (target) and get its specifications
-    with rasterio.open(first_raster) as target_raster:
-      target_transform = target_raster.transform
-      target_crs = target_raster.crs
-      target_shape = (target_raster.height, target_raster.width)
-      target_data = target_raster.read(1)  # Read the first band of the target raster
-      source_dtype = target_data.dtype
-      source_crs = target_raster.crs
-
-    # Create an empty array for the reprojected target raster data
-    destination_target = np.empty(target_shape, dtype=source_dtype)
-
-    # If you want to reproject the target raster (for example, to another CRS), use the same process
-    # Reproject the target raster (just in case you want to change the CRS or resolution)
-    with rasterio.open(first_raster) as target_raster:
-      target_data = target_raster.read(1)  # Read the first band of the target raster
-      target_transform = target_raster.transform
-      target_crs = target_raster.crs
-
-    # Define the target CRS and resolution (if different from the original)
-    # For example, let's reproject it to EPSG:4326 (or any other CRS)
-    dst_crs = 2272  # Change this to your desired target CRS
-    dst_transform, dst_width, dst_height = rasterio.warp.calculate_default_transform(
-        target_crs, dst_crs, target_raster.width, target_raster.height, *target_raster.bounds)
-
-    # Create a new empty destination array for the reprojected target
-    destination_target = np.empty((dst_height, dst_width), dtype=source_dtype)
-
-    # Perform the reprojection
-    reproject(
-        source=target_data,
-        destination=destination_target,
-        src_transform=target_transform,
-        src_crs=target_crs,
-        dst_transform=dst_transform,
-        dst_crs=dst_crs,
-        resampling=Resampling.nearest  # Use your preferred resampling method
-    )
-
-    # Save the reprojected target raster
-    with rasterio.open(
-      lc_prj,
-      'w',
-      driver='GTiff',
-      height=dst_height,
-      width=dst_width,
-      count=1,
-      dtype=source_dtype,
-      crs=dst_crs,
-      transform=dst_transform
-    ) as dst:
-      dst.write(destination_target, 1)
-
-    print(f"Reprojected target raster saved as {lc_prj}")
-
-    # Now loop through the source rasters and reproject each to match the new specifications of the target
-    for source_raster_path, output_raster_path in zip(source_rasters, output_raster_paths):
-      with rasterio.open(source_raster_path) as source_raster:
-        source_data = source_raster.read(1)  # Read the first band
-        source_transform = source_raster.transform
-        source_crs = source_raster.crs
-        source_dtype = source_data.dtype
-
-        # Create an empty array with the shape and dtype of the target resolution
-        destination = np.empty((dst_height, dst_width), dtype=source_dtype)
-
-        # Perform the reprojection and resampling
-        reproject(
-            source=source_data,
-            destination=destination,
-            src_transform=source_transform,
-            src_crs=source_crs,
-            dst_transform=dst_transform,
-            dst_crs=dst_crs,
-            resampling=Resampling.nearest  # You can use other methods like bilinear, cubic, etc.
-        )
-
-    # Save the resampled source raster to a new file
-    with rasterio.open(
-        output_raster_path,
-        'w',
-        driver='GTiff',
-        height=dst_height,
-        width=dst_width,
-        count=1,
-        dtype=source_dtype,
-        crs=dst_crs,
-        transform=dst_transform
-    ) as dst:
-        dst.write(destination, 1)
-
-    print(f"Reprojected source raster saved as {output_raster_path}")
 
 
 #NEW MASKED LOOPING
