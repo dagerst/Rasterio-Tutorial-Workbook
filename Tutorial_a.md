@@ -193,16 +193,22 @@ current script
 #CODES FOR REPROJECTIONS ALL TO NAD1983 STATE PLANE US PA SOUTH EPSG CODE #2272
 
 #BELOW IS REPROJECTION OF LAND_COVER RASTER FILE
+
+
+
+# Load your land cover dataset
 src_crs = 5070
-    with rasterio.open(land_cover) as src:
-      source = src.read(1)
-      src_transform = src.transform
-      src_shape = source.shape
+with rasterio.open(land_cover) as src:
+  source = src.read(1)  # Read the first band
+  src_transform = src.transform
+  src_shape = source.shape
 
-    dst_transform, dst_width, dst_height = calculate_default_transform(
-        src_crs, dst_crs, src_shape[1], src_shape[0], *src.bounds)
+# Calculate the transform and shape for the destination
+dst_transform, dst_width, dst_height = calculate_default_transform(
+    src_crs, dst_crs, src_shape[1], src_shape[0], *src.bounds)
 
-    destination = np.zeros((dst_height, dst_width), dtype=source.dtype)
+# Initialize the destination array
+destination = np.zeros((dst_height, dst_width), dtype=source.dtype)
 
     
     reproject(
