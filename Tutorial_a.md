@@ -237,79 +237,89 @@ current script
 
 #BELOW IS REPROJECTION OF LAND_SURF_TEMP LANDSAT RASTER DATA FILE
 
-    src_crs = 32618
+    with rasterio.open(lc_prj) as target_raster:
+      target_transform = target_raster.transform
+      target_crs = target_raster.crs
+      target_shape = (target_raster.height, target_raster.width)
 
-    with rasterio.open(land_surf_temp) as src:
-      source = src.read(1)
-      src_transform = src.transform
-      src_shape = source.shape
+    # Open the source raster and read its data
+    with rasterio.open(land_surf_temp) as source_raster:
+      source_data = source_raster.read(1)  # Read the first band
+      source_transform = source_raster.transform
+      source_crs = source_raster.crs
+      source_dtype = source_data.dtype
 
-    dst_transform, dst_width, dst_height = calculate_default_transform(
-        src_crs, dst_crs, src_shape[1], src_shape[0], *src.bounds)
+    # Create an empty array with the shape and dtype of the target resolution
+    destination = np.empty(target_shape, dtype=source_dtype)
 
-    destination = np.zeros((dst_height, dst_width), dtype=source.dtype)
-    
+    # Perform the reprojection and resampling
     reproject(
-        source,
-        destination,
-        src_transform=src_transform,
-        src_crs=src_crs,
-        dst_transform=dst_transform,
-        dst_crs=dst_crs,
-        resampling=Resampling.nearest
+        source=source_data,
+        destination=destination,
+        src_transform=source_transform,
+        src_crs=source_crs,
+        dst_transform=target_transform,
+        dst_crs=target_crs,
+        resampling=Resampling.nearest  # You can use other methods like bilinear, cubic, etc.
     )
 
+    # Save the resampled raster to a new file
     with rasterio.open(
-        lst_prj,
-        'w',
-        driver='GTiff',
-        height=dst_height,
-        width=dst_width,
-        count=1,
-        dtype=destination.dtype,
-        crs=dst_crs,
-        transform=dst_transform
+      lst_prj,
+      'w',
+      driver='GTiff',
+      height=target_shape[0],
+      width=target_shape[1],
+      count=1,
+      dtype=source_dtype,
+      crs=target_crs,
+      transform=target_transform
     ) as dst:
-        dst.write(destination, 1)
+      dst.write(destination, 1)
 
 
 
 #BELOW IS REPROJECTION OF TREE_COVER RASTER DATA FILE
 
-    src_crs = 5070
+    with rasterio.open(lc_prj) as target_raster:
+      target_transform = target_raster.transform
+      target_crs = target_raster.crs
+      target_shape = (target_raster.height, target_raster.width)
 
-    with rasterio.open(tree_cover) as src:
-      source = src.read(1)
-      src_transform = src.transform
-      src_shape = source.shape
+    # Open the source raster and read its data
+    with rasterio.open(tree_cover) as source_raster:
+      source_data = source_raster.read(1)  # Read the first band
+      source_transform = source_raster.transform
+      source_crs = source_raster.crs
+      source_dtype = source_data.dtype
 
-    dst_transform, dst_width, dst_height = calculate_default_transform(
-        src_crs, dst_crs, src_shape[1], src_shape[0], *src.bounds)
+    # Create an empty array with the shape and dtype of the target resolution
+    destination = np.empty(target_shape, dtype=source_dtype)
 
-    destination = np.zeros((dst_height, dst_width), dtype=source.dtype)
-
+    # Perform the reprojection and resampling
     reproject(
-        source,
-        destination,
-        src_transform=src_transform,
-        src_crs=src_crs,
-        dst_transform=dst_transform,
-        dst_crs=dst_crs,
-        resampling=Resampling.nearest
+        source=source_data,
+        destination=destination,
+        src_transform=source_transform,
+        src_crs=source_crs,
+        dst_transform=target_transform,
+        dst_crs=target_crs,
+        resampling=Resampling.nearest  # You can use other methods like bilinear, cubic, etc.
     )
 
+    # Save the resampled raster to a new file
     with rasterio.open(
-        tcc_prj,
-        'w',
-        driver='GTiff',
-        height=dst_height,
-        width=dst_width,
-        count=1,
-        dtype=destination.dtype,
-        crs=dst_crs,
-        transform=dst_transform
+      tcc_prj,
+      'w',
+      driver='GTiff',
+      height=target_shape[0],
+      width=target_shape[1],
+      count=1,
+      dtype=source_dtype,
+       crs=target_crs,
+      transform=target_transform
     ) as dst:
-        dst.write(destination, 1)
+      dst.write(destination, 1)
 
 #BELOW IS REPROJECTION OF CENSUS_TRACTS SHAPEFILE
 
