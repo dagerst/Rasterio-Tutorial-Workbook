@@ -165,10 +165,8 @@ current script
     import subprocess
     import rasterio.mask
     import matplotlib.pyplot as plt
-    from rasterio import Affine as A
     from rasterio.warp import calculate_default_transform, reproject, Resampling
     from rasterio.transform import from_origin
-    from rasterio.enums import Resampling
 
 #ABOVE IS ALL IMPORTING
 
