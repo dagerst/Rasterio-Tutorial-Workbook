@@ -404,26 +404,7 @@ current script
 
     print(f'{tcc_prj} has been masked.')
 
-################## COLOR CODING BEING WORKED ON CURRENTLY##########
 
-    output_path = 'lst_mask_color.tif'
-
-    with rasterio.open('land_cover_mask.tif') as src:
-      float_data = src.read(1)  # Read the first band
-      meta = src.meta  # Get metadata for later use
-  
-    max_value = 90.0
-    scaled_data = np.clip(float_data, 0, max_value
-    scaled_data = (scaled_data / max_value * 255).astype(np.uint8) 
-
-    meta.update(dtype=rasterio.uint8)
-
-    with rasterio.open(output_path, 'w', **meta) as dst:
-      dst.write(scaled_data, indexes=1)
-
-    cmap = plt.get_cmap('coolwarm')  # Choose a suitable continuous colormap
-
-    plt.show()
 
 ****************RECLASSIFYING LAND COVER****************
 
