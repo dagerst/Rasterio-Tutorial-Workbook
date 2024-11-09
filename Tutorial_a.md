@@ -455,3 +455,70 @@ current script
         dst.write(reclassified_data, 1)
 
 ********************
+CHATGPT STUFFFFF
+
+
+
+To change the resolution of one raster to match another using rasterio, you can resample one of the rasters to match the dimensions and transformation of the other. Here's a step-by-step example:
+
+Open both raster files.
+Read the transformation, shape, and CRS of the target raster (the one with the desired resolution).
+Use rasterio.warp.reproject to resample the other raster to match the target resolution.
+Here's the Python code to accomplish this:
+
+python
+Copy code
+import rasterio
+from rasterio.enums import Resampling
+from rasterio.warp import reproject
+
+# File paths for the two raster files
+source_raster_path = 'source_raster.tif'  # The raster you want to resample
+target_raster_path = 'target_raster.tif'  # The raster with the desired resolution
+
+# Open the target raster to get its resolution, CRS, and transform
+with rasterio.open(target_raster_path) as target_raster:
+    target_transform = target_raster.transform
+    target_crs = target_raster.crs
+    target_shape = (target_raster.height, target_raster.width)
+
+# Open the source raster and read its data
+with rasterio.open(source_raster_path) as source_raster:
+    source_data = source_raster.read(1)  # Read the first band
+    source_transform = source_raster.transform
+    source_crs = source_raster.crs
+    source_dtype = source_data.dtype
+
+    # Create an empty array with the shape and dtype of the target resolution
+    destination = np.empty(target_shape, dtype=source_dtype)
+
+    # Perform the reprojection and resampling
+    reproject(
+        source=source_data,
+        destination=destination,
+        src_transform=source_transform,
+        src_crs=source_crs,
+        dst_transform=target_transform,
+        dst_crs=target_crs,
+        resampling=Resampling.nearest  # You can use other methods like bilinear, cubic, etc.
+    )
+
+# Save the resampled raster to a new file
+resampled_raster_path = 'resampled_raster.tif'
+with rasterio.open(
+    resampled_raster_path,
+    'w',
+    driver='GTiff',
+    height=target_shape[0],
+    width=target_shape[1],
+    count=1,
+    dtype=source_dtype,
+    crs=target_crs,
+    transform=target_transform
+) as dst:
+    dst.write(destination, 1)
+Explanation of Key Steps:
+Get Target Resolution: The target raster's shape and transform define the resolution and spatial alignment for resampling.
+Reproject and Resample: The reproject function handles both the transformation to the target CRS and the resampling to the target shape. Here, Resampling.nearest is used, but you could choose other methods (e.g., Resampling.bilinear for continuous data).
+Write Output: The resampled raster data is written to a new GeoTIFF file.
+This code will create a new raster file (resampled_raster.tif) with the resolution and dimensions of the target raster.
