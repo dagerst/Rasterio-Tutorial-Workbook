@@ -237,7 +237,7 @@ current script
 
 #BELOW IS REPROJECTION OF LAND_SURF_TEMP LANDSAT RASTER DATA FILE
 
-    src_crs = (32618) 
+    src_crs = 32618
 
     with rasterio.open(land_surf_temp) as src:
       source = src.read(1)
@@ -276,7 +276,7 @@ current script
 
 #BELOW IS REPROJECTION OF TREE_COVER RASTER DATA FILE
 
-    src_crs = (5070)
+    src_crs = 5070
 
     with rasterio.open(tree_cover) as src:
       source = src.read(1)
