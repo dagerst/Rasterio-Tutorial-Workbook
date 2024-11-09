@@ -31,7 +31,7 @@ Key features of Rasterio include:
 *******************************
 
 # Topics
-- **Reprojection**
+- **Raster Reprojection**
 - **Looping**
 - **Vector Reprojection**
 - **Masking raster using shapefile**
