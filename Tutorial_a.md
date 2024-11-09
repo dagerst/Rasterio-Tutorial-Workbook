@@ -415,3 +415,43 @@ current script
 
     plt.show()
 
+****************** RECLASSIFYING TREE COVER****************
+
+
+
+    with rasterio.open("tree_cover_mask.tif") as src:
+        # Read the data from the first band
+        raster_data = src.read(1)
+        profile = src.profile  # Save the profile for writing later
+    
+    # Example reclassification rules
+    # Create an empty array with the same shape as the raster data
+    reclassified_data = np.zeros_like(raster_data)
+    
+    # Apply reclassification rules
+    reclassified_data[(raster_data == 0)] = 0
+    reclassified_data[(raster_data >= 1) & (raster_data <= 5)] = 2
+    reclassified_data[(raster_data >= 6) & (raster_data <= 10)] = 3
+    reclassified_data[(raster_data >= 11) & (raster_data <= 15)] = 4
+    reclassified_data[(raster_data >= 16) & (raster_data <= 20)] = 5
+    reclassified_data[(raster_data >= 21) & (raster_data <= 25)] = 6
+    reclassified_data[(raster_data >= 26) & (raster_data <= 30)] = 7
+    reclassified_data[(raster_data >= 31) & (raster_data <= 35)] = 8
+    reclassified_data[(raster_data >= 36) & (raster_data <= 40)] = 9
+    reclassified_data[(raster_data >= 41) & (raster_data <= 45)] = 10
+    reclassified_data[(raster_data >= 46) & (raster_data <= 50)] = 11
+    reclassified_data[(raster_data >= 51) & (raster_data <= 55)] = 12
+    reclassified_data[(raster_data >= 56) & (raster_data <= 60)] = 13
+    reclassified_data[(raster_data >= 61) & (raster_data <= 65)] = 14
+    reclassified_data[(raster_data >= 66) & (raster_data <= 70)] = 15
+    reclassified_data[(raster_data >= 71) & (raster_data <= 75)] = 16
+    reclassified_data[(raster_data >= 76) & (raster_data <= 80)] = 17
+    reclassified_data[(raster_data >= 81) & (raster_data <= 85)] = 18
+    reclassified_data[(raster_data >= 86) & (raster_data <= 90)] = 19
+    reclassified_data[(raster_data >= 91) & (raster_data <= 95)] = 20
+    reclassified_data[(raster_data >= 96) & (raster_data <= 100)] = 21
+    
+    with rasterio.open('tree_cover_mask_reclassified.tif', 'w', **profile) as dst:
+        dst.write(reclassified_data, 1)
+
+********************
