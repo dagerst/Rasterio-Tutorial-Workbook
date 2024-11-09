@@ -507,7 +507,7 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
     print(f"Averaged raster saved as {output_path}")
 
 
-****************COLOR CODING****************
+****************COLOR CODING & MATPLOTLIB MAP OUTPUT****************
 
     output_path = 'heat_island_color.tif'
     with rasterio.open('heat_island_effect.tif') as src:
