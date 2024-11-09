@@ -415,7 +415,7 @@ current script
 
     plt.show()
 
-****************** RECLASSIFYING LAND COVER****************
+****************RECLASSIFYING LAND COVER****************
 
 
     with rasterio.open("land_cover_mask.tif") as src:
@@ -438,7 +438,7 @@ current script
 Land Cover was reclassified this way because values 21 to 24 indicate developed land, varying in development intensity (21 is the lowest intenity, 24 is the highest). Values of 1 to 5 were added to reclassified raster, with a high value indicating higher density and higher risk to urban heat island effect.
 
 
-****************** RECLASSIFYING TREE COVER****************
+****************RECLASSIFYING TREE COVER****************
 
     with rasterio.open("tree_cover_mask.tif") as src:
       raster_data = src.read(1)
@@ -458,7 +458,7 @@ Land Cover was reclassified this way because values 21 to 24 indicate developed 
 Tree cover raster was split using the 5-class Jenks (Natural Breaks) method. Since lower tree cover increases risk to urban heat island effect, values were reclassified from 5 to 1. 
 
 
-****************** RECLASSIFYING LAND SURFACE TEMPERATURE****************
+****************RECLASSIFYING LAND SURFACE TEMPERATURE****************
 
     with rasterio.open("land_surf_temp_mask.tif") as src:
       raster_data = src.read(1)
@@ -484,7 +484,7 @@ Tree cover raster was split using the 5-class Jenks (Natural Breaks) method. Sin
 Landsat data was reclassified into a 6-class method, where the highest and lowest class contain the outlier data while the interior 4 classes are split by 10 degrees. Higher temperature was given a higher reclassified value.
 
 
-******************ZONAL STATISTICS****************
+****************ZONAL STATISTICS****************
 
     raster_paths = ['land_cover_mask_reclassified.tif', 'tree_cover_mask_reclassified.tif', 'landsat_mask_reclassified.tif']
 
@@ -507,7 +507,7 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
     print(f"Averaged raster saved as {output_path}")
 
 
-******************COLOR CODING****************
+****************COLOR CODING****************
 
     output_path = 'heat_island_color.tif'
     with rasterio.open('heat_island_effect.tif') as src:
