@@ -106,56 +106,21 @@ gus5031 = environment name
 
 conda create -n gus5031 -c conda-forge pysal geopandas
 
-
-*************
-*now code rough draft
-
-*next week make code finalized and work on rough draft of text
-
-* last week make text finalized and powerpoint?
-  
-****************
-
-
-
-
-
-import pysal
-
-import os
-
-from rasterio.enums import Resampling
-
-import rasterio
-
-#I set the current directory folder to the workspace below
-
-workspace = os.getcwd()
-
-overwriteOutput = True
-
-
-downscale_factor = 1/2
-
 *******************
-
+STEPS:
 Download data (3 datasets)
 
-Resample so 
+Reproject and make sure resolution correct
 
-Make sure all same projections (projection)
+Mask looping
 
-Do some sort of analysis to datasets to make only philadelphia (masking to only philly)
+Reclassifying
 
-Landsat data (change color* to reds?)
+Zonal Statistics
 
-Clip datasets
+Color Coding
 
-Reclassify tree cover and land cover datasets
-
-Use zonal statistics to compute average surface temperature in and without tree cover and in and without land cover uses
-
-Use rasterio to create an output map with legend etc…
+Analysis Result and Output Map
 
 *******************
 
