@@ -1,17 +1,22 @@
-Rasterio Tutorial 
+# Rasterio Tutorial
 
-David Gerstenfeld, Adrian Terech<br> Month Day, 2024
+David Gerstenfeld, Adrian Terech<br> November 18, 2024
 
+*******************************
+# Introduction
+<p>
 This tutorial will showcase tools from the Rasterio library for Python.
 Rasterio is a Python library designed for reading and writing geospatial raster data. It provides a high-level API to interact with raster datasets, particularly those stored in formats like GeoTIFF. Raster data typically represents satellite imagery, aerial photography, or any spatially continuous variable (e.g., elevation or temperature) as a grid of pixels or cells.
+  
+</p>
 
 Key features of Rasterio include:
 
-Reading and Writing GeoTIFFs: It can handle a variety of raster data formats (GeoTIFF, JPEG2000, etc.) with geographic metadata.
-Geospatial Metadata Handling: Rasterio integrates well with the Geospatial Data Abstraction Library (GDAL), allowing access to spatial reference systems, projections, and other geospatial metadata.
-Data Access: It enables easy reading of specific windows or blocks of large raster datasets without loading the entire file into memory.
-NumPy Integration: The raster data can be loaded directly into NumPy arrays for efficient numerical operations.
-Coordinate Reference Systems: Rasterio allows reading and transforming coordinate systems, making it easy to project raster data into different spatial reference systems.
+- Reading and Writing GeoTIFFs: It can handle a variety of raster data formats (GeoTIFF, JPEG2000, etc.) with geographic metadata.<br>
+- Geospatial Metadata Handling: Rasterio integrates well with the Geospatial Data Abstraction Library (GDAL), allowing access to spatial reference systems, projections, and other geospatial metadata.<br>
+- Data Access: It enables easy reading of specific windows or blocks of large raster datasets without loading the entire file into memory.<br>
+- NumPy Integration: The raster data can be loaded directly into NumPy arrays for efficient numerical operations.<br>
+- Coordinate Reference Systems: Rasterio allows reading and transforming coordinate systems, making it easy to project raster data into different spatial reference systems.<br>
 
 
 *Analytical business need* = *We are doing an analysis for the City of Philadelphia Planning Department and Sustinability Office on heat island issues comapred to current land cover & tree canpoy rates across the city.*
