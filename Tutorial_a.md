@@ -415,7 +415,7 @@ current script
 
     plt.show()
 
-****************** RECLASSIFYING TREE COVER****************
+****************** RECLASSIFYING LAND COVER****************
 
 
 
@@ -438,6 +438,7 @@ current script
 
 
 
+****************** RECLASSIFYING TREE COVER****************
 
     with rasterio.open("tree_cover_mask.tif") as src:
       raster_data = src.read(1)
@@ -445,18 +446,18 @@ current script
 
     reclassified_data = np.zeros_like(raster_data)
 
-    reclassified_data[(raster_data == 0)] = 5
-    reclassified_data[(raster_data >= 0) & (raster_data <= 20)] = 4
-    reclassified_data[(raster_data >= 21) & (raster_data <= 40)] = 3
-    reclassified_data[(raster_data >= 41) & (raster_data <= 60)] = 2
-    reclassified_data[(raster_data >= 61) & (raster_data <= 80)] = 1
-    reclassified_data[(raster_data >= 81) & (raster_data <= 100)] = 0
+    reclassified_data[(raster_data >= 0) & (raster_data <= 20)] = 5
+    reclassified_data[(raster_data >= 21) & (raster_data <= 40)] = 4
+    reclassified_data[(raster_data >= 41) & (raster_data <= 60)] = 3
+    reclassified_data[(raster_data >= 61) & (raster_data <= 80)] = 2
+    reclassified_data[(raster_data >= 81) & (raster_data <= 100)] = 1
 
     with rasterio.open('tree_cover_mask_reclassified.tif', 'w', **profile) as dst:
       dst.write(reclassified_data, 1)
 
 
 
+****************** RECLASSIFYING LAND SURFACE TEMPERATURE****************
 
     with rasterio.open("land_surf_temp_mask.tif") as src:
       raster_data = src.read(1)
