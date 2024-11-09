@@ -466,11 +466,6 @@ Tree cover raster was split using the 5-class Jenks (Natural Breaks) method. Sin
 
     with rasterio.open('landsat_mask_reclassified.tif', 'w', **profile) as dst:
       dst.write(reclassified_data, 1)
-      reclassified_data[(raster_data >= 91) & (raster_data <= 95)] = 20
-      reclassified_data[(raster_data >= 96) & (raster_data <= 100)] = 21
-    
-    with rasterio.open('tree_cover_mask_reclassified.tif', 'w', **profile) as dst:
-        dst.write(reclassified_data, 1)
 
 Landsat data was reclassified into a 6-class method, where the highest and lowest class contain the outlier data while the interior 4 classes are split by 10 degrees. Higher temperature was given a higher reclassified value.
 
