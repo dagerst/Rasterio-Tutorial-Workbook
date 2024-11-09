@@ -523,3 +523,103 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
     cbar.set_label('Heat Island Risk', labelpad=20)
     plt.show()
 
+
+New Reprojection Code
+
+    first_raster = land_cover  # The first raster (target)
+    source_rasters = tree_cover, land_surf_temp  # Other rasters (to be reprojected)
+    output_raster_paths = tcc_prj, lst_prj  # Output paths for the reprojected rasters
+    output_first_raster_path = lc_prj  # Output for the reprojected target raster
+
+    # Open the first raster (target) and get its specifications
+    with rasterio.open(first_raster) as target_raster:
+      target_transform = target_raster.transform
+      target_crs = target_raster.crs
+      target_shape = (target_raster.height, target_raster.width)
+      target_data = target_raster.read(1)  # Read the first band of the target raster
+      source_dtype = target_data.dtype
+      source_crs = target_raster.crs
+
+    # Create an empty array for the reprojected target raster data
+    destination_target = np.empty(target_shape, dtype=source_dtype)
+
+    # If you want to reproject the target raster (for example, to another CRS), use the same process
+    # Reproject the target raster (just in case you want to change the CRS or resolution)
+    with rasterio.open(first_raster) as target_raster:
+      target_data = target_raster.read(1)  # Read the first band of the target raster
+      target_transform = target_raster.transform
+      target_crs = target_raster.crs
+
+    # Define the target CRS and resolution (if different from the original)
+    # For example, let's reproject it to EPSG:4326 (or any other CRS)
+    dst_crs = 2272  # Change this to your desired target CRS
+    dst_transform, dst_width, dst_height = rasterio.warp.calculate_default_transform(
+        target_crs, dst_crs, target_raster.width, target_raster.height, *target_raster.bounds)
+
+    # Create a new empty destination array for the reprojected target
+    destination_target = np.empty((dst_height, dst_width), dtype=source_dtype)
+
+    # Perform the reprojection
+    reproject(
+        source=target_data,
+        destination=destination_target,
+        src_transform=target_transform,
+        src_crs=target_crs,
+        dst_transform=dst_transform,
+        dst_crs=dst_crs,
+        resampling=Resampling.nearest  # Use your preferred resampling method
+    )
+
+    # Save the reprojected target raster
+    with rasterio.open(
+      lc_prj,
+      'w',
+      driver='GTiff',
+      height=dst_height,
+      width=dst_width,
+      count=1,
+      dtype=source_dtype,
+      crs=dst_crs,
+      transform=dst_transform
+    ) as dst:
+      dst.write(destination_target, 1)
+
+    print(f"Reprojected target raster saved as {lc_prj}")
+
+    # Now loop through the source rasters and reproject each to match the new specifications of the target
+    for source_raster_path, output_raster_path in zip(source_rasters, output_raster_paths):
+      with rasterio.open(source_raster_path) as source_raster:
+        source_data = source_raster.read(1)  # Read the first band
+         source_transform = source_raster.transform
+        source_crs = source_raster.crs
+        source_dtype = source_data.dtype
+
+        # Create an empty array with the shape and dtype of the target resolution
+        destination = np.empty((dst_height, dst_width), dtype=source_dtype)
+
+        # Perform the reprojection and resampling
+        reproject(
+            source=source_data,
+            destination=destination,
+            src_transform=source_transform,
+            src_crs=source_crs,
+            dst_transform=dst_transform,
+            dst_crs=dst_crs,
+            resampling=Resampling.nearest  # You can use other methods like bilinear, cubic, etc.
+        )
+
+    # Save the resampled source raster to a new file
+    with rasterio.open(
+        output_raster_path,
+        'w',
+        driver='GTiff',
+        height=dst_height,
+        width=dst_width,
+        count=1,
+        dtype=source_dtype,
+        crs=dst_crs,
+        transform=dst_transform
+    ) as dst:
+        dst.write(destination, 1)
+
+    print(f"Reprojected source raster saved as {output_raster_path}")
