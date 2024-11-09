@@ -483,4 +483,57 @@ Tree cover raster was split using the 5-class Jenks (Natural Breaks) method. Sin
 
 Landsat data was reclassified into a 6-class method, where the highest and lowest class contain the outlier data while the interior 4 classes are split by 10 degrees. Higher temperature was given a higher reclassified value.
 
-********************
+
+******************ZONAL STATISTICS****************
+
+    raster_paths = ['land_cover_mask_reclassified.tif', 'tree_cover_mask_reclassified.tif', 'landsat_mask_reclassified.tif']
+
+    with rasterio.open(raster_paths[0]) as src:
+      meta = src.meta  # Get metadata from the first raster
+      # Read all rasters into a list and stack them
+      stacked_data = np.stack([rasterio.open(path).read(1) for path in raster_paths])
+
+    # Calculate the pixel-wise average across the rasters
+    average_data = np.nanmean(stacked_data, axis=0)
+
+    # Update metadata for the output raster (set the dtype to float32 for averaging)
+    meta.update(dtype=rasterio.float32, count=1, nodata=np.nan)
+
+    # Write the averaged raster to a new file
+    output_path = 'heat_island_effect.tif'
+    with rasterio.open(output_path, 'w', **meta) as dst:
+      dst.write(average_data, indexes=1)
+
+    print(f"Averaged raster saved as {output_path}")
+
+
+******************COLOR CODING****************
+
+    output_path = 'heat_island_color.tif'
+    with rasterio.open('heat_island_effect.tif') as src:
+      data = src.read(1) 
+      meta = src.meta
+
+    nodata_value = 255  # Typically 255 is used as nodata for uint8 (if you want to avoid displaying it)
+
+    # Apply the nodata value to the data array
+    data[data == nodata_value] = np.nan  # Replace the nodata values with np.nan to avoid visualization
+
+    # Update metadata to include the new nodata value
+    meta.update(dtype=rasterio.uint8, nodata=nodata_value) 
+
+    max_value = 5.0
+    scaled_data = np.clip(data, 0, max_value)
+    scaled_data = (scaled_data / max_value * 5).astype(np.uint8)
+
+    meta.update(dtype=rasterio.uint8)
+
+    with rasterio.open(output_path, 'w', **meta) as dst:
+      dst.write(scaled_data, indexes=1)
+
+    plt.imshow(scaled_data, cmap='coolwarm')
+    plt.axis('off')
+    cbar = plt.colorbar()
+    cbar.set_label('Heat Island Risk', labelpad=20)
+    plt.show()
+
