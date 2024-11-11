@@ -97,16 +97,91 @@ Planning Districts: https://opendataphilly.org/datasets/planning-districts/
 
 *************
 
-
-
-
-This how we are going to tell them to install rasterio using conda on anaconda powershell prompt
+HOW TO INSTALL WHAT IS NEEDED FOR THE TUTORIAL
 
 gus5031 = environment name
 
 conda create -n gus5031 -c conda-forge pysal geopandas
 
 *******************
+RASTERIO EXERCISES 
+
+
+    Here are a few simple exercises to get familiar with using the rasterio library in Python for working with raster data:
+    
+    1. Open and Inspect a Raster File
+    Objective: Learn how to open a raster file and inspect its properties.
+    Instructions:
+    python
+    Copy code
+    import rasterio
+    
+    # Replace 'your_raster_file.tif' with the path to your raster file
+    with rasterio.open('your_raster_file.tif') as src:
+        print("CRS:", src.crs)  # Coordinate Reference System
+        print("Width:", src.width)
+        print("Height:", src.height)
+        print("Bounds:", src.bounds)
+        print("Number of bands:", src.count)
+    2. Read and Display Raster Bands
+    Objective: Read a specific band and display it as an array.
+    Instructions:
+    python
+    Copy code
+    import matplotlib.pyplot as plt
+    
+    # Read and plot the first band
+    with rasterio.open('your_raster_file.tif') as src:
+        band1 = src.read(1)  # Reading the first band
+    
+    plt.imshow(band1, cmap='gray')
+    plt.title("Band 1")
+    plt.colorbar()
+    plt.show()
+    3. Extract Raster Metadata
+    Objective: Extract and print metadata of the raster file.
+    Instructions:
+    python
+    Copy code
+    with rasterio.open('your_raster_file.tif') as src:
+        metadata = src.meta
+    print(metadata)
+    4. Crop a Raster File by Bounding Box
+    Objective: Use a bounding box to crop the raster data.
+    Instructions:
+    python
+    Copy code
+    from rasterio.windows import Window
+    
+    # Define a bounding box and crop
+    with rasterio.open('your_raster_file.tif') as src:
+        # Define the window with start and end coordinates in pixels
+        window = Window(100, 100, 200, 200)
+        cropped_data = src.read(1, window=window)
+    
+    plt.imshow(cropped_data, cmap='gray')
+    plt.title("Cropped Data")
+    plt.colorbar()
+    plt.show()
+    5. Calculate NDVI (Normalized Difference Vegetation Index)
+    Objective: If you have a multi-band raster (e.g., with Red and NIR bands), calculate NDVI.
+    Instructions:
+    python
+    Copy code
+    with rasterio.open('multiband_raster_file.tif') as src:
+        nir = src.read(4)  # NIR band
+        red = src.read(3)  # Red band
+    
+    # Calculate NDVI
+    ndvi = (nir - red) / (nir + red)
+    
+    plt.imshow(ndvi, cmap='RdYlGn')
+    plt.title("NDVI")
+    plt.colorbar()
+    plt.show()
+    These exercises cover basic raster handling tasks with rasterio, giving you a hands-on way to understand and manipulate raster data. Let me know if you'd like any additional examples!
+    
+
 STEPS:
 Download data (3 datasets)
 
