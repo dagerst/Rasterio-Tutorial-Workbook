@@ -112,14 +112,6 @@ NLCD_LandCover_PhiladelphiaRegion_2021.tif
 
 Land_Surface_Temperature_Lansat_2021.tif
 
-*******************************
-
-
-**https://www.esri.com/arcgis-blog/products/product/analytics/deriving-temperature-from-landsat-8-thermal-bands-tirs/**
-
-Band 10 data in this case, follow formulas
-
-July and August data recommended
 
 *******************************
 ORIGINAL PROJECTIONS:
