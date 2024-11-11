@@ -12,6 +12,42 @@ In this tutorial we will cover reprojection, masking by using polygons, reclassi
 
 1.0 Rasterio Installation & Data Preparation
 
+2.0 Rasterio Reprojection
+
+
+  exercises:
+  easy
+  advanced
+
+3.0 Masking by Use of Polygons
+
+  exercises:
+    easy
+    advanced
+
+
+4.0 Reclassifying Rasters
+
+  exercises:
+  easy
+  advanced
+
+5. Zonal Statistics on Rasters Using NumPy
+
+  exercises:
+  easy
+  advanced
+
+
+
+6. Color Coding and Output of Map
+
+
+  exercises:
+  easy
+  advanced
+   
+
 We recommend installing Rasterio using anaconda within the Pysal geospatial library. We recommend you
 you install , you might
 want to use the gus5031 env.) To install, open the Miniconda prompt, navigate to the proper
