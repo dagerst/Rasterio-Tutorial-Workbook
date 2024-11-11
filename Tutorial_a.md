@@ -5,7 +5,7 @@ David Gerstenfeld, Adrian Terech<br> November 18, 2024
 *******************************
 # Introduction
 <p>
-This tutorial will showcase tools from the Rasterio library for Python.
+This tutorial will showcase tools from the Rasterio library for Python. To showcase the basic use cases of Rasterio we are doing a mock analysis for the City of Philadelphia Planning Department and Sustinability Office on heat island issues comapred to current land cover & tree canpoy rates across the city.
 Rasterio is a Python library designed for reading and writing geospatial raster data. It provides a high-level API to interact with raster datasets, particularly those stored in formats like GeoTIFF. Raster data typically represents satellite imagery, aerial photography, or any spatially continuous variable (e.g., elevation or temperature) as a grid of pixels or cells.
 
 In this tutorial we will cover reprojection, masking by using polygons, reclassifying rasters, zonal statistics, color coding, and using matplotlib to prepare a final map for the output raster.
@@ -65,7 +65,7 @@ Key features of Rasterio include:
 - Coordinate Reference Systems: Rasterio allows reading and transforming coordinate systems, making it easy to project raster data into different spatial reference systems.<br>
 
 
-*Analytical business need* = *We are doing an analysis for the City of Philadelphia Planning Department and Sustinability Office on heat island issues comapred to current land cover & tree canpoy rates across the city.*
+
 
 
 *majority be in rasterio for processing of data, then geopanda for doing final statistical analysis, and then matplotlib for output of map*
