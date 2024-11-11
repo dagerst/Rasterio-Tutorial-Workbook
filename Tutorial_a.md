@@ -14,6 +14,12 @@ In this tutorial we will cover reprojection, masking by using polygons, reclassi
 
 1.0 Rasterio Installation & Data Preparation
 
+[1]
+conda create -n gus5031 -c conda-forge pysal geopandas #Installs Pysal which include Rasterio and Geopandas
+conda activate gus5031 #The environment our class is using for tutorials
+
+
+
 2.0 Rasterio Reprojection
 
 
@@ -142,14 +148,6 @@ Downloaded Band 10 dataset and metadata file. Band 10 data came in as raw pixel 
 Census Tracts: https://www.census.gov/cgi-bin/geo/shapefiles/index.php?year=2021&layergroup=Census+Tracts
 
 Planning Districts: https://opendataphilly.org/datasets/planning-districts/
-
-*************
-
-HOW TO INSTALL WHAT IS NEEDED FOR THE TUTORIAL
-
-gus5031 = environment name
-
-conda create -n gus5031 -c conda-forge pysal geopandas
 
 *******************
 RASTERIO EXERCISES 
