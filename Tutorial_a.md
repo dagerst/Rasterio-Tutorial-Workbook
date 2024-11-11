@@ -161,7 +161,8 @@ Link for Exercise Data Download: https://opendataphilly.org/datasets/digital-ele
     python
     Copy code
     import rasterio
-    
+
+    Q1. Open a raster file and print the CRS, Width, Height, Bounds and Number of bands in that file.
     # Replace 'your_raster_file.tif' with the path to your raster file
     with rasterio.open('your_raster_file.tif') as src:
         print("CRS:", src.crs)  # Coordinate Reference System
