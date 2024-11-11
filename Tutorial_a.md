@@ -105,7 +105,7 @@ conda create -n gus5031 -c conda-forge pysal geopandas
 
 *******************
 RASTERIO EXERCISES 
-
+Link for Exercise Data Download: https://opendataphilly.org/datasets/digital-elevation-model-dem/
 
     Here are a few simple exercises to get familiar with using the rasterio library in Python for working with raster data:
     
