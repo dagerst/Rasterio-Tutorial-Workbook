@@ -15,7 +15,7 @@ In this tutorial we will cover reprojection, masking by using polygons, reclassi
 1.0 Rasterio Installation & Data Preparation
 
 [1]
-conda create -n gus5031 -c conda-forge pysal geopandas #Installs Pysal which include Rasterio and Geopandas
+conda create -n gus5031 -c conda-forge pysal geopandas #Installs Pysal which include Rasterio and Geopandas<br>
 conda activate gus5031 #The environment our class is using for tutorials
 
 
