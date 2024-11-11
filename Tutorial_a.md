@@ -9,6 +9,14 @@ This tutorial will showcase tools from the Rasterio library for Python.
 Rasterio is a Python library designed for reading and writing geospatial raster data. It provides a high-level API to interact with raster datasets, particularly those stored in formats like GeoTIFF. Raster data typically represents satellite imagery, aerial photography, or any spatially continuous variable (e.g., elevation or temperature) as a grid of pixels or cells.
 
 In this tutorial we will cover reprojection, masking by using polygons, reclassifying rasters, zonal statistics, color coding, and using matplotlib to prepare a final map for the output raster.
+
+0.0.1 Rasterio Installation & Data Preparation
+
+We recommend installing Rasterio using anaconda within the Pysal geospatial library. We recommend you
+you install , you might
+want to use the gus5031 env.) To install, open the Miniconda prompt, navigate to the proper
+environment, and use the following commands:
+
   
 </p>
 
