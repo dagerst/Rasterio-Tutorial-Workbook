@@ -271,37 +271,35 @@ current script
 
 New Reprojection Code
 
-    first_raster = land_cover  # The first raster (target)
-    source_rasters = tree_cover, land_surf_temp  # Other rasters (to be reprojected)
-    output_raster_paths = tcc_prj, lst_prj  # Output paths for the reprojected rasters
-    output_first_raster_path = lc_prj  # Output for the reprojected target raster
+    first_raster = land_cover 
+    source_rasters = tree_cover, land_surf_temp
+    output_raster_paths = tcc_prj, lst_prj
+    output_first_raster_path = lc_prj 
 
-    # Open the first raster (target) and get its specifications
+    # Open the first raster and get its specifications
     with rasterio.open(first_raster) as target_raster:
       target_transform = target_raster.transform
       target_crs = target_raster.crs
       target_shape = (target_raster.height, target_raster.width)
-      target_data = target_raster.read(1)  # Read the first band of the target raster
+      target_data = target_raster.read(1)
       source_dtype = target_data.dtype
       source_crs = target_raster.crs
 
     # Create an empty array for the reprojected target raster data
     destination_target = np.empty(target_shape, dtype=source_dtype)
 
-    # If you want to reproject the target raster (for example, to another CRS), use the same process
-    # Reproject the target raster (just in case you want to change the CRS or resolution)
+    # Reproject the target raster
     with rasterio.open(first_raster) as target_raster:
-      target_data = target_raster.read(1)  # Read the first band of the target raster
+      target_data = target_raster.read(1)
       target_transform = target_raster.transform
       target_crs = target_raster.crs
 
-    # Define the target CRS and resolution (if different from the original)
-    # For example, let's reproject it to EPSG:4326 (or any other CRS)
-    dst_crs = 2272  # Change this to your desired target CRS
+    # Define the target CRS and resolution
+    dst_crs = 2272
     dst_transform, dst_width, dst_height = rasterio.warp.calculate_default_transform(
         target_crs, dst_crs, target_raster.width, target_raster.height, *target_raster.bounds)
 
-    # Create a new empty destination array for the reprojected target
+    # Create a destination array for the reprojected target
     destination_target = np.empty((dst_height, dst_width), dtype=source_dtype)
 
     # Perform the reprojection
@@ -312,7 +310,7 @@ New Reprojection Code
         src_crs=target_crs,
         dst_transform=dst_transform,
         dst_crs=dst_crs,
-        resampling=Resampling.nearest  # Use your preferred resampling method
+        resampling=Resampling.nearest
     )
 
     # Save the reprojected target raster
@@ -331,7 +329,7 @@ New Reprojection Code
 
     print(f"Reprojected target raster saved as {lc_prj}")
 
-    # Now loop through the source rasters and reproject each to match the new specifications of the target
+    #Looping through the remaining rasters with land cover as the target raster
     for source_raster_path, output_raster_path in zip(source_rasters, output_raster_paths):
       with rasterio.open(source_raster_path) as source_raster:
         source_data = source_raster.read(1)  # Read the first band
@@ -342,7 +340,7 @@ New Reprojection Code
         # Create an empty array with the shape and dtype of the target resolution
         destination = np.empty((dst_height, dst_width), dtype=source_dtype)
 
-        # Perform the reprojection and resampling
+        # Perform the reprojection
         reproject(
             source=source_data,
             destination=destination,
@@ -353,7 +351,7 @@ New Reprojection Code
             resampling=Resampling.nearest  # You can use other methods like bilinear, cubic, etc.
         )
 
-    # Save the resampled source raster to a new file
+    # Save the reprojected raster to a new file
     with rasterio.open(
         output_raster_path,
         'w',
@@ -371,11 +369,11 @@ New Reprojection Code
 
 #NEW MASKED LOOPING
 
-        # File paths
+    # File paths
     input_files = [lc_prj, tcc_prj, lst_prj]
     output_files = ["land_cover_mask.tif", "tree_cover_mask.tif", "land_surface_temp_mask.tif"]
     
-    # Read the geometry shapes from the shapefile
+    # Read the geometry shapes from shapefile
     with fiona.open(census_prj, "r") as shapefile:
         shapes = [feature["geometry"] for feature in shapefile]
     
@@ -386,7 +384,7 @@ New Reprojection Code
             out_image, out_transform = rasterio.mask.mask(src, shapes, crop=True)
             out_meta = src.meta
     
-            # Update metadata to reflect the new dimensions and transform
+            # Update metadata
             out_meta.update({
                 "driver": "GTiff",
                 "height": out_image.shape[1],
@@ -402,7 +400,7 @@ New Reprojection Code
 
 ****************RECLASSIFYING LAND COVER****************
 
-
+    # Opening masked land cover raster
     with rasterio.open("land_cover_mask.tif") as src:
     raster_data = src.read(1)
     profile = src.profile 
@@ -425,12 +423,15 @@ Land Cover was reclassified this way because values 21 to 24 indicate developed 
 
 ****************RECLASSIFYING TREE COVER****************
 
+    # Opening maked tree cover raster
     with rasterio.open("tree_cover_mask.tif") as src:
       raster_data = src.read(1)
       profile = src.profile 
 
+    # Create an empty array with the same shape as the raster data
     reclassified_data = np.zeros_like(raster_data)
 
+    # Apply reclassification rules
     reclassified_data[(raster_data >= 0) & (raster_data <= 20)] = 5
     reclassified_data[(raster_data >= 21) & (raster_data <= 40)] = 4
     reclassified_data[(raster_data >= 41) & (raster_data <= 60)] = 3
@@ -445,12 +446,15 @@ Tree cover raster was split using the 5-class Jenks (Natural Breaks) method. Sin
 
 ****************RECLASSIFYING LAND SURFACE TEMPERATURE****************
 
+    # Open masked landsat data raster
     with rasterio.open("land_surf_temp_mask.tif") as src:
       raster_data = src.read(1)
       profile = src.profile 
 
+    # Create an empty array with the same shape as the raster data
     reclassified_data = np.zeros_like(raster_data)
 
+    # Apply reclassification rules
     reclassified_data[(raster_data >= 50)] = 0
     reclassified_data[(raster_data >= 51) & (raster_data <= 60)] = 1
     reclassified_data[(raster_data >= 61) & (raster_data <= 70)] = 2
@@ -466,20 +470,22 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
 
 ****************ZONAL STATISTICS****************
 
+    # Defining input paths
     raster_paths = ['land_cover_mask_reclassified.tif', 'tree_cover_mask_reclassified.tif', 'landsat_mask_reclassified.tif']
 
+    # Opening input rasters
     with rasterio.open(raster_paths[0]) as src:
       meta = src.meta  # Get metadata from the first raster
-      # Read all rasters into a list and stack them
+      # Reading and stacking all rasters
       stacked_data = np.stack([rasterio.open(path).read(1) for path in raster_paths])
 
-    # Calculate the pixel-wise average across the rasters
+    # Calculate the average
     average_data = np.nanmean(stacked_data, axis=0)
 
-    # Update metadata for the output raster (set the dtype to float32 for averaging)
+    # Updating metadata
     meta.update(dtype=rasterio.float32, count=1, nodata=np.nan)
 
-    # Write the averaged raster to a new file
+    # Creating output file
     output_path = 'heat_island_effect.tif'
     with rasterio.open(output_path, 'w', **meta) as dst:
       dst.write(average_data, indexes=1)
@@ -489,7 +495,9 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
 
 ****************COLOR CODING & MATPLOTLIB MAP OUTPUT****************
 
+    # Defining output path
     output_path = 'heat_island_color.tif'
+    # Opening input file
     with rasterio.open('heat_island_effect.tif') as src:
       data = src.read(1) 
       meta = src.meta
@@ -499,18 +507,22 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
     # Apply the nodata value to the data array
     data[data == nodata_value] = np.nan  # Replace the nodata values with np.nan to avoid visualization
 
-    # Update metadata to include the new nodata value
+    # Update metadata
     meta.update(dtype=rasterio.uint8, nodata=nodata_value) 
 
+    # Calculating scaled data
     max_value = 5.0
     scaled_data = np.clip(data, 0, max_value)
     scaled_data = (scaled_data / max_value * 5).astype(np.uint8)
 
+    # Update metadata
     meta.update(dtype=rasterio.uint8)
 
+    # Saving output file
     with rasterio.open(output_path, 'w', **meta) as dst:
       dst.write(scaled_data, indexes=1)
 
+    # Using pyplot to create final map
     plt.imshow(scaled_data, cmap='coolwarm')
     plt.axis('off')
     cbar = plt.colorbar()
