@@ -123,6 +123,7 @@ RASTERIO EXERCISES
         print("Height:", src.height)
         print("Bounds:", src.bounds)
         print("Number of bands:", src.count)
+        
     2. Read and Display Raster Bands
     Objective: Read a specific band and display it as an array.
     Instructions:
@@ -138,6 +139,7 @@ RASTERIO EXERCISES
     plt.title("Band 1")
     plt.colorbar()
     plt.show()
+    
     3. Extract Raster Metadata
     Objective: Extract and print metadata of the raster file.
     Instructions:
@@ -146,6 +148,7 @@ RASTERIO EXERCISES
     with rasterio.open('your_raster_file.tif') as src:
         metadata = src.meta
     print(metadata)
+    
     4. Crop a Raster File by Bounding Box
     Objective: Use a bounding box to crop the raster data.
     Instructions:
@@ -163,6 +166,7 @@ RASTERIO EXERCISES
     plt.title("Cropped Data")
     plt.colorbar()
     plt.show()
+    
     5. Calculate NDVI (Normalized Difference Vegetation Index)
     Objective: If you have a multi-band raster (e.g., with Red and NIR bands), calculate NDVI.
     Instructions:
@@ -179,6 +183,7 @@ RASTERIO EXERCISES
     plt.title("NDVI")
     plt.colorbar()
     plt.show()
+    
     These exercises cover basic raster handling tasks with rasterio, giving you a hands-on way to understand and manipulate raster data. Let me know if you'd like any additional examples!
     
 
