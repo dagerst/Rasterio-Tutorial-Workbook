@@ -415,6 +415,7 @@ New Reprojection Code
     reclassified_data[(raster_data == 23)] = 4
     reclassified_data[(raster_data == 24)] = 5
 
+    # Saving reclassified file
     with rasterio.open('land_cover_mask_reclassified.tif', 'w', **profile) as dst:
       dst.write(reclassified_data, 1)
 
@@ -438,6 +439,7 @@ Land Cover was reclassified this way because values 21 to 24 indicate developed 
     reclassified_data[(raster_data >= 61) & (raster_data <= 80)] = 2
     reclassified_data[(raster_data >= 81) & (raster_data <= 100)] = 1
 
+    # Saving reclassified file
     with rasterio.open('tree_cover_mask_reclassified.tif', 'w', **profile) as dst:
       dst.write(reclassified_data, 1)
 
@@ -446,7 +448,7 @@ Tree cover raster was split using the 5-class Jenks (Natural Breaks) method. Sin
 
 ****************RECLASSIFYING LAND SURFACE TEMPERATURE****************
 
-    # Open masked landsat data raster
+    # Opening masked landsat data raster
     with rasterio.open("land_surf_temp_mask.tif") as src:
       raster_data = src.read(1)
       profile = src.profile 
@@ -454,7 +456,7 @@ Tree cover raster was split using the 5-class Jenks (Natural Breaks) method. Sin
     # Create an empty array with the same shape as the raster data
     reclassified_data = np.zeros_like(raster_data)
 
-    # Apply reclassification rules
+    # Applying reclassification rules
     reclassified_data[(raster_data >= 50)] = 0
     reclassified_data[(raster_data >= 51) & (raster_data <= 60)] = 1
     reclassified_data[(raster_data >= 61) & (raster_data <= 70)] = 2
@@ -462,6 +464,7 @@ Tree cover raster was split using the 5-class Jenks (Natural Breaks) method. Sin
     reclassified_data[(raster_data >= 81) & (raster_data <= 90)] = 4
     reclassified_data[(raster_data >= 91)] = 5
 
+    # Saving reclassified file
     with rasterio.open('landsat_mask_reclassified.tif', 'w', **profile) as dst:
       dst.write(reclassified_data, 1)
 
@@ -475,11 +478,11 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
 
     # Opening input rasters
     with rasterio.open(raster_paths[0]) as src:
-      meta = src.meta  # Get metadata from the first raster
+      meta = src.meta  # Getting metadata from first raster
       # Reading and stacking all rasters
       stacked_data = np.stack([rasterio.open(path).read(1) for path in raster_paths])
 
-    # Calculate the average
+    # Calculating the average
     average_data = np.nanmean(stacked_data, axis=0)
 
     # Updating metadata
@@ -504,7 +507,7 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
 
     nodata_value = 255  # Typically 255 is used as nodata for uint8 (if you want to avoid displaying it)
 
-    # Apply the nodata value to the data array
+    # Applying the nodata value to the data array
     data[data == nodata_value] = np.nan  # Replace the nodata values with np.nan to avoid visualization
 
     # Update metadata
