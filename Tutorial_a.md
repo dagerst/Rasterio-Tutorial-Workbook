@@ -10,7 +10,7 @@ Rasterio is a Python library designed for reading and writing geospatial raster 
 
 In this tutorial we will cover reprojection, masking by using polygons, reclassifying rasters, zonal statistics, color coding, and using matplotlib to prepare a final map for the output raster.
 
-0.0.1 Rasterio Installation & Data Preparation
+1.0 Rasterio Installation & Data Preparation
 
 We recommend installing Rasterio using anaconda within the Pysal geospatial library. We recommend you
 you install , you might
