@@ -318,7 +318,7 @@ New Reprojection Code
     destination_target = np.empty(target_shape, dtype=source_dtype)
 
     # Reproject the target raster
-    with rasterio.open(first_raster) as target_raster:
+    with rasterio.open(land_cover_raster) as target_raster:
       target_data = target_raster.read(1)
       target_transform = target_raster.transform
       target_crs = target_raster.crs
