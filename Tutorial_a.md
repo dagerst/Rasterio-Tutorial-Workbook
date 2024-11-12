@@ -126,7 +126,10 @@ PHL_Census_Tracts = GEOGCSN: GCS_North_American_1983
 
 *****************************
 
+
 *After masking to Philadelphia County we are then going to remove all data with zero values*
+
+
 
 *************
 Links:
@@ -283,6 +286,8 @@ current script
 
 
 #BELOW IS REPROJECTION OF CENSUS_TRACTS SHAPEFILE
+
+
 
     gdf = gpd.read_file(census_tracts)
 
