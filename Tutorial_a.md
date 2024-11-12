@@ -399,7 +399,7 @@ New Reprojection Code
 #NEW MASKED LOOPING
 
     # File paths
-    input_files = [lc_prj, tcc_prj, lst_prj]
+    input_files = [landcover_reprojected, treecover_reprojected, landsat_reprojected]
     output_files = ["land_cover_mask.tif", "tree_cover_mask.tif", "land_surface_temp_mask.tif"]
     
     # Read the geometry shapes from shapefile
