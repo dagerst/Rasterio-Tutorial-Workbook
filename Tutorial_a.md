@@ -268,9 +268,9 @@ current script
     land_surf_temp = "Land_Surface_Temperature_Landsat_2021.tif"
     land_cover = "NLCD_LandCover_PhiladelphiaRegion_2021.tif"
     tree_cover = "NLCD_TreeCoverCanopy_PhiladelphiaRegion_2021.tif"
-    lst_prj = 'LST_2021.tif'
-    lc_prj = 'LC_2021.tif'
-    tcc_prj = 'TCC_2021.tif'
+    landsat_reprojected = 'LST_2021.tif'
+    landcover_reprojected = 'LC_2021.tif'
+    treecover_reprojected = 'TCC_2021.tif'
     census_prj = 'census_nad_83.shp'
     planning_prj = 'planning_nad_83.shp'
 
@@ -302,8 +302,8 @@ New Reprojection Code
 
     land_cover_raster = land_cover 
     source_rasters = tree_cover, land_surf_temp
-    output_raster_paths = tcc_prj, lst_prj
-    output_first_raster_path = lc_prj 
+    output_raster_paths = treecover_reprojected, landsat_reprojected
+    output_first_raster_path = landcover_reprojected
 
     # Open the first raster and get its specifications
     with rasterio.open(land_cover_raster) as target_raster:
@@ -344,7 +344,7 @@ New Reprojection Code
 
     # Save the reprojected target raster
     with rasterio.open(
-      lc_prj,
+      landcover_reprojected,
       'w',
       driver='GTiff',
       height=dst_height,
@@ -356,7 +356,7 @@ New Reprojection Code
     ) as dst:
       dst.write(destination_target, 1)
 
-    print(f"Reprojected target raster saved as {lc_prj}")
+    print(f"Reprojected target raster saved as {landcover_reprojected}")
 
     # Looping through the remaining rasters with land cover as the target raster
     for source_raster_path, output_raster_path in zip(source_rasters, output_raster_paths):
