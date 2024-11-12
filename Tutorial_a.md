@@ -300,13 +300,13 @@ current script
 
 New Reprojection Code
 
-    target_raster = land_cover 
+    land_cover_raster = land_cover 
     source_rasters = tree_cover, land_surf_temp
     output_raster_paths = tcc_prj, lst_prj
     output_first_raster_path = lc_prj 
 
     # Open the first raster and get its specifications
-    with rasterio.open(target_raster) as target_raster:
+    with rasterio.open(land_cover_raster) as target_raster:
       target_transform = target_raster.transform
       target_crs = target_raster.crs
       target_shape = (target_raster.height, target_raster.width)
