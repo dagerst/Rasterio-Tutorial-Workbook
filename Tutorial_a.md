@@ -430,7 +430,7 @@ New Reprojection Code
             with rasterio.open(output_path, "w", **out_meta) as dest:
                 dest.write(out_image)
     
-        print(f'{lc_prj} has been masked and saved to {output_path}')
+        print(f'{landcover_reprojected} has been masked and saved to {output_path}')
 
 ****************RECLASSIFYING LAND COVER****************
 
