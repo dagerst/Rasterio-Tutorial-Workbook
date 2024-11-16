@@ -557,5 +557,11 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
     plt.show()
 
 
+***********NOT IN REGULAR CODE, FOR ANALYSIS CAN ALSO CREATE HISTOGRAM*****
 
+plt.hist(scaled_data, bins=10, edgecolor='blue')
+plt.xlabel('Num_Of_Instances')
+plt.ylabel('Heat_Index')
+plt.title('Heat_Index_Philly')
+plt.show()
 
