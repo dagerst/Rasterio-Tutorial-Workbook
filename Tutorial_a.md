@@ -58,7 +58,7 @@ We used a histogram to help confirm that the code had no outliers or null data. 
 
 ![Fig2_hist](https://github.com/user-attachments/assets/02d0cbb9-a284-46b9-a1dd-b6aecfa5411f)
 
-As shown by the histogram output of the final processed data, all of the data is within the bounds of 0 and 4.
+As shown by the histogram output of the final processed data, all of the data is higher than 0 and less than 5 (however highest is actually less than 4). There are no null values shown or outliers. This helps confirm the accuracy of the data. 
 
   exercises:<br>
   easy<br>
