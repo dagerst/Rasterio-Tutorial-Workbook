@@ -26,7 +26,7 @@ Key features of Rasterio include:
 
 
 Our tutorial main analysis will use rasterio and geopandas for processing of the data, and numPy for doing statistical analysis, and then matplotlib for output of map
-
+*Script Sections are Out of Order for Easy Explanation and Exercise Purposes*
 
 **1.0.1 Rasterio Installation & Data Preparation**
 
@@ -71,8 +71,8 @@ conda activate gus5031 #The environment our class is using for tutorials
     dst_crs = 2272
     #dst_crs equals the EPSG code for destionation reprojection which is NAD1983, State Plane US PA South 
 
-**2.0 Color and Scaling and Clipping data and Histogram to check data for null and outliers**
-
+**2.0 [Actual Step #] Color and Scaling and Clipping data and Histogram to check data for null and outliers**
+ 
     # Define output path
     output_path = 'heat_island_color.tif'
     
@@ -393,6 +393,7 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
     cbar.set_label('Heat Island Risk', labelpad=20)
     plt.show()
 
+![Figure_1](https://github.com/user-attachments/assets/043922b8-fbc4-42ab-b25e-c728dea60269)
 
 
  exercises:<br>
@@ -402,23 +403,15 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
 
 ***********************
 
-
-
-
+***Helpful Links for Resources on Rasterio***
 
 **https://rasterio.readthedocs.io/en/stable/topics/index.html**
 
-**https://www.mrlc.gov/viewer/**
+**https://geobgu.xyz/py/10-rasterio1.html#**
 
 *******************************
 
 # Notable Information
-
-**CRS Codes**
-
-2272 = NAD83 State Plain Pennsylvania South
-
-5070 = Albers Conical
 
 **Raster files used**
 
@@ -442,19 +435,7 @@ PHL_Census_Tracts = GEOGCSN: GCS_North_American_1983
 
 *****************************
 
-Dataset Source Links:
 
-Land Cover and Tree Canopy Cover: https://www.mrlc.gov/viewer/
-Downloaded using custom extent
-
-Landsat Data: https://earthexplorer.usgs.gov/
-Downloaded Band 10 dataset and metadata file. Band 10 data came in as raw pixel data, which had to converted to radiance, then to Kelvin, and then to Fahrenheit
-
-Census Tracts: https://www.census.gov/cgi-bin/geo/shapefiles/index.php?year=2021&layergroup=Census+Tracts
-
-Planning Districts: https://opendataphilly.org/datasets/planning-districts/
-
-*******************
 RASTERIO EXERCISES 
 Link for Exercise Data Download: https://opendataphilly.org/datasets/digital-elevation-model-dem/
 
@@ -539,42 +520,22 @@ Link for Exercise Data Download: https://opendataphilly.org/datasets/digital-ele
     These exercises cover basic raster handling tasks with rasterio, giving you a hands-on way to understand and manipulate raster data. Let me know if you'd like any additional examples!
     
 
-STEPS:
-Download data (3 datasets)
-
-Reproject and make sure resolution correct
-
-Mask looping
-
-Reclassifying
-
-Zonal Statistics
-
-Color Coding
-
-Analysis Result and Output Map
 
 *******************
-*Start of Main Analysis Python Script for Workbook*
-*Script Sections are Out of Order for Explaining Purposes*
 
+**Dataset Source Links:**
 
+Land Cover and Tree Canopy Cover: https://www.mrlc.gov/viewer/
+Downloaded using custom extent
 
+Landsat Data: https://earthexplorer.usgs.gov/
+Downloaded Band 10 dataset and metadata file. Band 10 data came in as raw pixel data, which had to converted to radiance, then to Kelvin, and then to Fahrenheit
 
+Census Tracts: https://www.census.gov/cgi-bin/geo/shapefiles/index.php?year=2021&layergroup=Census+Tracts
 
+Planning Districts: https://opendataphilly.org/datasets/planning-districts/
 
-[#.#.#] [Actual Step #]
-
- 
-
-
-
-  
-
-    
-![Figure_1](https://github.com/user-attachments/assets/043922b8-fbc4-42ab-b25e-c728dea60269)
-
-
+*******************
 
 **WORKS CITED**
 
