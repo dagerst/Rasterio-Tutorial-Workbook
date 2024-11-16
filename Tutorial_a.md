@@ -281,7 +281,7 @@ current script
 #VARIABLE NAMING
     
     
-    dst_crs = 2272
+    target_crs = 2272
 #CODES FOR REPROJECTIONS ALL TO NAD1983 STATE PLANE US PA SOUTH EPSG CODE #2272
 
 
