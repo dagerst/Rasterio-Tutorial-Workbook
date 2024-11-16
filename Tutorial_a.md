@@ -126,13 +126,7 @@ PHL_Census_Tracts = GEOGCSN: GCS_North_American_1983
 
 *****************************
 
-
-*After masking to Philadelphia County we are then going to remove all data with zero values*
-
-
-
-*************
-Links:
+Dataset Source Links:
 
 Land Cover and Tree Canopy Cover: https://www.mrlc.gov/viewer/
 Downloaded using custom extent
