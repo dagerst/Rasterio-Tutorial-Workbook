@@ -297,7 +297,7 @@ Analysis Result and Output Map
 
 #BELOW IS REPROJECTION OF CENSUS_TRACTS SHAPEFILE
 
-
+[#.#.#] [Actual Step #]
 
     gdf = gpd.read_file(census_tracts)
 
