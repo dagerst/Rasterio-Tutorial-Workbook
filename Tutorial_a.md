@@ -1,10 +1,10 @@
-<h1 style="text-align: center;">Rasterio Tutorial</h1>
+<h1 style="bold: center;">Rasterio Tutorial</h1>
 
 David Gerstenfeld, Adrian Terech<br><br> 
 November 18, 2024
 
 *******************************
-<p
+
 # Introduction
 <p>
 This tutorial will showcase tools from the Rasterio library for Python. To showcase the basic use cases of Rasterio we are doing a mock analysis for the City of Philadelphia Planning Department and Sustinability Office on heat island issues comapred to current land cover & tree canpoy rates across the city.
@@ -561,7 +561,7 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
     plt.title('Heat_Index_Philly')
     plt.show()
 
->    
+    
 ![Figure_1](https://github.com/user-attachments/assets/043922b8-fbc4-42ab-b25e-c728dea60269)
 
 
