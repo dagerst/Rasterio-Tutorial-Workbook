@@ -21,6 +21,39 @@ In this tutorial we will cover reprojection, masking by using polygons, reclassi
 conda create -n gus5031 -c conda-forge pysal geopandas #Installs Pysal which include Rasterio and Geopandas<br>
 conda activate gus5031 #The environment our class is using for tutorials
 
+[1.1] Importing all neccessary libraries and modules and functions
+
+    import pysal
+    import os
+    import geopandas as gpd
+    import numpy as np
+    import rasterio
+    import fiona
+    import subprocess
+    import rasterio.mask
+    import matplotlib.pyplot as plt
+    from rasterio.warp import calculate_default_transform, reproject, Resampling
+    from rasterio.transform import from_origin
+
+
+[1.2] Setting Workspace and Labeling of Initial Variables
+
+    workspace = os.getcwd()
+
+    #planning_dist = "Planning_Districts.shp"
+    census_tracts = "PHL_Census_Tracts_2021.shp"
+    land_surf_temp = "Land_Surface_Temperature_Landsat_2021.tif"
+    land_cover = "NLCD_LandCover_PhiladelphiaRegion_2021.tif"
+    tree_cover = "NLCD_TreeCoverCanopy_PhiladelphiaRegion_2021.tif"
+    landsat_reprojected = 'LST_2021.tif'
+    landcover_reprojected = 'LC_2021.tif'
+    treecover_reprojected = 'TCC_2021.tif'
+    census_prj = 'census_nad_83.shp'
+    #planning_prj = 'planning_nad_83.shp'
+    dst_crs = 2272
+    
+#CODES FOR REPROJECTIONS ALL TO NAD1983 STATE PLANE US PA SOUTH EPSG CODE #2272
+
 2.0 Color and Scaling and Clipping data and Histogram to check data for null and outliers
 
     # Define output path
@@ -46,6 +79,20 @@ conda activate gus5031 #The environment our class is using for tutorials
     # Save output file
     with rasterio.open(output_path, 'w', **meta) as dst:
         dst.write(scaled_data, indexes=1)
+
+    #We used a histogram to help confirm that the code had no outliers or null data. Below is the code for the histogram and the output.
+    
+    plt.hist(scaled_data, bins=8, edgecolor='red')
+    plt.xlabel('Num_Of_Instances')
+    plt.ylabel('Heat_Index')
+    plt.title('Heat_Index_Philly')
+    plt.show()
+
+
+![Fig2_hist](https://github.com/user-attachments/assets/02d0cbb9-a284-46b9-a1dd-b6aecfa5411f)
+
+As shown by the histogram output of the final processed data, all of the data is higher than 0 and less than 5 (however highest is actually less than 4). There are no null values shown or outliers. This helps confirm the accuracy of the data. 
+
 
 
   exercises:<br>
@@ -290,7 +337,28 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
   
 7.0 Zonal Statistics on Rasters Using NumPy
 
+   # Defining input paths
+    raster_paths = ['land_cover_mask_reclassified.tif', 'tree_cover_mask_reclassified.tif', 'landsat_mask_reclassified.tif']
+    # Creating output file
+    output_path_zonal = 'heat_island_effect.tif'
+    
+    # Opening input rasters
+    with rasterio.open(raster_paths[0]) as src:
+      meta = src.meta  # Getting metadata from first raster
+      # Reading and stacking all rasters
+      stacked_data = np.stack([rasterio.open(path).read(1) for path in raster_paths])
 
+    # Calculating the average
+    average_data = np.nanmean(stacked_data, axis=0)
+
+    # Updating metadata
+    meta.update(dtype=rasterio.float32, count=1, nodata=np.nan)
+
+    
+    with rasterio.open(output_path_zonal, 'w', **meta) as dst:
+      dst.write(average_data, indexes=1)
+
+    print(f"Averaged raster saved as {output_path_zonal}")
 
 
 
@@ -302,40 +370,22 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
 
 8.0 Chloropleth Output
 
+
+    plt.imshow(scaled_data, cmap='coolwarm')
+    plt.axis('off')
+    cbar = plt.colorbar()
+    cbar.set_label('Heat Island Risk', labelpad=20)
+    plt.show()
+
+
+
  exercises:<br>
   easy<br>
   advanced
 
 
+***********************
 
-
-  
-
-We used a histogram to help confirm that the code had no outliers or null data. Below is the code for the histogram and the output.
-    
-    plt.hist(scaled_data, bins=8, edgecolor='red')
-    plt.xlabel('Num_Of_Instances')
-    plt.ylabel('Heat_Index')
-    plt.title('Heat_Index_Philly')
-    plt.show()
-
-
-![Fig2_hist](https://github.com/user-attachments/assets/02d0cbb9-a284-46b9-a1dd-b6aecfa5411f)
-
-As shown by the histogram output of the final processed data, all of the data is higher than 0 and less than 5 (however highest is actually less than 4). There are no null values shown or outliers. This helps confirm the accuracy of the data. 
-
-  exercises:<br>
-  easy<br>
-  advanced
-
-
-
-6. Color Coding and Output of Map
-
-
-  exercises:<br>
-  easy<br>
-  advanced
 
 
 We recommend installing Rasterio using anaconda within the Pysal geospatial library. We recommend you
@@ -525,94 +575,15 @@ Analysis Result and Output Map
 *Script Sections are Out of Order for Explaining Purposes*
 
 
-[1.0.0] Importing all neccessary libraries and modules and functions
-
-    import pysal
-    import os
-    import geopandas as gpd
-    import numpy as np
-    import rasterio
-    import fiona
-    import subprocess
-    import rasterio.mask
-    import matplotlib.pyplot as plt
-    from rasterio.warp import calculate_default_transform, reproject, Resampling
-    from rasterio.transform import from_origin
 
 
-[1.0.5] Setting Workspace and Labeling of Initial Variables
 
-    workspace = os.getcwd()
-
-    #planning_dist = "Planning_Districts.shp"
-    census_tracts = "PHL_Census_Tracts_2021.shp"
-    land_surf_temp = "Land_Surface_Temperature_Landsat_2021.tif"
-    land_cover = "NLCD_LandCover_PhiladelphiaRegion_2021.tif"
-    tree_cover = "NLCD_TreeCoverCanopy_PhiladelphiaRegion_2021.tif"
-    landsat_reprojected = 'LST_2021.tif'
-    landcover_reprojected = 'LC_2021.tif'
-    treecover_reprojected = 'TCC_2021.tif'
-    census_prj = 'census_nad_83.shp'
-    #planning_prj = 'planning_nad_83.shp'
-    dst_crs = 2272
-    
-#CODES FOR REPROJECTIONS ALL TO NAD1983 STATE PLANE US PA SOUTH EPSG CODE #2272
-
-
-#BELOW IS REPROJECTION OF CENSUS_TRACTS SHAPEFILE
 
 [#.#.#] [Actual Step #]
 
  
 
- 
-New Reprojection Code
 
-    
-   
-
-#NEW MASKED LOOPING
-
-  
-
-****************ZONAL STATISTICS****************
-
-    # Defining input paths
-    raster_paths = ['land_cover_mask_reclassified.tif', 'tree_cover_mask_reclassified.tif', 'landsat_mask_reclassified.tif']
-    # Creating output file
-    output_path_zonal = 'heat_island_effect.tif'
-    
-    # Opening input rasters
-    with rasterio.open(raster_paths[0]) as src:
-      meta = src.meta  # Getting metadata from first raster
-      # Reading and stacking all rasters
-      stacked_data = np.stack([rasterio.open(path).read(1) for path in raster_paths])
-
-    # Calculating the average
-    average_data = np.nanmean(stacked_data, axis=0)
-
-    # Updating metadata
-    meta.update(dtype=rasterio.float32, count=1, nodata=np.nan)
-
-    
-    with rasterio.open(output_path_zonal, 'w', **meta) as dst:
-      dst.write(average_data, indexes=1)
-
-    print(f"Averaged raster saved as {output_path_zonal}")
-
-
-****************COLOR CODING & MATPLOTLIB MAP OUTPUT****************
-    
-   
-    
-    plt.imshow(scaled_data, cmap='coolwarm')
-    plt.axis('off')
-    cbar = plt.colorbar()
-    cbar.set_label('Heat Island Risk', labelpad=20)
-    plt.show()
-
-
-***********NOT IN REGULAR CODE, FOR ANALYSIS CAN ALSO CREATE HISTOGRAM*****
 
   
 
