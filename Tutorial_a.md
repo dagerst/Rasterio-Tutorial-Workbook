@@ -1,6 +1,7 @@
-# Rasterio Tutorial
+                                                                        **Rasterio Tutorial**
 
-David Gerstenfeld, Adrian Terech<br> November 18, 2024
+                                                                  David Gerstenfeld, Adrian Terech<br><br> 
+                                                                        November 18, 2024
 
 *******************************
 # Introduction
