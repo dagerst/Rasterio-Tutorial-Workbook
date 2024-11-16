@@ -28,6 +28,21 @@ Key features of Rasterio include:
 Our tutorial main analysis will use rasterio and geopandas for processing of the data, and numPy for doing statistical analysis, and then matplotlib for output of map
 *Script Sections are Out of Order for Easy Explanation and Exercise Purposes*
 
+***Datasets Used***
+
+**Shapefile Used**
+
+"PHL_Census_Tracts_2021.shp"
+
+**Raster files used**
+
+NLCD_TreeCoverCanopy_PhiladelphiaRegion_2021.tif
+
+NLCD_LandCover_PhiladelphiaRegion_2021.tif
+
+Land_Surface_Temperature_Lansat_2021.tif
+
+
 **1.0.1 Rasterio Installation & Data Preparation**
 
 We recommend installing Rasterio using anaconda within the Pysal geospatial library. We recommend you
@@ -409,32 +424,7 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
 
 **https://geobgu.xyz/py/10-rasterio1.html#**
 
-*******************************
-
-# Notable Information
-
-**Raster files used**
-
-NLCD_TreeCoverCanopy_PhiladelphiaRegion_2021.tif
-
-NLCD_LandCover_PhiladelphiaRegion_2021.tif
-
-Land_Surface_Temperature_Lansat_2021.tif
-
-
-*******************************
-ORIGINAL PROJECTIONS:
-
-Land_Surface_Temp = UTM Projection, WGS 84 Datum
-
-Land_Cover = PROJCS: Albers Conical Equal Area, WGS 84 Datum
-
-Tree_Cover = PROJCS: Albers Conical Equal Area, WGS 84 Datum
-
-PHL_Census_Tracts = GEOGCSN: GCS_North_American_1983 
-
 *****************************
-
 
 RASTERIO EXERCISES 
 Link for Exercise Data Download: https://opendataphilly.org/datasets/digital-elevation-model-dem/
