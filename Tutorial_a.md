@@ -46,6 +46,20 @@ conda activate gus5031 #The environment our class is using for tutorials
 
 5. Zonal Statistics on Rasters Using NumPy
 
+
+We used a histogram to help confirm that the code had no outliers or null data. Below is the code for the histogram and the output.
+    
+    plt.hist(scaled_data, bins=8, edgecolor='red')
+    plt.xlabel('Num_Of_Instances')
+    plt.ylabel('Heat_Index')
+    plt.title('Heat_Index_Philly')
+    plt.show()
+
+
+![Fig2_hist](https://github.com/user-attachments/assets/02d0cbb9-a284-46b9-a1dd-b6aecfa5411f)
+
+
+
   exercises:<br>
   easy<br>
   advanced
@@ -58,7 +72,7 @@ conda activate gus5031 #The environment our class is using for tutorials
   exercises:<br>
   easy<br>
   advanced
-   
+
 
 We recommend installing Rasterio using anaconda within the Pysal geospatial library. We recommend you
 you install , you might
@@ -557,11 +571,7 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
 
 ***********NOT IN REGULAR CODE, FOR ANALYSIS CAN ALSO CREATE HISTOGRAM*****
 
-    plt.hist(scaled_data, bins=8, edgecolor='red')
-    plt.xlabel('Num_Of_Instances')
-    plt.ylabel('Heat_Index')
-    plt.title('Heat_Index_Philly')
-    plt.show()
+  
 
     
 ![Figure_1](https://github.com/user-attachments/assets/043922b8-fbc4-42ab-b25e-c728dea60269)
@@ -569,4 +579,4 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
 
 
 
-![Fig2_hist](https://github.com/user-attachments/assets/02d0cbb9-a284-46b9-a1dd-b6aecfa5411f)
+
