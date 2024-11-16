@@ -293,16 +293,15 @@ current script
 
     print("Original CRS:", gdf.crs)
 
-    target_crs = "EPSG:2272"
+    target_crs = 2272
 
     gdf_reprojected = gdf.to_crs(target_crs)
-
-    print("New CRS:", gdf_reprojected.crs)
-
-    output_shapefile = census_prj
+    
     gdf_reprojected.to_file(census_prj, driver='ESRI Shapefile')
+    
+    print("Reprojected CRS:", gdf_reprojected.crs)
 
-
+ 
 New Reprojection Code
 
     land_cover_raster = land_cover 
@@ -408,7 +407,7 @@ New Reprojection Code
     output_files = ["land_cover_mask.tif", "tree_cover_mask.tif", "land_surface_temp_mask.tif"]
     
     # Read the geometry shapes from shapefile
-    with fiona.open(census_prj, "r") as shapefile:
+    with fiona.open(census_reprojected, "r") as shapefile:
         shapes = [feature["geometry"] for feature in shapefile]
     
     # Loop through each raster, apply mask, and save the output
@@ -430,7 +429,7 @@ New Reprojection Code
             with rasterio.open(output_path, "w", **out_meta) as dest:
                 dest.write(out_image)
     
-        print(f'{landcover_reprojected} has been masked and saved to {output_path}')
+        print(f'{input_path} has been masked and saved to {output_path}')
 
 ****************RECLASSIFYING LAND COVER****************
 
@@ -509,7 +508,9 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
 
     # Defining input paths
     raster_paths = ['land_cover_mask_reclassified.tif', 'tree_cover_mask_reclassified.tif', 'landsat_mask_reclassified.tif']
-
+    # Creating output file
+    output_path_zonal = 'heat_island_effect.tif'
+    
     # Opening input rasters
     with rasterio.open(raster_paths[0]) as src:
       meta = src.meta  # Getting metadata from first raster
@@ -522,12 +523,11 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
     # Updating metadata
     meta.update(dtype=rasterio.float32, count=1, nodata=np.nan)
 
-    # Creating output file
-    output_path = 'heat_island_effect.tif'
-    with rasterio.open(output_path, 'w', **meta) as dst:
+    
+    with rasterio.open(output_path_zonal, 'w', **meta) as dst:
       dst.write(average_data, indexes=1)
 
-    print(f"Averaged raster saved as {output_path}")
+    print(f"Averaged raster saved as {output_path_zonal}")
 
 
 ****************COLOR CODING & MATPLOTLIB MAP OUTPUT****************
@@ -536,7 +536,7 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
     output_path = 'heat_island_color.tif'
     
     # Open input file
-    with rasterio.open('heat_island_effect.tif') as src:
+    with rasterio.open(output_path_zonal) as src:
         data = src.read(1)
         meta = src.meta
     
@@ -544,8 +544,8 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
     max_value = 5.0
     
     # Scale and clip data
-    scaled_data = np.clip(data, 0, max_value)
-    scaled_data = (scaled_data / max_value * 5).astype(np.uint8)
+    clipped_data = np.clip(data, 0, max_value)
+    scaled_data = (clipped_data / max_value * 5).astype(np.uint8)
     
     # Update metadata without nodata value
     meta.update(dtype=rasterio.uint8)
