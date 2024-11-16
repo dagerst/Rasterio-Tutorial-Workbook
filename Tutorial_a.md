@@ -18,34 +18,60 @@ In this tutorial we will cover reprojection, masking by using polygons, reclassi
 
 1.0 Rasterio Installation & Data Preparation
 
-[1]
 conda create -n gus5031 -c conda-forge pysal geopandas #Installs Pysal which include Rasterio and Geopandas<br>
 conda activate gus5031 #The environment our class is using for tutorials
 
+2.0 Color and Scaling and Clipping data and Histogram to check data for null and outliers
 
+  exercises:<br>
+  easy<br>
+  advanced
 
-2.0 Rasterio Reprojection
+3.0 Reclassifying Rasters
+
+  exercises:<br>
+  easy<br>
+  advanced
+
+4.0 Census  Reprojection
 
 
   exercises:<br>
   easy<br>
   advanced
 
-3.0 Masking by Use of Polygons
+5.0 Rest of Reprojection
 
-  exercises:<br>
-    easy<br>
-    advanced
-
-
-4.0 Reclassifying Rasters
 
   exercises:<br>
   easy<br>
   advanced
 
-5. Zonal Statistics on Rasters Using NumPy
+6.0 Masking Rasters Using Polygons
 
+  exercises:<br>
+  easy<br>
+  advanced
+
+  
+7.0 Zonal Statistics on Rasters Using NumPy
+
+ exercises:<br>
+  easy<br>
+  advanced
+
+
+
+8.0 Chloropleth Output
+
+ exercises:<br>
+  easy<br>
+  advanced
+
+
+
+
+  
 
 We used a histogram to help confirm that the code had no outliers or null data. Below is the code for the histogram and the output.
     
