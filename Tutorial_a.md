@@ -293,8 +293,6 @@ current script
 
     print("Original CRS:", gdf.crs)
 
-    target_crs = 2272
-
     gdf_reprojected = gdf.to_crs(target_crs)
     
     gdf_reprojected.to_file(census_prj, driver='ESRI Shapefile')
@@ -328,7 +326,6 @@ New Reprojection Code
       target_crs = target_raster.crs
 
     # Define the target CRS and resolution
-    dst_crs = 2272
     dst_transform, dst_width, dst_height = rasterio.warp.calculate_default_transform(
         target_crs, dst_crs, target_raster.width, target_raster.height, *target_raster.bounds)
 
