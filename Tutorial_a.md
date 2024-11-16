@@ -427,7 +427,6 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
 *****************************
 
 **Rasterio Exercises** 
-Link for Exercise Data Download: https://opendataphilly.org/datasets/digital-elevation-model-dem/
 
     Here are a few simple exercises to get familiar with using the rasterio library in Python for working with raster data:
     
@@ -524,6 +523,10 @@ Downloaded Band 10 dataset and metadata file. Band 10 data came in as raw pixel 
 Census Tracts: https://www.census.gov/cgi-bin/geo/shapefiles/index.php?year=2021&layergroup=Census+Tracts
 
 Planning Districts: https://opendataphilly.org/datasets/planning-districts/
+
+*EXERCISE DATA SOURCE LINKS*
+
+https://opendataphilly.org/datasets/digital-elevation-model-dem/
 
 *******************
 
