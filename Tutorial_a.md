@@ -299,7 +299,7 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
 
 6.0 Masking Rasters Using Polygons
 
-  # File paths
+    # File paths
     input_files = [landcover_reprojected, treecover_reprojected, landsat_reprojected]
     output_files = ["land_cover_mask.tif", "tree_cover_mask.tif", "land_surface_temp_mask.tif"]
     
@@ -337,7 +337,7 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
   
 7.0 Zonal Statistics on Rasters Using NumPy
 
-   # Defining input paths
+    # Defining input paths
     raster_paths = ['land_cover_mask_reclassified.tif', 'tree_cover_mask_reclassified.tif', 'landsat_mask_reclassified.tif']
     # Creating output file
     output_path_zonal = 'heat_island_effect.tif'
