@@ -27,27 +27,27 @@ conda activate gus5031 #The environment our class is using for tutorials
 2.0 Rasterio Reprojection
 
 
-  exercises:
-  easy
+  exercises:<br>
+  easy<br>
   advanced
 
 3.0 Masking by Use of Polygons
 
-  exercises:
-    easy
+  exercises:<br>
+    easy<br>
     advanced
 
 
 4.0 Reclassifying Rasters
 
-  exercises:
-  easy
+  exercises:<br>
+  easy<br>
   advanced
 
 5. Zonal Statistics on Rasters Using NumPy
 
-  exercises:
-  easy
+  exercises:<br>
+  easy<br>
   advanced
 
 
@@ -55,8 +55,8 @@ conda activate gus5031 #The environment our class is using for tutorials
 6. Color Coding and Output of Map
 
 
-  exercises:
-  easy
+  exercises:<br>
+  easy<br>
   advanced
    
 
