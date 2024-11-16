@@ -23,11 +23,113 @@ conda activate gus5031 #The environment our class is using for tutorials
 
 2.0 Color and Scaling and Clipping data and Histogram to check data for null and outliers
 
+    # Define output path
+    output_path = 'heat_island_color.tif'
+    
+    # Open input file
+    with rasterio.open(output_path_zonal) as src:
+        data = src.read(1)
+        meta = src.meta
+    
+    # Define maximum value for scaling
+    max_value = 5.0
+    
+    # Scale and clip data
+    clipped_data = np.clip(data, 0, max_value)
+    scaled_data = (clipped_data / max_value * 5).astype(np.uint8)
+    
+    # Update metadata without nodata value
+    meta.update(dtype=rasterio.uint8)
+    if 'nodata' in meta:
+        del meta['nodata']  # Remove nodata setting from metadata
+    
+    # Save output file
+    with rasterio.open(output_path, 'w', **meta) as dst:
+        dst.write(scaled_data, indexes=1)
+
+
   exercises:<br>
   easy<br>
   advanced
 
 3.0 Reclassifying Rasters
+******************************************************************
+****************RECLASSIFYING LAND COVER****************
+
+    # Opening masked land cover raster
+    with rasterio.open("land_cover_mask.tif") as src:
+    raster_data = src.read(1)
+    profile = src.profile 
+
+    # Create an empty array with the same shape as the raster data
+    reclassified_data = np.zeros_like(raster_data)
+
+    # Apply reclassification rules
+    reclassified_data[(raster_data > 24) | (raster_data < 21)] = 1
+    reclassified_data[(raster_data == 21)] = 2
+    reclassified_data[(raster_data == 22)] = 3
+    reclassified_data[(raster_data == 23)] = 4
+    reclassified_data[(raster_data == 24)] = 5
+
+    # Saving reclassified file
+    with rasterio.open('land_cover_mask_reclassified.tif', 'w', **profile) as dst:
+      dst.write(reclassified_data, 1)
+
+Land Cover was reclassified this way because values 21 to 24 indicate developed land, varying in development intensity (21 is the lowest intenity, 24 is the highest). Values of 1 to 5 were added to reclassified raster, with a high value indicating higher density and higher risk to urban heat island effect.
+
+
+****************RECLASSIFYING TREE COVER****************
+
+    # Opening maked tree cover raster
+    with rasterio.open("tree_cover_mask.tif") as src:
+      raster_data = src.read(1)
+      profile = src.profile 
+
+    # Create an empty array with the same shape as the raster data
+    reclassified_data = np.zeros_like(raster_data)
+
+    # Apply reclassification rules
+    reclassified_data[(raster_data >= 0) & (raster_data <= 20)] = 5
+    reclassified_data[(raster_data >= 21) & (raster_data <= 40)] = 4
+    reclassified_data[(raster_data >= 41) & (raster_data <= 60)] = 3
+    reclassified_data[(raster_data >= 61) & (raster_data <= 80)] = 2
+    reclassified_data[(raster_data >= 81) & (raster_data <= 100)] = 1
+
+    # Saving reclassified file
+    with rasterio.open('tree_cover_mask_reclassified.tif', 'w', **profile) as dst:
+      dst.write(reclassified_data, 1)
+
+Tree cover raster was split using the 5-class Jenks (Natural Breaks) method. Since lower tree cover increases risk to urban heat island effect, values were reclassified from 5 to 1. 
+
+
+****************RECLASSIFYING LAND SURFACE TEMPERATURE****************
+
+    # Opening masked landsat data raster
+    with rasterio.open("land_surf_temp_mask.tif") as src:
+      raster_data = src.read(1)
+      profile = src.profile 
+
+    # Create an empty array with the same shape as the raster data
+    reclassified_data = np.zeros_like(raster_data)
+
+    # Applying reclassification rules
+    reclassified_data[(raster_data >= 50)] = 0
+    reclassified_data[(raster_data >= 51) & (raster_data <= 60)] = 1
+    reclassified_data[(raster_data >= 61) & (raster_data <= 70)] = 2
+    reclassified_data[(raster_data >= 71) & (raster_data <= 80)] = 3
+    reclassified_data[(raster_data >= 81) & (raster_data <= 90)] = 4
+    reclassified_data[(raster_data >= 91)] = 5
+
+    # Saving reclassified file
+    with rasterio.open('landsat_mask_reclassified.tif', 'w', **profile) as dst:
+      dst.write(reclassified_data, 1)
+
+Landsat data was reclassified into a 6-class method, where the highest and lowest class contain the outlier data while the interior 4 classes are split by 10 degrees. Higher temperature was given a higher reclassified value.
+
+
+
+
+
 
   exercises:<br>
   easy<br>
@@ -35,13 +137,114 @@ conda activate gus5031 #The environment our class is using for tutorials
 
 4.0 Census  Reprojection
 
+     gdf = gpd.read_file(census_tracts)
 
+    print("Original CRS:", gdf.crs)
+
+    gdf_reprojected = gdf.to_crs(dst_crs)
+    
+    gdf_reprojected.to_file(census_reprojected, driver='ESRI Shapefile')
+    
+    print("Reprojected CRS:", gdf_reprojected.crs)
+
+
+    
   exercises:<br>
   easy<br>
   advanced
 
 5.0 Rest of Reprojection
 
+     source_rasters = tree_cover, land_surf_temp
+        output_raster_paths = treecover_reprojected, landsat_reprojected
+        output_first_raster_path = landcover_reprojected
+    
+        # Open the first raster and get its specifications
+        with rasterio.open(land_cover) as target_raster:
+          target_shape = (target_raster.height, target_raster.width)
+          target_data = target_raster.read(1)
+          source_dtype = target_data.dtype
+    
+        # Create an empty array for the reprojected target raster data
+        destination_target = np.empty(target_shape, dtype=source_dtype)
+    
+        # Reproject the target raster
+        with rasterio.open(land_cover_raster) as target_raster:
+          target_data = target_raster.read(1)
+          target_transform = target_raster.transform
+          source_crs = target_raster.crs
+    
+        # Define the target CRS and resolution
+        dst_transform, dst_width, dst_height = rasterio.warp.calculate_default_transform(
+            source_crs, dst_crs, target_raster.width, target_raster.height, *target_raster.bounds)
+    
+        # Create a destination array for the reprojected target
+        destination_target = np.empty((dst_height, dst_width), dtype=source_dtype)
+    
+        # Perform the reprojection
+        reproject(
+            source=target_data,
+            destination=destination_target,
+            src_transform=target_transform,
+            src_crs=source_crs,
+            dst_transform=dst_transform,
+            dst_crs=dst_crs,
+            resampling=Resampling.nearest
+        )
+    
+        # Save the reprojected target raster
+        with rasterio.open(
+          landcover_reprojected,
+          'w',
+          driver='GTiff',
+          height=dst_height,
+          width=dst_width,
+          count=1,
+          dtype=source_dtype,
+          crs=dst_crs,
+          transform=dst_transform
+        ) as dst:
+          dst.write(destination_target, 1)
+    
+        print(f"Reprojected target raster saved as {landcover_reprojected}")
+    
+        # Looping through the remaining rasters with land cover as the target raster
+        for source_raster_path, output_raster_path in zip(source_rasters, output_raster_paths):
+          with rasterio.open(source_raster_path) as source_raster:
+            source_data = source_raster.read(1)
+            source_transform = source_raster.transform
+            source_crs = source_raster.crs
+            source_dtype = source_data.dtype
+    
+            # Create an empty array with the shape and dtype of the target resolution
+            destination = np.empty((dst_height, dst_width), dtype=source_dtype)
+    
+            # Perform the reprojection
+            reproject(
+                source=source_data,
+                destination=destination,
+                src_transform=source_transform,
+                src_crs=source_crs,
+                dst_transform=dst_transform,
+                dst_crs=dst_crs,
+                resampling=Resampling.nearest  # You can use other methods like bilinear, cubic, etc.
+            )
+    
+        # Save the reprojected raster to a new file
+        with rasterio.open(
+            output_raster_path,
+            'w',
+            driver='GTiff',
+            height=dst_height,
+            width=dst_width,
+            count=1,
+            dtype=source_dtype,
+            crs=dst_crs,
+            transform=dst_transform
+        ) as dst:
+            dst.write(destination, 1)
+    
+        print(f"Reprojected source raster saved as {output_raster_path}")
 
   exercises:<br>
   easy<br>
@@ -49,12 +252,47 @@ conda activate gus5031 #The environment our class is using for tutorials
 
 6.0 Masking Rasters Using Polygons
 
+  # File paths
+    input_files = [landcover_reprojected, treecover_reprojected, landsat_reprojected]
+    output_files = ["land_cover_mask.tif", "tree_cover_mask.tif", "land_surface_temp_mask.tif"]
+    
+    # Read the geometry shapes from shapefile
+    with fiona.open(census_reprojected, "r") as shapefile:
+        shapes = [feature["geometry"] for feature in shapefile]
+    
+    # Loop through each raster, apply mask, and save the output
+    for input_path, output_path in zip(input_files, output_files):
+        with rasterio.open(input_path) as src:
+            # Mask the raster with the shapefile geometries
+            out_image, out_transform = rasterio.mask.mask(src, shapes, crop=True)
+            out_meta = src.meta
+    
+            # Update metadata
+            out_meta.update({
+                "driver": "GTiff",
+                "height": out_image.shape[1],
+                "width": out_image.shape[2],
+                "transform": out_transform
+            })
+    
+            # Save the masked raster to the output file
+            with rasterio.open(output_path, "w", **out_meta) as dest:
+                dest.write(out_image)
+    
+        print(f'{input_path} has been masked and saved to {output_path}')
+
+
+
   exercises:<br>
   easy<br>
   advanced
 
   
 7.0 Zonal Statistics on Rasters Using NumPy
+
+
+
+
 
  exercises:<br>
   easy<br>
@@ -325,214 +563,17 @@ Analysis Result and Output Map
 
 [#.#.#] [Actual Step #]
 
-    gdf = gpd.read_file(census_tracts)
-
-    print("Original CRS:", gdf.crs)
-
-    gdf_reprojected = gdf.to_crs(dst_crs)
-    
-    gdf_reprojected.to_file(census_reprojected, driver='ESRI Shapefile')
-    
-    print("Reprojected CRS:", gdf_reprojected.crs)
+ 
 
  
 New Reprojection Code
 
     
-    source_rasters = tree_cover, land_surf_temp
-    output_raster_paths = treecover_reprojected, landsat_reprojected
-    output_first_raster_path = landcover_reprojected
-
-    # Open the first raster and get its specifications
-    with rasterio.open(land_cover) as target_raster:
-      target_shape = (target_raster.height, target_raster.width)
-      target_data = target_raster.read(1)
-      source_dtype = target_data.dtype
-
-    # Create an empty array for the reprojected target raster data
-    destination_target = np.empty(target_shape, dtype=source_dtype)
-
-    # Reproject the target raster
-    with rasterio.open(land_cover_raster) as target_raster:
-      target_data = target_raster.read(1)
-      target_transform = target_raster.transform
-      source_crs = target_raster.crs
-
-    # Define the target CRS and resolution
-    dst_transform, dst_width, dst_height = rasterio.warp.calculate_default_transform(
-        source_crs, dst_crs, target_raster.width, target_raster.height, *target_raster.bounds)
-
-    # Create a destination array for the reprojected target
-    destination_target = np.empty((dst_height, dst_width), dtype=source_dtype)
-
-    # Perform the reprojection
-    reproject(
-        source=target_data,
-        destination=destination_target,
-        src_transform=target_transform,
-        src_crs=source_crs,
-        dst_transform=dst_transform,
-        dst_crs=dst_crs,
-        resampling=Resampling.nearest
-    )
-
-    # Save the reprojected target raster
-    with rasterio.open(
-      landcover_reprojected,
-      'w',
-      driver='GTiff',
-      height=dst_height,
-      width=dst_width,
-      count=1,
-      dtype=source_dtype,
-      crs=dst_crs,
-      transform=dst_transform
-    ) as dst:
-      dst.write(destination_target, 1)
-
-    print(f"Reprojected target raster saved as {landcover_reprojected}")
-
-    # Looping through the remaining rasters with land cover as the target raster
-    for source_raster_path, output_raster_path in zip(source_rasters, output_raster_paths):
-      with rasterio.open(source_raster_path) as source_raster:
-        source_data = source_raster.read(1)
-        source_transform = source_raster.transform
-        source_crs = source_raster.crs
-        source_dtype = source_data.dtype
-
-        # Create an empty array with the shape and dtype of the target resolution
-        destination = np.empty((dst_height, dst_width), dtype=source_dtype)
-
-        # Perform the reprojection
-        reproject(
-            source=source_data,
-            destination=destination,
-            src_transform=source_transform,
-            src_crs=source_crs,
-            dst_transform=dst_transform,
-            dst_crs=dst_crs,
-            resampling=Resampling.nearest  # You can use other methods like bilinear, cubic, etc.
-        )
-
-    # Save the reprojected raster to a new file
-    with rasterio.open(
-        output_raster_path,
-        'w',
-        driver='GTiff',
-        height=dst_height,
-        width=dst_width,
-        count=1,
-        dtype=source_dtype,
-        crs=dst_crs,
-        transform=dst_transform
-    ) as dst:
-        dst.write(destination, 1)
-
-    print(f"Reprojected source raster saved as {output_raster_path}")
+   
 
 #NEW MASKED LOOPING
 
-    # File paths
-    input_files = [landcover_reprojected, treecover_reprojected, landsat_reprojected]
-    output_files = ["land_cover_mask.tif", "tree_cover_mask.tif", "land_surface_temp_mask.tif"]
-    
-    # Read the geometry shapes from shapefile
-    with fiona.open(census_reprojected, "r") as shapefile:
-        shapes = [feature["geometry"] for feature in shapefile]
-    
-    # Loop through each raster, apply mask, and save the output
-    for input_path, output_path in zip(input_files, output_files):
-        with rasterio.open(input_path) as src:
-            # Mask the raster with the shapefile geometries
-            out_image, out_transform = rasterio.mask.mask(src, shapes, crop=True)
-            out_meta = src.meta
-    
-            # Update metadata
-            out_meta.update({
-                "driver": "GTiff",
-                "height": out_image.shape[1],
-                "width": out_image.shape[2],
-                "transform": out_transform
-            })
-    
-            # Save the masked raster to the output file
-            with rasterio.open(output_path, "w", **out_meta) as dest:
-                dest.write(out_image)
-    
-        print(f'{input_path} has been masked and saved to {output_path}')
-
-****************RECLASSIFYING LAND COVER****************
-
-    # Opening masked land cover raster
-    with rasterio.open("land_cover_mask.tif") as src:
-    raster_data = src.read(1)
-    profile = src.profile 
-
-    # Create an empty array with the same shape as the raster data
-    reclassified_data = np.zeros_like(raster_data)
-
-    # Apply reclassification rules
-    reclassified_data[(raster_data > 24) | (raster_data < 21)] = 1
-    reclassified_data[(raster_data == 21)] = 2
-    reclassified_data[(raster_data == 22)] = 3
-    reclassified_data[(raster_data == 23)] = 4
-    reclassified_data[(raster_data == 24)] = 5
-
-    # Saving reclassified file
-    with rasterio.open('land_cover_mask_reclassified.tif', 'w', **profile) as dst:
-      dst.write(reclassified_data, 1)
-
-Land Cover was reclassified this way because values 21 to 24 indicate developed land, varying in development intensity (21 is the lowest intenity, 24 is the highest). Values of 1 to 5 were added to reclassified raster, with a high value indicating higher density and higher risk to urban heat island effect.
-
-
-****************RECLASSIFYING TREE COVER****************
-
-    # Opening maked tree cover raster
-    with rasterio.open("tree_cover_mask.tif") as src:
-      raster_data = src.read(1)
-      profile = src.profile 
-
-    # Create an empty array with the same shape as the raster data
-    reclassified_data = np.zeros_like(raster_data)
-
-    # Apply reclassification rules
-    reclassified_data[(raster_data >= 0) & (raster_data <= 20)] = 5
-    reclassified_data[(raster_data >= 21) & (raster_data <= 40)] = 4
-    reclassified_data[(raster_data >= 41) & (raster_data <= 60)] = 3
-    reclassified_data[(raster_data >= 61) & (raster_data <= 80)] = 2
-    reclassified_data[(raster_data >= 81) & (raster_data <= 100)] = 1
-
-    # Saving reclassified file
-    with rasterio.open('tree_cover_mask_reclassified.tif', 'w', **profile) as dst:
-      dst.write(reclassified_data, 1)
-
-Tree cover raster was split using the 5-class Jenks (Natural Breaks) method. Since lower tree cover increases risk to urban heat island effect, values were reclassified from 5 to 1. 
-
-
-****************RECLASSIFYING LAND SURFACE TEMPERATURE****************
-
-    # Opening masked landsat data raster
-    with rasterio.open("land_surf_temp_mask.tif") as src:
-      raster_data = src.read(1)
-      profile = src.profile 
-
-    # Create an empty array with the same shape as the raster data
-    reclassified_data = np.zeros_like(raster_data)
-
-    # Applying reclassification rules
-    reclassified_data[(raster_data >= 50)] = 0
-    reclassified_data[(raster_data >= 51) & (raster_data <= 60)] = 1
-    reclassified_data[(raster_data >= 61) & (raster_data <= 70)] = 2
-    reclassified_data[(raster_data >= 71) & (raster_data <= 80)] = 3
-    reclassified_data[(raster_data >= 81) & (raster_data <= 90)] = 4
-    reclassified_data[(raster_data >= 91)] = 5
-
-    # Saving reclassified file
-    with rasterio.open('landsat_mask_reclassified.tif', 'w', **profile) as dst:
-      dst.write(reclassified_data, 1)
-
-Landsat data was reclassified into a 6-class method, where the highest and lowest class contain the outlier data while the interior 4 classes are split by 10 degrees. Higher temperature was given a higher reclassified value.
-
+  
 
 ****************ZONAL STATISTICS****************
 
@@ -562,29 +603,7 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
 
 ****************COLOR CODING & MATPLOTLIB MAP OUTPUT****************
     
-    # Define output path
-    output_path = 'heat_island_color.tif'
-    
-    # Open input file
-    with rasterio.open(output_path_zonal) as src:
-        data = src.read(1)
-        meta = src.meta
-    
-    # Define maximum value for scaling
-    max_value = 5.0
-    
-    # Scale and clip data
-    clipped_data = np.clip(data, 0, max_value)
-    scaled_data = (clipped_data / max_value * 5).astype(np.uint8)
-    
-    # Update metadata without nodata value
-    meta.update(dtype=rasterio.uint8)
-    if 'nodata' in meta:
-        del meta['nodata']  # Remove nodata setting from metadata
-    
-    # Save output file
-    with rasterio.open(output_path, 'w', **meta) as dst:
-        dst.write(scaled_data, indexes=1)
+   
     
     plt.imshow(scaled_data, cmap='coolwarm')
     plt.axis('off')
