@@ -1,4 +1,4 @@
-<h1 style="bold: center;"Rasterio Tutorial/h1>
+<h1 style="bold: center;"><Rasterio Tutorial/h1>
 
 David Gerstenfeld, Adrian Terech<br><br> 
 November 18, 2024
