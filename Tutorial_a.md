@@ -578,7 +578,7 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
 
 
 
-**WORKS CITED***
+**WORKS CITED**
 
 Amindin, Atiyeh, et al. “Spatial and Temporal Analysis of Urban Heat Island Using Landsat Satellite Images.” Environmental Science and Pollution Research, vol. 28, no. 30, 30 Mar. 2021, pp. 41439–41450, https://doi.org/10.1007/s11356-021-13693-0.
 
