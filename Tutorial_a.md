@@ -99,9 +99,9 @@ As shown by the histogram output of the final processed data, all of the data is
   easy<br>
   advanced
 
-3.0 Reclassifying Rasters
-******************************************************************
-****************RECLASSIFYING LAND COVER****************
+**3.0 Reclassifying Rasters**
+
+*3.1 Reclassifying Land Cover Raster*
 
     # Opening masked land cover raster
     with rasterio.open("land_cover_mask.tif") as src:
@@ -125,7 +125,7 @@ As shown by the histogram output of the final processed data, all of the data is
 Land Cover was reclassified this way because values 21 to 24 indicate developed land, varying in development intensity (21 is the lowest intenity, 24 is the highest). Values of 1 to 5 were added to reclassified raster, with a high value indicating higher density and higher risk to urban heat island effect.
 
 
-****************RECLASSIFYING TREE COVER****************
+*3.2 Reclassifying Tree Cover Raster*
 
     # Opening maked tree cover raster
     with rasterio.open("tree_cover_mask.tif") as src:
@@ -148,8 +148,7 @@ Land Cover was reclassified this way because values 21 to 24 indicate developed 
 
 Tree cover raster was split using the 5-class Jenks (Natural Breaks) method. Since lower tree cover increases risk to urban heat island effect, values were reclassified from 5 to 1. 
 
-
-****************RECLASSIFYING LAND SURFACE TEMPERATURE****************
+*3.3 Reclassifying Landsat Data Raster*
 
     # Opening masked landsat data raster
     with rasterio.open("land_surf_temp_mask.tif") as src:
