@@ -16,7 +16,25 @@ It also handles reading and writing new GeoTIFFs and associated geographic metad
 
 In this tutorial we will cover reprojection, masking by using polygons, reclassifying rasters, zonal statistics, color coding, and using matplotlib to prepare a final map for the output raster. 
 
+Key features of Rasterio include:
+
+- Reading and Writing GeoTIFFs: It can handle a variety of raster data formats (GeoTIFF, JPEG2000, etc.) with geographic metadata.<br>
+- Geospatial Metadata Handling: Rasterio integrates well with the Geospatial Data Abstraction Library (GDAL), allowing access to spatial reference systems, projections, and other geospatial metadata.<br>
+- Data Access: It enables easy reading of specific windows or blocks of large raster datasets without loading the entire file into memory.<br>
+- NumPy Integration: The raster data can be loaded directly into NumPy arrays for efficient numerical operations.<br>
+- Coordinate Reference Systems: Rasterio allows reading and transforming coordinate systems, making it easy to project raster data into different spatial reference systems.<br>
+
+
+Our tutorial main analysis will use rasterio and geopandas for processing of the data, and numPy for doing statistical analysis, and then matplotlib for output of map
+
+
 **1.0.1 Rasterio Installation & Data Preparation**
+
+We recommend installing Rasterio using anaconda within the Pysal geospatial library. We recommend you
+you install , you might
+want to use the gus5031 env.) To install, open the Miniconda prompt, navigate to the proper
+environment, and use the following commands:
+
 
 conda create -n gus5031 -c conda-forge pysal geopandas #Installs Pysal which include Rasterio and Geopandas<br>
 conda activate gus5031 #The environment our class is using for tutorials
@@ -386,43 +404,11 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
 
 
 
-We recommend installing Rasterio using anaconda within the Pysal geospatial library. We recommend you
-you install , you might
-want to use the gus5031 env.) To install, open the Miniconda prompt, navigate to the proper
-environment, and use the following commands:
 
-  
-</p>
-
-Key features of Rasterio include:
-
-- Reading and Writing GeoTIFFs: It can handle a variety of raster data formats (GeoTIFF, JPEG2000, etc.) with geographic metadata.<br>
-- Geospatial Metadata Handling: Rasterio integrates well with the Geospatial Data Abstraction Library (GDAL), allowing access to spatial reference systems, projections, and other geospatial metadata.<br>
-- Data Access: It enables easy reading of specific windows or blocks of large raster datasets without loading the entire file into memory.<br>
-- NumPy Integration: The raster data can be loaded directly into NumPy arrays for efficient numerical operations.<br>
-- Coordinate Reference Systems: Rasterio allows reading and transforming coordinate systems, making it easy to project raster data into different spatial reference systems.<br>
-
-
-
-
-
-*majority be in rasterio for processing of data, then geopanda for doing final statistical analysis, and then matplotlib for output of map*
 
 **https://rasterio.readthedocs.io/en/stable/topics/index.html**
 
 **https://www.mrlc.gov/viewer/**
-
-*******************************
-
-# Topics
-- **Raster Reprojection**
-- **Looping**
-- **Vector Reprojection**
-- **Masking raster using shapefile**
-- **Reclassifying rasters**
-- **Zonal Statistics**
-- **Color Coding**
-- **Preparing the Final Map**
 
 *******************************
 
