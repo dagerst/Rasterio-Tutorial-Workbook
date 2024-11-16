@@ -86,7 +86,7 @@ conda activate gus5031 #The environment our class is using for tutorials
     dst_crs = 2272
     #dst_crs equals the EPSG code for destionation reprojection which is NAD1983, State Plane US PA South 
 
-**2.0 [Actual Step #] Color and Scaling and Clipping data and Histogram to check data for null and outliers**
+**2.0 [Actual Step #7] Color and Scaling and Clipping data and Histogram to check data for null and outliers**
  
     # Define output path
     output_path = 'heat_island_color.tif'
@@ -131,7 +131,7 @@ As shown by the histogram output of the final processed data, all of the data is
   easy<br>
   advanced
 
-**3.0 Reclassifying Rasters**
+**3.0 [Actual Step #5] Reclassifying Rasters**
 
 *3.1 Reclassifying Land Cover Raster*
 
@@ -213,7 +213,7 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
   easy<br>
   advanced
 
-**4.0 Reprojection of Census Vector Data**
+**4.0 [Actual Step #2] Reprojection of Census Vector Data**
 
      gdf = gpd.read_file(census_tracts)
 
@@ -231,7 +231,7 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
   easy<br>
   advanced
 
-**5.0 Reprojection Loop for Raster Data**
+**5.0 [Actual Step #3] Reprojection Loop for Raster Data**
 
      source_rasters = tree_cover, land_surf_temp
         output_raster_paths = treecover_reprojected, landsat_reprojected
@@ -328,7 +328,7 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
   easy<br>
   advanced
 
-**6.0 Masking Raster Data Using Polygons from Census Data**
+**6.0 [Actual Step #4] Masking Raster Data Using Polygons from Census Data**
 
     # File paths
     input_files = [landcover_reprojected, treecover_reprojected, landsat_reprojected]
@@ -366,7 +366,7 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
   advanced
 
   
-**7.0 Zonal Statistics on Raster Outputs Using NumPy**
+**7.0 [Actual Step #6] Zonal Statistics on Raster Outputs Using NumPy**
 
     # Defining input paths
     raster_paths = ['land_cover_mask_reclassified.tif', 'tree_cover_mask_reclassified.tif', 'landsat_mask_reclassified.tif']
@@ -399,7 +399,7 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
 
 
 
-**8.0 Chloropleth Final Output**
+**8.0 [Actual Step #8] Chloropleth Final Output**
 
 
     plt.imshow(scaled_data, cmap='coolwarm')
