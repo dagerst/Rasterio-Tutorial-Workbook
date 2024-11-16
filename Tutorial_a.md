@@ -564,7 +564,8 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
     plt.ylabel('Heat_Index')
     plt.title('Heat_Index_Philly')
     plt.show()
-![Figure_1](https://github.com/user-attachments/assets/ca2c5968-010f-453d-a66a-beea6dccd36c)
+
+![Figure_1](https://github.com/user-attachments/assets/7994f343-7df8-4480-a2af-0aa97e08684f)
 
 
 ![Fig2_hist](https://github.com/user-attachments/assets/02d0cbb9-a284-46b9-a1dd-b6aecfa5411f)
