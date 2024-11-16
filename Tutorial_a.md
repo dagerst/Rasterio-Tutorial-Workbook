@@ -257,8 +257,11 @@ Color Coding
 Analysis Result and Output Map
 
 *******************
+*Start of Main Analysis Python Script for Workbook*
+*Script Sections are Out of Order for Explaining Purposes*
 
-current script
+
+[1] Importing all neccessary libraries and modules and functions
 
     import pysal
     import os
@@ -272,11 +275,10 @@ current script
     from rasterio.warp import calculate_default_transform, reproject, Resampling
     from rasterio.transform import from_origin
 
-#ABOVE IS ALL IMPORTING
 
+[2] Setting Workspace and Labeling of Initial Variables
 
     workspace = os.getcwd()
-    overwriteOutput = True
 
     #planning_dist = "Planning_Districts.shp"
     census_tracts = "PHL_Census_Tracts_2021.shp"
@@ -288,12 +290,8 @@ current script
     treecover_reprojected = 'TCC_2021.tif'
     census_prj = 'census_nad_83.shp'
     #planning_prj = 'planning_nad_83.shp'
-
-
-#VARIABLE NAMING
-    
-    
     dst_crs = 2272
+    
 #CODES FOR REPROJECTIONS ALL TO NAD1983 STATE PLANE US PA SOUTH EPSG CODE #2272
 
 
