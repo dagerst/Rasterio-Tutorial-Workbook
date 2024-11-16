@@ -567,7 +567,5 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
 
 
 ![Fig2_hist](https://github.com/user-attachments/assets/02d0cbb9-a284-46b9-a1dd-b6aecfa5411f)
-
-
-    ![Figure_1](https://github.com/user-attachments/assets/e38edeec-3257-405d-861f-644614fee494)
+![Figure_1](https://github.com/user-attachments/assets/e38edeec-3257-405d-861f-644614fee494)
 
