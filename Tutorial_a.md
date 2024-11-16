@@ -261,7 +261,7 @@ Analysis Result and Output Map
 *Script Sections are Out of Order for Explaining Purposes*
 
 
-[1] Importing all neccessary libraries and modules and functions
+[1.0.0] Importing all neccessary libraries and modules and functions
 
     import pysal
     import os
@@ -276,7 +276,7 @@ Analysis Result and Output Map
     from rasterio.transform import from_origin
 
 
-[2] Setting Workspace and Labeling of Initial Variables
+[1.0.5] Setting Workspace and Labeling of Initial Variables
 
     workspace = os.getcwd()
 
