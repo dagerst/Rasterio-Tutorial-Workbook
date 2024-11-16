@@ -16,12 +16,12 @@ It also handles reading and writing new GeoTIFFs and associated geographic metad
 
 In this tutorial we will cover reprojection, masking by using polygons, reclassifying rasters, zonal statistics, color coding, and using matplotlib to prepare a final map for the output raster. 
 
-1.0 Rasterio Installation & Data Preparation
+**1.0 Rasterio Installation & Data Preparation**
 
 conda create -n gus5031 -c conda-forge pysal geopandas #Installs Pysal which include Rasterio and Geopandas<br>
 conda activate gus5031 #The environment our class is using for tutorials
 
-[1.1] Importing all neccessary libraries and modules and functions
+*1.1 Importing all neccessary libraries and modules and functions*
 
     import pysal
     import os
@@ -36,7 +36,7 @@ conda activate gus5031 #The environment our class is using for tutorials
     from rasterio.transform import from_origin
 
 
-[1.2] Setting Workspace and Labeling of Initial Variables
+*1.2 Setting Workspace and Labeling of Initial Variables*
 
     workspace = os.getcwd()
 
@@ -54,7 +54,7 @@ conda activate gus5031 #The environment our class is using for tutorials
     
 #CODES FOR REPROJECTIONS ALL TO NAD1983 STATE PLANE US PA SOUTH EPSG CODE #2272
 
-2.0 Color and Scaling and Clipping data and Histogram to check data for null and outliers
+**2.0 Color and Scaling and Clipping data and Histogram to check data for null and outliers**
 
     # Define output path
     output_path = 'heat_island_color.tif'
@@ -181,7 +181,7 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
   easy<br>
   advanced
 
-4.0 Census  Reprojection
+**4.0 Census  Reprojection**
 
      gdf = gpd.read_file(census_tracts)
 
@@ -199,7 +199,7 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
   easy<br>
   advanced
 
-5.0 Rest of Reprojection
+**5.0 Rest of Reprojection**
 
      source_rasters = tree_cover, land_surf_temp
         output_raster_paths = treecover_reprojected, landsat_reprojected
@@ -296,7 +296,7 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
   easy<br>
   advanced
 
-6.0 Masking Rasters Using Polygons
+**6.0 Masking Rasters Using Polygons**
 
     # File paths
     input_files = [landcover_reprojected, treecover_reprojected, landsat_reprojected]
@@ -334,7 +334,7 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
   advanced
 
   
-7.0 Zonal Statistics on Rasters Using NumPy
+**7.0 Zonal Statistics on Rasters Using NumPy**
 
     # Defining input paths
     raster_paths = ['land_cover_mask_reclassified.tif', 'tree_cover_mask_reclassified.tif', 'landsat_mask_reclassified.tif']
@@ -367,7 +367,7 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
 
 
 
-8.0 Chloropleth Output
+**8.0 Chloropleth Output**
 
 
     plt.imshow(scaled_data, cmap='coolwarm')
