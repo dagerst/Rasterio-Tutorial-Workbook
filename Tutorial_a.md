@@ -426,7 +426,7 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
 
 *****************************
 
-RASTERIO EXERCISES 
+**Rasterio Exercises** 
 Link for Exercise Data Download: https://opendataphilly.org/datasets/digital-elevation-model-dem/
 
     Here are a few simple exercises to get familiar with using the rasterio library in Python for working with raster data:
@@ -513,7 +513,7 @@ Link for Exercise Data Download: https://opendataphilly.org/datasets/digital-ele
 
 *******************
 
-**Dataset Source Links:**
+**DATA SOURCE LINKS**
 
 Land Cover and Tree Canopy Cover: https://www.mrlc.gov/viewer/
 Downloaded using custom extent
