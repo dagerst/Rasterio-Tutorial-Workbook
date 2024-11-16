@@ -266,7 +266,7 @@ current script
     workspace = os.getcwd()
     overwriteOutput = True
 
-    planning_dist = "Planning_Districts.shp"
+    #planning_dist = "Planning_Districts.shp"
     census_tracts = "PHL_Census_Tracts_2021.shp"
     land_surf_temp = "Land_Surface_Temperature_Landsat_2021.tif"
     land_cover = "NLCD_LandCover_PhiladelphiaRegion_2021.tif"
@@ -275,13 +275,13 @@ current script
     landcover_reprojected = 'LC_2021.tif'
     treecover_reprojected = 'TCC_2021.tif'
     census_prj = 'census_nad_83.shp'
-    planning_prj = 'planning_nad_83.shp'
+    #planning_prj = 'planning_nad_83.shp'
 
 
 #VARIABLE NAMING
     
     
-    target_crs = 2272
+    dst_crs = 2272
 #CODES FOR REPROJECTIONS ALL TO NAD1983 STATE PLANE US PA SOUTH EPSG CODE #2272
 
 
@@ -293,28 +293,25 @@ current script
 
     print("Original CRS:", gdf.crs)
 
-    gdf_reprojected = gdf.to_crs(target_crs)
+    gdf_reprojected = gdf.to_crs(dst_crs)
     
-    gdf_reprojected.to_file(census_prj, driver='ESRI Shapefile')
+    gdf_reprojected.to_file(census_reprojected, driver='ESRI Shapefile')
     
     print("Reprojected CRS:", gdf_reprojected.crs)
 
  
 New Reprojection Code
 
-    land_cover_raster = land_cover 
+    
     source_rasters = tree_cover, land_surf_temp
     output_raster_paths = treecover_reprojected, landsat_reprojected
     output_first_raster_path = landcover_reprojected
 
     # Open the first raster and get its specifications
-    with rasterio.open(land_cover_raster) as target_raster:
-      target_transform = target_raster.transform
-      target_crs = target_raster.crs
+    with rasterio.open(land_cover) as target_raster:
       target_shape = (target_raster.height, target_raster.width)
       target_data = target_raster.read(1)
       source_dtype = target_data.dtype
-      source_crs = target_raster.crs
 
     # Create an empty array for the reprojected target raster data
     destination_target = np.empty(target_shape, dtype=source_dtype)
@@ -323,11 +320,11 @@ New Reprojection Code
     with rasterio.open(land_cover_raster) as target_raster:
       target_data = target_raster.read(1)
       target_transform = target_raster.transform
-      target_crs = target_raster.crs
+      source_crs = target_raster.crs
 
     # Define the target CRS and resolution
     dst_transform, dst_width, dst_height = rasterio.warp.calculate_default_transform(
-        target_crs, dst_crs, target_raster.width, target_raster.height, *target_raster.bounds)
+        source_crs, dst_crs, target_raster.width, target_raster.height, *target_raster.bounds)
 
     # Create a destination array for the reprojected target
     destination_target = np.empty((dst_height, dst_width), dtype=source_dtype)
@@ -337,7 +334,7 @@ New Reprojection Code
         source=target_data,
         destination=destination_target,
         src_transform=target_transform,
-        src_crs=target_crs,
+        src_crs=source_crs,
         dst_transform=dst_transform,
         dst_crs=dst_crs,
         resampling=Resampling.nearest
