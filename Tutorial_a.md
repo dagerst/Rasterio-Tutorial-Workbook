@@ -1,13 +1,13 @@
 <h1 style="text-align: center;">Rasterio Tutorial</h1>
 
-David Gerstenfeld, Adrian Terech<br><br> 
-November 18, 2024
+***David Gerstenfeld, Adrian Terech<br><br>***
+***November 18, 2024***
 
 *******************************
 
 
 
-# Introduction
+**1.0 Introduction**
 <p>
 This tutorial will showcase tools from the Rasterio library for Python. To showcase the basic use cases of Rasterio we are doing a mock analysis for the City of Philadelphia Planning Department and Sustinability Office on heat island issues comapred to current land cover & tree canpoy rates across the city.
 Rasterio is a Python library designed for reading and writing geospatial raster data. It provides a high-level API to interact with raster datasets, particularly those stored in formats like GeoTIFF. Raster data typically represents satellite imagery, aerial photography, or any spatially continuous variable (e.g., elevation or temperature) as a grid of pixels or cells.
@@ -16,7 +16,7 @@ It also handles reading and writing new GeoTIFFs and associated geographic metad
 
 In this tutorial we will cover reprojection, masking by using polygons, reclassifying rasters, zonal statistics, color coding, and using matplotlib to prepare a final map for the output raster. 
 
-**1.0 Rasterio Installation & Data Preparation**
+**1.0.1 Rasterio Installation & Data Preparation**
 
 conda create -n gus5031 -c conda-forge pysal geopandas #Installs Pysal which include Rasterio and Geopandas<br>
 conda activate gus5031 #The environment our class is using for tutorials
@@ -180,7 +180,7 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
   easy<br>
   advanced
 
-**4.0 Census  Reprojection**
+**4.0 Reprojection of Census Vector Data**
 
      gdf = gpd.read_file(census_tracts)
 
@@ -198,7 +198,7 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
   easy<br>
   advanced
 
-**5.0 Rest of Reprojection**
+**5.0 Reprojection Loop for Raster Data**
 
      source_rasters = tree_cover, land_surf_temp
         output_raster_paths = treecover_reprojected, landsat_reprojected
@@ -295,7 +295,7 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
   easy<br>
   advanced
 
-**6.0 Masking Rasters Using Polygons**
+**6.0 Masking Raster Data Using Polygons from Census Data**
 
     # File paths
     input_files = [landcover_reprojected, treecover_reprojected, landsat_reprojected]
@@ -333,7 +333,7 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
   advanced
 
   
-**7.0 Zonal Statistics on Rasters Using NumPy**
+**7.0 Zonal Statistics on Raster Outputs Using NumPy**
 
     # Defining input paths
     raster_paths = ['land_cover_mask_reclassified.tif', 'tree_cover_mask_reclassified.tif', 'landsat_mask_reclassified.tif']
@@ -366,7 +366,7 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
 
 
 
-**8.0 Chloropleth Output**
+**8.0 Chloropleth Final Output**
 
 
     plt.imshow(scaled_data, cmap='coolwarm')
