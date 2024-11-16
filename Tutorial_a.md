@@ -51,8 +51,7 @@ conda activate gus5031 #The environment our class is using for tutorials
     census_prj = 'census_nad_83.shp'
     #planning_prj = 'planning_nad_83.shp'
     dst_crs = 2272
-    
-#CODES FOR REPROJECTIONS ALL TO NAD1983 STATE PLANE US PA SOUTH EPSG CODE #2272
+    #dst_crs equals the EPSG code for destionation reprojection which is NAD1983, State Plane US PA South 
 
 **2.0 Color and Scaling and Clipping data and Histogram to check data for null and outliers**
 
