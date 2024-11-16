@@ -531,41 +531,36 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
 
 
 ****************COLOR CODING & MATPLOTLIB MAP OUTPUT****************
-
-    # Defining output path
+    
+    # Define output path
     output_path = 'heat_island_color.tif'
-    # Opening input file
+    
+    # Open input file
     with rasterio.open('heat_island_effect.tif') as src:
-      data = src.read(1) 
-      meta = src.meta
-
-    nodata_value = 255  # Typically 255 is used as nodata for uint8 (if you want to avoid displaying it)
-
-    # Applying the nodata value to the data array
-    data[data == nodata_value] = np.nan  # Replace the nodata values with np.nan to avoid visualization
-
-    # Update metadata
-    meta.update(dtype=rasterio.uint8, nodata=nodata_value) 
-
-    # Calculating scaled data
+        data = src.read(1)
+        meta = src.meta
+    
+    # Define maximum value for scaling
     max_value = 5.0
+    
+    # Scale and clip data
     scaled_data = np.clip(data, 0, max_value)
     scaled_data = (scaled_data / max_value * 5).astype(np.uint8)
-
-    # Update metadata
+    
+    # Update metadata without nodata value
     meta.update(dtype=rasterio.uint8)
-
-    # Saving output file
+    if 'nodata' in meta:
+        del meta['nodata']  # Remove nodata setting from metadata
+    
+    # Save output file
     with rasterio.open(output_path, 'w', **meta) as dst:
-      dst.write(scaled_data, indexes=1)
-
-    # Using pyplot to create final map
+        dst.write(scaled_data, indexes=1)
+    
     plt.imshow(scaled_data, cmap='coolwarm')
     plt.axis('off')
     cbar = plt.colorbar()
     cbar.set_label('Heat Island Risk', labelpad=20)
     plt.show()
-
 
 
 
