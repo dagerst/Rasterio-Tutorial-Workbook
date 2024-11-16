@@ -1,5 +1,6 @@
-<div style="text-align: left;">
-Rasterio Tutorial
+**Rasterio Tutorial**
+
+
 David Gerstenfeld, Adrian Terech<br><br> 
 November 18, 2024
 
@@ -570,5 +571,3 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
 
 
 ![Fig2_hist](https://github.com/user-attachments/assets/02d0cbb9-a284-46b9-a1dd-b6aecfa5411f)
-
-</div>
