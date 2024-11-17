@@ -64,7 +64,7 @@ environment, and use the following commands:
 
 *1.2 Setting Workspace and Labeling of Initial Variables*
 
-#Below code sets current directory as the workspace using the os library **getcwd()** function. This is then stored in the workspace variable.
+Below code sets current directory as the workspace using the os library **getcwd()** function. This is then stored in the workspace variable.
 
     workspace = os.getcwd()
 
