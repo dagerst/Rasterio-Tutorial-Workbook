@@ -416,7 +416,7 @@ The below code script masks three raster files by using a vector shapefile's pol
 
 The code uses Fiona python library to open the census reprojected shapefile and reads it into a variable named shapefile. Then the shapefile variable has the column for geometry called within each feature or row of the shapefile. This data is then stored in the variable shapes.
 
-# Loop through each raster, apply mask, and save the output
+    # Loop through each raster, apply mask, and save the output
     for input_path, output_path in zip(input_files, output_files):
         with rasterio.open(input_path) as src:
             # Mask the raster with the shapefile geometries
@@ -425,7 +425,7 @@ The code uses Fiona python library to open the census reprojected shapefile and 
 
 Then the code starts a loop using the zip function to loop through the lists input_files and output_files simultaneously with the variables named input_path and output_path.  The rasterio python library is used to open the input_path variable as it is being looped through the input_files list. It then stores the input_path variable as the src variable while under “with”. Then the variables out_image and out_transform are set equal to the result of the rasterio mask function. The out_image variable stores the masked raster data as a NumPy array. The out_transform variable stores the updated transformation matrix for the clipped raster. The function has src for the input file argument, shapes for the geometry data argument, and crop=True for the argument which crops the src raster data to the geometry extents of shapes which is from the census vector shapefile. Finally, the src meta data for the original input rasters are stored in the new variable out_meta.
 
-   # Update metadata
+       # Update metadata
         out_meta.update({
             "driver": "GTiff",
             "height": out_image.shape[1],
