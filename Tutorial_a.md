@@ -123,7 +123,7 @@ Using the **rasterio open** function the updated *meta* variable data is written
 
 A histogram is made using matplotlib library initially with the **hist()** function. This is using the *scaled_data* input variable, a bins value of 8 for 8 histogram value categories, and edgecolor for color of the histogram shown.
 
-#We used a histogram to help confirm that the code had no outliers or null data. Below is the code for the histogram and the output.
+We used a histogram to help confirm that the code had no outliers or null data. Below is the code for the histogram and the output.
 
     plt.hist(scaled_data, bins=8, edgecolor='red')
 The **xlabel, ylabel, and title** functions result in the labeling for the histogram. The **show()** function displays the histogram in a visualization window.
