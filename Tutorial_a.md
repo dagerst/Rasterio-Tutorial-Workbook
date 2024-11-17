@@ -212,7 +212,7 @@ exercise, reclassify water and wetlands classes into 1, forest data (evergreen, 
 and all other land cover uses into 0. Use the NLCD Land Cover Legend attached below.
       
 Exercise 2 (Challenge): The Yellowstone Park System is conducting a study on land cover change between the years 2003 to 2023 to visualize <br>
-changes in the Yellowstone Park network. Using the two raster datasets from 2003 and 2023, reclassify the pixels based on the land cover change <br>
+changes in the Yellowstone Park network. Using the two raster datasets from 2003 and 2023, reclassify the pixels based on the land cover change 
 seen. If a pixel converted from developed to forest, reclassify it to 1. If a pixel was converted from forest to developed land, reclassify it <br>
 as -1. If there is no change, keep it 0.
     
