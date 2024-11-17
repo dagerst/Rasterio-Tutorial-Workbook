@@ -156,13 +156,13 @@ For this chapter, we will be observing the reclassification code used for the la
     raster_data = lc.read(1) 
     profile = lc.profile
 
-The ‘with’ statement is used to open the raster dataset with the use of the ‘rasterio.open’ command, where it is then defined as variable ‘lc’. The variable ‘lc’ is used in the following two lines to read the first band and metadata of the raster dataset. Variable ‘raster_data’ is used to store the first bands within the lc dataset, while variable ‘profile’ is used to store its metadata. Both variables will be used later in the script and thus, are important to define.
+The ‘with’ statement is used to open the raster dataset with the use of the **rasterio.open** function, where it is then defined as variable *lc*. The variable *lc* is used in the following two lines to read the first band and metadata of the raster dataset. Variable *raster_data* is used to store the first band within the *lc* dataset, while variable *profile* is used to store its profile metadata. Both variables will be used later in the script and thus, are important to define.
 
-After the variables have been defined, a new NumPy array is created to convert all the existing raster pixel values to 0 using the ‘np.zeros_like’ command as seen below:
+After the variables have been defined, a new NumPy array is created to convert all the existing raster pixel values to 0 using the **np.zeros_like** function as seen below:
 
     reclassified_data = np.zeros_like(raster_data)
 
-The defined variable ‘raster_data’ from the previous section is added to the command to convert all the raster values within the land cover dataset to 0, giving the user a blank slate to reclassify them in a way that better suits the user.
+The defined variable *raster_data* from the previous section is added to the function to convert all the raster values within the land cover dataset to 0, giving the user a blank slate to reclassify them in a way that better suits the user.
 
 **3.2 Reclassification**
 <p>
@@ -176,7 +176,7 @@ Here’s an example of where a set of rules are used to reclassify the landsat d
     reclassified_data[(raster_data >= 79.51) & (raster_data <= 89.50)] = 4
     reclassified_data[(raster_data >= 89.51)] = 5
 
-You can also use the ‘np.round’ command to round pixel values before they’re reclassified. This can be helpful for reclassifying raster datasets with decimal values. When using the command, it is recommended to include it after the first band of the raster dataset has been read, but also before the NumPy array is created. Here’s an instance of where the np.round function is used:
+You can also use the **np.round** function to round pixel values before they’re reclassified. This can be helpful for reclassifying raster datasets with decimal values. When using the command, it is recommended to include it after the first band of the raster dataset has been read, but also before the NumPy array is created. Here’s an instance of where the **np.round** function is used:
 
     with rasterio.open("land_surf_temp_mask.tif") as src:
         raster_data = src.read(1)
@@ -185,7 +185,7 @@ You can also use the ‘np.round’ command to round pixel values before they’
         
     reclassified_data = np.zeros_like(raster_data)
 
-In the reclassification section, the variable ‘raster_data’ is substituted by ‘rounded_data’.
+In the reclassification section, the variable *raster_data* is substituted by *rounded_data*.
  
     reclassified_data[(rounded_data < 60)] = 1
     reclassified_data[(rounded_data >= 60) & (rounded_data < 70)] = 2
@@ -208,7 +208,7 @@ Keep in mind that whenever you’re reclassifying a numeric value into a string 
 
      reclassified_data = np.char.array(np.empty_like(raster_data, dtype='<U20'))
 <p>
-Note that the np.zeros_like command is replaced by the np.char.array and np.empty_like commands. This is because the np.zero_like command is only capable of handling numeric values, while np.char.array and np.empty_like are capable of handling string values. The data type is also specified in the code to a 20-character limit Unicode array, which is capable of holding string values. The character limit of a Unicode array can be altered to better fit the user, for example ‘<U50>’ would establish a 50-character limit on the array.
+Note that the **np.zeros_like** function is replaced by the **np.char.array** and **np.empty_like** functions. This is because the **np.zero_like** function is only capable of handling numeric values, while **np.char.array** and **np.empty_like** are capable of handling string values. The data type is also specified in the code to a 20-character limit Unicode array, which is capable of holding string values. The character limit of a Unicode array can be altered to better fit the user, for example ‘<U50>’ would establish a 50-character limit on the array.
 </p>
 <p>
 When reclassifying from a string value to a numeric value, you only need to specify the data type that it is being converted to (either dtype=int or dtype=float). Also note that when you’re reclassifying from an integer type to a float value and vice versa, you need to specify the data type.
@@ -217,7 +217,7 @@ When reclassifying from a string value to a numeric value, you only need to spec
 
 **3.3 Saving reclassified rasters**
 <p>
-The final step in the reclassification process is to save the reclassified data into a new output file. We’ll call it landsat_reclass to save the output file to the specified name earlier in the script. Using rasterio.open, the output file is opened in a writing mode (‘w’), while the metadata is added to ensure that the new output file uses the same metadata as the input file. In the final line, the reclassified data is written into the first band of the output file by using dest.write. 
+The final step in the reclassification process is to save the reclassified data into a new output file. We’ll call it *landsat_reclass* to save the output file to the specified name earlier in the script. Using **rasterio.open**, the output file is opened in a writing mode (‘w’), while the metadata is added to ensure that the new output file uses the same metadata as the input file. In the final line, the reclassified data is written into the first band of the output file by using **dest.write**. 
 </p>
   
     with rasterio.open(landsat_reclass, 'w', **profile) as dest: 
@@ -226,7 +226,9 @@ The final step in the reclassification process is to save the reclassified data 
 
 
 **3.4 Reclassifications for Final Result**
+
 Listed below are the rulesets used to reclassify the land cover and tree cover datasets:
+
 **Land Cover**
 
     reclassified_data[(raster_data > 24) | (raster_data < 21)] = 1
@@ -248,11 +250,9 @@ Land Cover was reclassified this way because values 21 to 24 indicate developed 
 
 ![land_cover](https://github.com/user-attachments/assets/801c02f8-aa7a-4321-897c-51d7e17bffdc)
 
-
-Tree cover raster was split using the 5-class Jenks (Natural Breaks) method. Since lower tree cover increases risk to urban heat island effect, values were reclassified from 5 to 1. 
+Tree cover raster was split using the 5-class Jenks (Natural Breaks) method. Since previous journal articles state come to the conclusion that lower tree cover increases risk to urban heat island effect, values were reclassified from 5 to 1. 
 
 ![treecover](https://github.com/user-attachments/assets/a94ae9c5-9315-4a8d-ab2e-ed0b44c190e9)
-
 
 Landsat data was reclassified into a 6-class method, where the highest and lowest class contain the outlier data while the interior 4 classes are split by 10 degrees. Higher temperature was given a higher reclassified value.
 
