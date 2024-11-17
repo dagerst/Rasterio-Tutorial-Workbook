@@ -85,38 +85,6 @@ conda activate gus5031 #The environment our class is using for tutorials
     #dst_crs equals the EPSG code for destionation reprojection which is NAD1983, State Plane US PA South 
 
 **2.0 [Actual Step #7] Color and Scaling and Clipping data and Histogram to check data for null and outliers**
- 
-    # Define output path
-    output_path = 'heat_island_color.tif'
-    
-    # Open input file
-    with rasterio.open(output_path_zonal) as src:
-        data = src.read(1)
-        meta = src.meta
-    
-    # Define maximum value for scaling
-    max_value = 5.0
-    
-    # Scale and clip data
-    clipped_data = np.clip(data, 0, max_value)
-    scaled_data = (clipped_data / max_value * 5).astype(np.uint8)
-    
-    # Update metadata without nodata value
-    meta.update(dtype=rasterio.uint8)
-    if 'nodata' in meta:
-        del meta['nodata']  # Remove nodata setting from metadata
-    
-    # Save output file
-    with rasterio.open(output_path, 'w', **meta) as dst:
-        dst.write(scaled_data, indexes=1)
-
-    #We used a histogram to help confirm that the code had no outliers or null data. Below is the code for the histogram and the output.
-    
-    plt.hist(scaled_data, bins=8, edgecolor='red')
-    plt.xlabel('Num_Of_Instances')
-    plt.ylabel('Heat_Index')
-    plt.title('Heat_Index_Philly')
-    plt.show()
 
 The code below defines the variable output path for the Geotif file.
     
