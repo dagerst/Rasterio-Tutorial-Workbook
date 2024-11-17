@@ -566,9 +566,7 @@ Census Tracts: https://www.census.gov/cgi-bin/geo/shapefiles/index.php?year=2021
 
 Planning Districts: https://opendataphilly.org/datasets/planning-districts/
 
-*EXERCISE DATA SOURCE LINKS*
 
-https://opendataphilly.org/datasets/digital-elevation-model-dem/
 
 *******************
 
