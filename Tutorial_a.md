@@ -229,6 +229,7 @@ The final step in the reclassification process is to save the reclassified data 
 <p>
 Listed below are the rulesets used to reclassify the land cover and tree cover datasets:
 </p>
+
 **Land Cover**
 
     reclassified_data[(raster_data > 24) | (raster_data < 21)] = 1
@@ -246,7 +247,9 @@ Listed below are the rulesets used to reclassify the land cover and tree cover d
     reclassified_data[(raster_data >= 81) & (raster_data <= 100)] = 1
 
 **Reasonings**
+<p>
 Land Cover was reclassified this way because values 21 to 24 indicate developed land, varying in development intensity (21 is the lowest intenity, 24 is the highest). Values of 1 to 5 were added to reclassified raster, with a high value indicating higher density and higher risk to urban heat island effect.
+</p>
 
 ![land_cover](https://github.com/user-attachments/assets/801c02f8-aa7a-4321-897c-51d7e17bffdc)
 
