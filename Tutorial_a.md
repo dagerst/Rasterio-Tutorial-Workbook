@@ -226,9 +226,9 @@ The final step in the reclassification process is to save the reclassified data 
 
 
 **3.4 Reclassifications for Final Result**
-
+<p>
 Listed below are the rulesets used to reclassify the land cover and tree cover datasets:
-
+</p>
 **Land Cover**
 
     reclassified_data[(raster_data > 24) | (raster_data < 21)] = 1
@@ -254,7 +254,7 @@ Tree cover raster was split using the 5-class Jenks (Natural Breaks) method. Sin
 
 ![treecover](https://github.com/user-attachments/assets/a94ae9c5-9315-4a8d-ab2e-ed0b44c190e9)
 
-Landsat data was reclassified into a 6-class method, where the highest and lowest class contain the outlier data while the interior 4 classes are split by 10 degrees. Higher temperature was given a higher reclassified value.
+Landsat data was reclassified into a 5-class method, where the highest and lowest class contain the outlier data while the interior 4 classes are split by 10 degrees. Higher temperature was given a higher reclassified value.
 
 ![land_surf_temp](https://github.com/user-attachments/assets/7b96bd9c-6ed5-4c9e-b6ea-e25158d20661)
 
@@ -269,7 +269,7 @@ and all other land cover uses into 0. Use the NLCD Land Cover Legend attached be
 <p>
 *Exercise 2 (Advanced):* The Yellowstone Park System is conducting a study on land cover change between the years 2003 to 2023 to visualize 
 changes in the Yellowstone Park network. Using the two raster datasets from 2003 and 2023, reclassify the pixels based on the land cover change 
-seen. If a pixel converted from developed to forest, reclassify it to 'Forest Growth'. If a pixel was converted from forest to developed land, reclassify it
+seen. If a pixel was converted from developed to forest, reclassify it to 'Forest Growth'. If a pixel was converted from forest to developed land, reclassify it
 as 'Deforestation'. If there is no change, keep it empty.
 </p>
     
