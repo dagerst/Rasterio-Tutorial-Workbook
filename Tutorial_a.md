@@ -130,7 +130,7 @@ As shown by the histogram output of the final processed data, all of the data is
 <p>
 In this chapter, we will go over the concept of reclassifying raster datasets and explaining their use for raster analysis. Some common instances where reclassification is used include simplifying datasets with a high number of unique values, reclassifying to only include values of interest, and assessing land cover change. Throughout this chapter, the reclassification script used in the final product will be split and explained step-by-step.
 </p>
-<br>
+
 **3.1 Preparing to reclassify**
 <p>
 For this chapter, we will be observing the reclassification code used for the landsat dataset in the final result. The first section of code opens and acquires information from the specified raster dataset.
