@@ -260,19 +260,14 @@ Landsat data was reclassified into a 5-class method, where the highest and lowes
 
 ![land_surf_temp](https://github.com/user-attachments/assets/7b96bd9c-6ed5-4c9e-b6ea-e25158d20661)
 
-**3.5 Exercises**
+**3.5 Exercise**
 
 *Exercise 1 (Easy):* Lucas County in Northwest Ohio wants to expand its urban forest network to double its current size by 2050.
 To reach this goal, the city government plans on converting some of the existing open space throughout the city into forest. For this
 exercise, reclassify water and wetlands classes into 1, forest data (evergreen, deciduous, mixed) into 2, open space developed land into 3,
 and all other land cover uses into 0. Use the NLCD Land Cover Legend attached below.
 
-*Exercise 2 (Advanced):* The Yellowstone Park System is conducting a study on land cover change between the years 2003 to 2023 to visualize 
-changes in the Yellowstone Park network. Using the two raster datasets from 2003 and 2023, reclassify the pixels based on the land cover change 
-seen. If a pixel was converted from developed to forest, reclassify it to 'Forest Growth'. If a pixel was converted from forest to developed land, reclassify it
-as 'Deforestation'. If there is no change, keep it empty.
 
-    
 
 **4.0 [Actual Step #2] Reprojection of Census Vector Data**
 
@@ -295,68 +290,68 @@ The print statement uses the *gdf_reprojected.crs* command to print the new coor
 
 **5.0 [Actual Step #3] Reprojection Loop for Raster Data**
 
-     source_rasters = tree_cover, land_surf_temp
-        output_raster_paths = treecover_reprojected, landsat_reprojected
-        output_first_raster_path = landcover_reprojected
+    source_rasters = tree_cover, land_surf_temp
+    output_raster_paths = treecover_reprojected, landsat_reprojected
+    output_first_raster_path = landcover_reprojected
     
-        # Open the first raster and get its specifications
-        with rasterio.open(land_cover) as target_raster:
-          target_shape = (target_raster.height, target_raster.width)
-          target_data = target_raster.read(1)
-          source_dtype = target_data.dtype
+    # Open the first raster and get its specifications
+    with rasterio.open(land_cover) as target_raster:
+        target_shape = (target_raster.height, target_raster.width)
+        target_data = target_raster.read(1)
+        source_dtype = target_data.dtype
     
-        # Create an empty array for the reprojected target raster data
-        destination_target = np.empty(target_shape, dtype=source_dtype)
+    # Create an empty array for the reprojected target raster data
+    destination_target = np.empty(target_shape, dtype=source_dtype)
     
-        # Reproject the target raster
-        with rasterio.open(land_cover_raster) as target_raster:
-          target_data = target_raster.read(1)
-          target_transform = target_raster.transform
-          source_crs = target_raster.crs
+    # Reproject the target raster
+    with rasterio.open(land_cover_raster) as target_raster:
+        target_data = target_raster.read(1)
+        target_transform = target_raster.transform
+        source_crs = target_raster.crs
     
-        # Define the target CRS and resolution
-        dst_transform, dst_width, dst_height = rasterio.warp.calculate_default_transform(
-            source_crs, dst_crs, target_raster.width, target_raster.height, *target_raster.bounds)
+    # Define the target CRS and resolution
+    dst_transform, dst_width, dst_height = rasterio.warp.calculate_default_transform(
+        source_crs, dst_crs, target_raster.width, target_raster.height, *target_raster.bounds)
     
-        # Create a destination array for the reprojected target
-        destination_target = np.empty((dst_height, dst_width), dtype=source_dtype)
+    # Create a destination array for the reprojected target
+    destination_target = np.empty((dst_height, dst_width), dtype=source_dtype)
     
-        # Perform the reprojection
-        reproject(
-            source=target_data,
-            destination=destination_target,
-            src_transform=target_transform,
-            src_crs=source_crs,
-            dst_transform=dst_transform,
-            dst_crs=dst_crs,
-            resampling=Resampling.nearest
-        )
+    # Perform the reprojection
+    reproject(
+        source=target_data,
+        destination=destination_target,
+        src_transform=target_transform,
+        src_crs=source_crs,
+        dst_transform=dst_transform,
+        dst_crs=dst_crs,
+        resampling=Resampling.nearest
+    )
     
-        # Save the reprojected target raster
-        with rasterio.open(
-          landcover_reprojected,
-          'w',
-          driver='GTiff',
-          height=dst_height,
-          width=dst_width,
-          count=1,
-          dtype=source_dtype,
-          crs=dst_crs,
-          transform=dst_transform
-        ) as dst:
-          dst.write(destination_target, 1)
+    # Save the reprojected target raster
+    with rasterio.open(
+        landcover_reprojected,
+        'w',
+        driver='GTiff',
+        height=dst_height,
+        width=dst_width,
+        count=1,
+        dtype=source_dtype,
+        crs=dst_crs,
+        transform=dst_transform
+    ) as dst:
+        dst.write(destination_target, 1)
     
-        print(f"Reprojected target raster saved as {landcover_reprojected}")
+    print(f"Reprojected target raster saved as {landcover_reprojected}")
     
-        # Looping through the remaining rasters with land cover as the target raster
-        for source_raster_path, output_raster_path in zip(source_rasters, output_raster_paths):
-          with rasterio.open(source_raster_path) as source_raster:
+    # Looping through the remaining rasters with land cover as the target raster
+    for source_raster_path, output_raster_path in zip(source_rasters, output_raster_paths):
+        with rasterio.open(source_raster_path) as source_raster:
             source_data = source_raster.read(1)
             source_transform = source_raster.transform
             source_crs = source_raster.crs
             source_dtype = source_data.dtype
     
-            # Create an empty array with the shape and dtype of the target resolution
+    # Create an empty array with the shape and dtype of the target resolution
             destination = np.empty((dst_height, dst_width), dtype=source_dtype)
     
             # Perform the reprojection
@@ -384,7 +379,7 @@ The print statement uses the *gdf_reprojected.crs* command to print the new coor
         ) as dst:
             dst.write(destination, 1)
     
-        print(f"Reprojected source raster saved as {output_raster_path}")
+    print(f"Reprojected source raster saved as {output_raster_path}")
 
 *Exercise 1 (Easy):* The City of Philadelphia is planning on conducting a study on how much of the city is covered by car infrastructure. 
 A raster dataset containing impervious surface cover will be used, however the dataset is in a different projection than the city’s other 
