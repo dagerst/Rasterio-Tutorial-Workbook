@@ -482,7 +482,7 @@ the land cover dataset to only include data from within the census tract.
 
     print(f"Averaged raster saved as {output_path_zonal}")
 
-The below code script does zonal statistics on three raster files. The first line of code creates a list storing the input raster files and the second line of code uses a variable store the output file.
+The script below conducts zonal statistics on three raster files. The first line of code creates a list storing the input raster files within variable *raster_paths*, while the second line of code stores the output file paths under the variable *output_path_zonal*.
 
     # Defining input paths
     raster_paths = ['land_cover_mask_reclassified.tif', 'tree_cover_mask_reclassified.tif', 'landsat_mask_reclassified.tif']
@@ -495,23 +495,23 @@ The below code script does zonal statistics on three raster files. The first lin
       # Reading and stacking all rasters
       stacked_data = np.stack([rasterio.open(path).read(1) for path in raster_paths])
 
-Opens the first raster file in the list and stores it in the local src variable. The src variable meta data is then stored in the meta variable. Then list comprehension (using an iterating variable “path”) is used by the rasterio open function to read the first band of each raster in raster_paths. This function is used as an argument within the NumPy np.stack function to combine all the rasters into a single 3D NumPy array called stacked_data. The first dimension corresponds to the number of rasters. The second and third dimensions represent the spatial dimensions which are the rows and columns of the rasters.
+Opens the first raster file in the list and stores it in the local *src* variable. The *src* variable meta data is then stored in the *meta* variable. List comprehension (using an iterating variable “path”) is then used by the **rasterio open** function to read the first band of each raster in *raster_paths*. This function is used as an argument within the NumPy **np.stack** function to combine all the rasters into a single 3D NumPy array called *stacked_data*. The first dimension corresponds to the number of rasters. The second and third dimensions represent the spatial dimensions which are the rows and columns of the rasters.
 
     # Calculating the Piexl-Wise average
     average_data = np.nanmean(stacked_data, axis=0)
- The NumPy nanmean function is then used with an input argument of stacked_data and uses the 0 axis which corresponds to the first dimension. This calculates the average for each pixel in the raster array while ignoring all nodata values. The result, average_data is a 2D array representing the averaged raster.
+ The NumPy nanmean function is then used with an input argument of *stacked_data* and uses the 0 axis which corresponds to the first dimension. This calculates the average for each pixel in the raster array while ignoring all nodata values. The result, *average_data*, is a 2D array representing the averaged raster.
     
     # Updating metadata
     meta.update(dtype=rasterio.float32, count=1, nodata=np.nan)
-This code updates the meta variable, while confirming the dtype data type is a float32 type raster file. The count sets the number of bands in output raster to 1. Finally, the nodata argument sets any no data value to “NaN”.
+This code updates the *meta* variable, while confirming the dtype data type is a float32 type raster file. The count sets the number of bands in output raster to 1. Finally, the nodata argument sets any no data value to “NaN”.
 
     with rasterio.open(output_path_zonal, 'w', **meta) as dst:
       dst.write(average_data, indexes=1)
 
-Rasterio open function is used on  the output_path_zonal variable to write the update metadata to it, and write to it as dst, the average_data stored data with one index. 
+**Rasterio open** function is used on the *output_path_zonal* variable to write the update metadata to it, and write to it as *dst*, the *average_data* stored data with one index. 
 
     print(f"Averaged raster saved as {output_path_zonal}")
-This print function outputs the message along with the variable file name for output_path_zonal.
+This print function outputs the message along with the variable file name for *output_path_zonal*.
 
 
 **8.0 [Actual Step #8] Chloropleth Final Output**
