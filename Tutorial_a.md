@@ -67,8 +67,6 @@ environment, and use the following commands:
 Below code sets current directory as the workspace using the os library **getcwd()** function. This is then stored in the workspace variable.
 
     workspace = os.getcwd()
-
- 
     census_tracts = "PHL_Census_Tracts_2021.shp"
     land_surf_temp = "Land_Surface_Temperature_Landsat_2021.tif"
     land_cover = "NLCD_LandCover_PhiladelphiaRegion_2021.tif"
