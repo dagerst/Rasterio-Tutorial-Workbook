@@ -76,8 +76,9 @@ Below code sets current directory as the workspace using the os library **getcwd
     treecover_reprojected = 'TCC_2021.tif'
     census_prj = 'census_nad_83.shp'
 
+Below line of code sets a variable called *dst_crs* which is equal to the EPSG code of the destination reprojection which is NAD1983, State Plane US PA South
+   
     dst_crs = 2272
-    #dst_crs equals the EPSG code for destionation reprojection which is NAD1983, State Plane US PA South 
 
 *Script Sections are Out of Order for Easy Explanation and Exercise Purposes*
 
@@ -275,17 +276,22 @@ as 'Deforestation'. If there is no change, keep it empty.
 
 **4.0 [Actual Step #2] Reprojection of Census Vector Data**
 
-     gdf = gpd.read_file(census_tracts)
+The below code uses the **gpd.read_file** function, to read the census_tracts shapefile. The resulting GeoDataFrame is stored in the *gdf* variable. Below that is a print statement which prints the input coordinate system using the command *gdf.crs*.
 
+    gdf = gpd.read_file(census_tracts)
     print("Original CRS:", gdf.crs)
 
+The code uses the **gdf.to_crs()** function with the argument input *dst_crs* variable to reproject the gdf variable into the *dst_crs*’s EPSG projection code.
+
     gdf_reprojected = gdf.to_crs(dst_crs)
-    
+
+The **gdf_reprojected.to_file()** function writes the reprojected GeoDataFrame to a new file with an output file path labeled as the *census_reprojected* variable. The driver ‘ESRI Shapefile’ stated indicates the format of the output file which is a shapefile.
+
     gdf_reprojected.to_file(census_reprojected, driver='ESRI Shapefile')
+
+The print statement uses the *gdf_reprojected.crs* command to print the new coordinate reference system EPSG number.
     
     print("Reprojected CRS:", gdf_reprojected.crs)
-
-
 
 **5.0 [Actual Step #3] Reprojection Loop for Raster Data**
 
@@ -392,9 +398,9 @@ Using one of the raster datasets already in their directory, write a loop that c
 **Introduction**
 
 **6.1 Defining and reading geometries**
-<p>
+
 The script below masks three raster files by using a vector shapefile's polygonal outline. The census file below contains an outline for Philadelphia County, the study area for this analysis. The first two lines of code create two lists: *input_files* and *output_files*.
-</p>
+
 
     # File paths
     input_files = [landcover_reprojected, treecover_reprojected, landsat_reprojected]
