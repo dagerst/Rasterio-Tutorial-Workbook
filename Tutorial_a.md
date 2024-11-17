@@ -330,7 +330,7 @@ as -1. If there is no change, keep it 0.
         print(f"Reprojected source raster saved as {output_raster_path}")
 
 Reprojection:
-Exercise 1 (Easy): The City of Philadelphia is planning on conducting a study on how much of the city is covered by car infrastructure. <br>
+Exercise 1 (Easy): The City of Philadelphia is planning on conducting a study on how much of the city is covered by car infrastructure. 
 A raster dataset containing impervious surface cover will be used, however the dataset is in a different projection than the city’s other <br>
 datasets. Convert the Impervious Surface Cover dataset into NAD 1983 State Plane Pennsylvania South, EPSG: 2272.
     
