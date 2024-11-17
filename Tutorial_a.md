@@ -359,7 +359,7 @@ to assess how the census tract has changed in the past year and the impacts it m
 northern end of the census tract. However, the dataset arrived unmasked and includes a larger area than the census tract. Mask <br>
 the land cover dataset to only include data from within the census tract.
  
-*Exercise 2 (Advanced):* No description yet
+*Exercise 2 (Advanced):* State Representative Margaret Croke and Congressman Mike Quigley have established a joint cooperative to improve tree canopy cover within their respective districts. However, their districts don’t entirely overlap with each other and some areas would require finance from a different member of legislature. Mask the tree canopy dataset using both Margaret’s and Mike’s districts to only include areas that fall under both of their districts. 
  
 
   
