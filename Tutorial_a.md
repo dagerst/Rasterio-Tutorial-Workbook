@@ -12,8 +12,6 @@ Rasterio is a Python library designed for reading and writing geospatial raster 
 
 The Rasterio library handles reading and writing GeoTIFFs and other associated forms of geographic metadata. It integrates well with the Geospatial Data Abstraction Library (GDAL), allowing access to spatial reference systems, projections, and other geospatial metadata. It enables easy reading of specific windows or blocks of large raster datasets without loading the entire file into memory. The raster data can be loaded directly into NumPy arrays for efficient numerical operations. Rasterio also allows reading and transforming coordinate reference systems, making it easy to project raster data into different spatial reference systems.
 
-In this tutorial we will cover reprojection, masking by using polygons, reclassifying rasters, zonal statistics, color coding, and using matplotlib to prepare a final map for the output raster. 
-
 Key features of Rasterio include:
 
 - Reading and Writing GeoTIFFs: It can handle a variety of raster data formats (GeoTIFF, JPEG2000, etc.) with geographic metadata.<br>
@@ -23,8 +21,8 @@ Key features of Rasterio include:
 - Coordinate Reference Systems: Rasterio allows reading and transforming coordinate systems, making it easy to project raster data into different spatial reference systems.<br>
 
 
-Our tutorial will use Rasterio and Geopandas to process the data, NumPy to conduct statistical analysis, and then Matplotlib for data visualization.
-*Script Sections are Out of Order for Easy Explanation and Exercise Purposes*
+In this tutorial we will cover reprojection, masking by using polygons, reclassifying rasters, zonal statistics, color coding, and using matplotlib to prepare a final map for the output raster. Our tutorial will use Rasterio and Geopandas to process the data, NumPy to conduct statistical analysis, and then Matplotlib for data visualization.
+
 
 ***Datasets Used***
 
@@ -82,6 +80,10 @@ environment, and use the following commands:
 
     dst_crs = 2272
     #dst_crs equals the EPSG code for destionation reprojection which is NAD1983, State Plane US PA South 
+
+*Script Sections are Out of Order for Easy Explanation and Exercise Purposes*
+
+*******************************
 
 **2.0 [Actual Step #7] Color coding, Scaling, Clipping data and Histogram to check data for null and outliers**
 
