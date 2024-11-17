@@ -118,48 +118,48 @@ conda activate gus5031 #The environment our class is using for tutorials
     plt.title('Heat_Index_Philly')
     plt.show()
 
-Below line of code stores a new Geotif file in the variable output_path.
+The code below defines the variable output path for the Geotif file.
     
     # Define output path
     output_path = 'heat_island_color.tif'
 
-The code uses rasterio to open the output_path_zonal raster file as the local variable src. Then src’s first band is read and stored in the variable data. Then the meta data from src is stored in the variable meta.
+The code uses rasterio to open the *output_path_zonal* raster file as the local variable *src*. Then *src*’s first band is read and stored in the variable data. Then the meta data from *src* is stored in the variable *meta*.
     
     # Open input file
     with rasterio.open(output_path_zonal) as src:
         data = src.read(1)
         meta = src.meta
 
-5.0 is stored in the max_value variable as the upper float limit for scaling the raster values.
+5.0 is stored in the *max_value* variable as the upper float limit for scaling the raster values.
 
     # Define maximum value for scaling
     max_value = 5.0
 
-The NumPy function clip clips the raster values from the input variable data from 0 to the variable max_value (which is 5.0). Any values outside of the range are set to the closest range bound. This is all stored in the clipped_data variable. Then the clipped_data variable is divided by the max_value variable and multiplied by  the value 5. Finally the resultant data is converted to unsigned 8-bit positive integers using the NumPy astype() function.
+The NumPy function **np.clip**, clips the raster values from the input variable data from 0 to the variable *max_value* (which is 5.0). Any values outside of the range are set to the closest range bound. This is all stored in the *clipped_data* variable. Then the *clipped_data* variable is divided by the *max_value* variable and multiplied by the value 5. Finally the resultant data is converted to unsigned 8-bit positive integers using the NumPy **astype()** function.
 
     # Scale and clip data
     clipped_data = np.clip(data, 0, max_value)
     scaled_data = (clipped_data / max_value * 5).astype(np.uint8)
 
-Then the metadata is updated again using the update function with the dtype as rasterio unsigned 8-bit integers. An if conditional statement is then used in the updated meta function to delete any ‘nodata’ data within the meta variable.
+Then the metadata is updated again using the update function with the dtype as rasterio unsigned 8-bit integers. An if conditional statement is then used in the updated **meta function** to delete any ‘nodata’ data within the *meta* variable.
 
     # Update metadata without nodata value
     meta.update(dtype=rasterio.uint8)
     if 'nodata' in meta:
         del meta['nodata']  # Remove nodata setting from metadata
 
-Using the rasterio open function the updated meta variable data is written into the output_path variable and the scaled_data pixel data is written into output_path by using the write function, with one index stated.
+Using the **rasterio open** function the updated *meta* variable data is written into the *output_path* variable and the *scaled_data* pixel data is written into *output_path* by using the write function, with one index stated.
     
     # Save output file
     with rasterio.open(output_path, 'w', **meta) as dst:
         dst.write(scaled_data, indexes=1)
 
-A histogram is made using matplotlib library initially with the hist() function. This is using the scaled_data input variable, a bins value of 8 for 8 histogram value categories, and edgecolor for color of the histogram shown.
+A histogram is made using matplotlib library initially with the **hist()** function. This is using the *scaled_data* input variable, a bins value of 8 for 8 histogram value categories, and edgecolor for color of the histogram shown.
 
 #We used a histogram to help confirm that the code had no outliers or null data. Below is the code for the histogram and the output.
 
     plt.hist(scaled_data, bins=8, edgecolor='red')
-The xlabel, ylable, and title functions result in the labeling for the histogram. The show() function displays the histogram in a visualization window.
+The **xlabel, ylabel, and title** functions result in the labeling for the histogram. The **show()** function displays the histogram in a visualization window.
    
     plt.xlabel('Num_Of_Instances')
     plt.ylabel('Heat_Index')
