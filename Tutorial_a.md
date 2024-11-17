@@ -511,16 +511,32 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
 
     Rasterio Exercises:
     Reprojection:
-      Exercise 1 (Easy): The City of Philadelphia is planning on conducting a study on how much of the city is covered by car infrastructure. A raster dataset containing impervious surface cover will be used, however the dataset is in a different projection than the city’s other datasets. Convert the Impervious Surface Cover dataset into NAD 1983 State Plane Pennsylvania South, EPSG: 2272.
-      Exercise 2 (Challenge): On the other side of the Delaware, Camden is getting ready to conduct a study on Urban Heat Island using . However, both of the rasters are not set to the default reference system used by the city. Using one of the raster datasets already in their directory, write a loop that converts the two raster datasets into WGS 84 UTM Zone 18N.
+      Exercise 1 (Easy): The City of Philadelphia is planning on conducting a study on how much of the city is covered by car infrastructure. <br>
+      A raster dataset containing impervious surface cover will be used, however the dataset is in a different projection than the city’s other <br>
+      datasets. Convert the Impervious Surface Cover dataset into NAD 1983 State Plane Pennsylvania South, EPSG: 2272.
+    
+      Exercise 2 (Challenge): On the other side of the Delaware, Camden is getting ready to conduct a study on Urban Heat Island using <br>
+      Land Cover and Tree Cover datasets. However, both of the rasters are not set to the default reference system used by the city. <br>
+      Using one of the raster datasets already in their directory, write a loop that converts the two raster datasets into WGS 84 UTM Zone 18N.
 
       Masking Raster:
-      Exercise 1 (Easy): A member of a community activist group is awaiting their result for the 2023 copy of the land cover dataset to assess how the census tract has changed in the past year and the impacts it might have to the local nature preserve at the northern end of the census tract. However, the dataset arrived unmasked and includes a larger area than the census tract. Mask the land cover dataset to only include data from within the census tract.
+      Exercise 1 (Easy): A member of a community activist group is awaiting their result for the 2023 copy of the land cover dataset <br>
+      to assess how the census tract has changed in the past year and the impacts it might have to the local nature preserve at the <br>
+      northern end of the census tract. However, the dataset arrived unmasked and includes a larger area than the census tract. Mask <br>
+      the land cover dataset to only include data from within the census tract.
+      
       Exercise 2 (Challenge): No description yet
 
       Reclassification
-      Exercise 1 (Easy): Lucas County in Northwest Ohio wants to expand its urban forest network to double its current size by 2050. To reach this goal, the city government plans on converting some of the existing open space throughout the city into forest. For this exercise, reclassify water and wetlands classes into 1, forest data (evergreen, deciduous, mixed) into 2, open space developed land into 3, and all other land cover uses into 0. Use the NLCD Land Cover Legend attached below.
-      Exercise 2 (Challenge): The Yellowstone Park System is conducting a study on land cover change between the years 2003 to 2023 to visualize changes in the Yellowstone Park network. Using the two raster datasets from 2003 and 2023, reclassify the pixels based on the land cover change seen. If a pixel converted from developed to forest, reclassify it to 1. If a pixel was converted from forest to developed land, reclassify it as -1. If there is no change, keep it 0.
+      Exercise 1 (Easy): Lucas County in Northwest Ohio wants to expand its urban forest network to double its current size by 2050. <br>
+      To reach this goal, the city government plans on converting some of the existing open space throughout the city into forest. For this <br>
+      exercise, reclassify water and wetlands classes into 1, forest data (evergreen, deciduous, mixed) into 2, open space developed land into 3, <br>
+      and all other land cover uses into 0. Use the NLCD Land Cover Legend attached below.
+      
+      Exercise 2 (Challenge): The Yellowstone Park System is conducting a study on land cover change between the years 2003 to 2023 to visualize <br>
+      changes in the Yellowstone Park network. Using the two raster datasets from 2003 and 2023, reclassify the pixels based on the land cover change <br>
+      seen. If a pixel converted from developed to forest, reclassify it to 1. If a pixel was converted from forest to developed land, reclassify it <br>
+      as -1. If there is no change, keep it 0.
     
 
 
