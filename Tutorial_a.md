@@ -84,7 +84,7 @@ conda activate gus5031 #The environment our class is using for tutorials
     dst_crs = 2272
     #dst_crs equals the EPSG code for destionation reprojection which is NAD1983, State Plane US PA South 
 
-**2.0 [Actual Step #7] Color and Scaling and Clipping data and Histogram to check data for null and outliers**
+**2.0 [Actual Step #7] Color coding, Scaling, Clipping data and Histogram to check data for null and outliers**
 
 The code below defines the variable output path for the Geotif file.
     
