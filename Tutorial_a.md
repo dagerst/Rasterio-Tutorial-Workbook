@@ -52,7 +52,7 @@ environment, and use the following commands:
 conda create -n gus5031 -c conda-forge pysal geopandas #Installs Pysal which include Rasterio and Geopandas<br>
 conda activate gus5031 #The environment our class is using for tutorials
 
-*1.1 Importing all neccessary libraries and modules and functions*
+*1.1 Importing all neccessary libraries and specific functions*
 
     import pysal
     import os
@@ -69,9 +69,11 @@ conda activate gus5031 #The environment our class is using for tutorials
 
 *1.2 Setting Workspace and Labeling of Initial Variables*
 
+#Below code sets current directory as the workspace using the os library **getcwd()** function. This is then stored in the workspace variable.
+
     workspace = os.getcwd()
 
-    #planning_dist = "Planning_Districts.shp"
+ 
     census_tracts = "PHL_Census_Tracts_2021.shp"
     land_surf_temp = "Land_Surface_Temperature_Landsat_2021.tif"
     land_cover = "NLCD_LandCover_PhiladelphiaRegion_2021.tif"
@@ -80,7 +82,7 @@ conda activate gus5031 #The environment our class is using for tutorials
     landcover_reprojected = 'LC_2021.tif'
     treecover_reprojected = 'TCC_2021.tif'
     census_prj = 'census_nad_83.shp'
-    #planning_prj = 'planning_nad_83.shp'
+
     dst_crs = 2272
     #dst_crs equals the EPSG code for destionation reprojection which is NAD1983, State Plane US PA South 
 
