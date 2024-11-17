@@ -5,8 +5,6 @@
 
 *******************************
 
-
-
 **1.0 Introduction**
 <p>
 This tutorial will showcase tools from the Rasterio library for Python. To showcase the basic use cases of Rasterio we are doing a mock analysis for the City of Philadelphia Planning Department and Sustinability Office on heat island issues comapred to current land cover & tree canpoy rates across the city.
@@ -126,11 +124,6 @@ conda activate gus5031 #The environment our class is using for tutorials
 As shown by the histogram output of the final processed data, all of the data is higher than 0 and less than 5 (however highest is actually less than 4). There are no null values shown or outliers. This helps confirm the accuracy of the data. 
 
 
-
-  exercises:<br>
-  easy<br>
-  advanced
-
 **3.0 [Actual Step #5] Reclassifying Rasters**
 
 *3.1 Reclassifying Land Cover Raster*
@@ -230,11 +223,6 @@ as -1. If there is no change, keep it 0.
     print("Reprojected CRS:", gdf_reprojected.crs)
 
 
-    
-  exercises:<br>
-  easy<br>
-  advanced<br>
- 
 
 **5.0 [Actual Step #3] Reprojection Loop for Raster Data**
 
@@ -408,12 +396,6 @@ Exercise 2 (Challenge): No description yet
 
 
 
- exercises:<br>
-  easy<br>
-  advanced
-
-
-
 **8.0 [Actual Step #8] Chloropleth Final Output**
 
 
@@ -424,11 +406,6 @@ Exercise 2 (Challenge): No description yet
     plt.show()
 
 ![Figure_1](https://github.com/user-attachments/assets/043922b8-fbc4-42ab-b25e-c728dea60269)
-
-
- exercises:<br>
-  easy<br>
-  advanced
 
 
 ***********************
