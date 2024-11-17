@@ -178,10 +178,11 @@ Tree cover raster was split using the 5-class Jenks (Natural Breaks) method. Sin
     # Opening masked landsat data raster
     with rasterio.open("land_surf_temp_mask.tif") as src:
       raster_data = src.read(1)
+      rounded_data = np.round(raster_data, 1)
       profile = src.profile 
 
     # Create an empty array with the same shape as the raster data
-    reclassified_data = np.zeros_like(raster_data)
+    reclassified_data = np.zeros_like(rounded_data)
 
     # Applying reclassification rules
     reclassified_data[(raster_data < 60)] = 1
