@@ -185,11 +185,11 @@ Tree cover raster was split using the 5-class Jenks (Natural Breaks) method. Sin
     reclassified_data = np.zeros_like(rounded_data)
 
     # Applying reclassification rules
-    reclassified_data[(raster_data < 60)] = 1
-    reclassified_data[(raster_data >= 60) & (raster_data < 70)] = 2
-    reclassified_data[(raster_data >= 70) & (raster_data < 80)] = 3
-    reclassified_data[(raster_data >= 80) & (raster_data < 90)] = 4
-    reclassified_data[(raster_data >= 90)] = 5
+    reclassified_data[(raster_data <= 59.50)] = 1
+    reclassified_data[(raster_data >= 59.51) & (raster_data <= 69.50)] = 2
+    reclassified_data[(raster_data >= 69.51) & (raster_data <= 79.50)] = 3
+    reclassified_data[(raster_data >= 79.51) & (raster_data <= 89.50)] = 4
+    reclassified_data[(raster_data >= 89.51)] = 5
 
     # Saving reclassified file
     with rasterio.open('landsat_mask_reclassified.tif', 'w', **profile) as dst:
