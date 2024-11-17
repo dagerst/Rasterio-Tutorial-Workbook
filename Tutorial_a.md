@@ -523,20 +523,20 @@ This print function outputs the message along with the variable file name for *o
     cbar.set_label('Heat Island Risk', labelpad=20)
     plt.show()
 
-The below line of code uses the matplotlib library imshow function to display the input array “scaled_data” as an image. The second argument uses the color map “coolwarm” which represents a continuous range from blue to red which is suited for heat related data visualization.
+The below line of code uses the matplotlib library **imshow** function to display the input array *scaled_data* as an image. The second argument uses the color map “coolwarm” which represents a continuous range from blue to red which is suited for heat related data visualization.
 
     plt.imshow(scaled_data, cmap='coolwarm')
-The axis(‘off’) function removes the x and y axes tick marks as well as labels for a cleaner image.
+The **axis(‘off’)** function removes the x and y axes tick marks as well as labels for a cleaner image.
 
     plt.axis('off')
-The colorbar() function adds a colorbar alongside the image to indicate the range of values and their corresponding colors, akin to a legend. It also sets the colorbar equal to the variable cbar.
+The **colorbar()** function adds a colorbar alongside the image to indicate the range of values and their corresponding colors, akin to a legend. It also sets the colorbar equal to the variable cbar.
 
     cbar = plt.colorbar()
-The set_label() function adds a label to the color bar, and the labelpad argument adds that many units of padding between the color bar and the label.
+The **set_label()** function adds a label to the color bar, and the labelpad argument adds that many units of padding between the color bar and the label.
 
     cbar.set_label('Heat Island Risk', labelpad=20)
 
-The show() function displays the image and color bar in a visualization window.
+The **show()** function displays the image and color bar in a visualization window.
     
     plt.show()
 
