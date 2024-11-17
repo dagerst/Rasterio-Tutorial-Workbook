@@ -407,9 +407,9 @@ The script below masks three raster files by using a vector shapefile's polygona
 The code uses the Fiona Python library to open the census reprojected shapefile and reads it into a variable named *shapefile*. Then the shapefile variable has the column for geometry called within each feature or row of the shapefile. This data is then stored in the variable *shapes*.
 
 **6.2 Masking raster datasets**
-<p>
+
 The code then starts a loop by using the zip function to loop through the lists *input_files* and *output_files* simultaneously with the variables named *input_path* and *output_path*. The Rasterio Python library is used to open the *input_path* variable as it is being looped through the *input_files* list. It then stores the *input_path* variable as the *src* variable while under “with”. Then the variables *out_image* and *out_transform* are set equal to the result of the **rasterio.mask** function. The *out_image* variable stores the masked raster data as a NumPy array. The *out_transform* variable stores the updated transformation matrix for the clipped raster. The function uses *src* for the input file argument, *shapes* for the geometry data argument, and crop=True for the argument that crops the *src* raster data to the geometry extents of *shapes*, which contains the census vector shapefile. Finally, the *src* meta data for the original input rasters are stored in the new variable *out_meta*.
-</p>
+
 
     # Loop through each raster, apply mask, and save the output
     for input_path, output_path in zip(input_files, output_files):
@@ -429,9 +429,9 @@ The code then starts a loop by using the zip function to loop through the lists 
         })
 
 **6.3 Saving output files**
-<p>
+
 The above function updates the *out_meta* variable to reflect the new metadata output of the masking function. The driver makes sure the new file type is a Geotiff, the height argument and width arguments takes its data from the geometry of the new *out_image* variable from the mask function result. The transform argument uses the *out_transform* variable which also uses the result data from the masking function.
-</p>
+
 
     with rasterio.open(output_path, "w", **out_meta) as dest: 
         dest.write(out_image)
