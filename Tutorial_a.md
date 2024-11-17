@@ -260,19 +260,17 @@ Landsat data was reclassified into a 5-class method, where the highest and lowes
 ![land_surf_temp](https://github.com/user-attachments/assets/7b96bd9c-6ed5-4c9e-b6ea-e25158d20661)
 
 **3.5 Exercises**
-<p>
+
 *Exercise 1 (Easy):* Lucas County in Northwest Ohio wants to expand its urban forest network to double its current size by 2050.
 To reach this goal, the city government plans on converting some of the existing open space throughout the city into forest. For this
 exercise, reclassify water and wetlands classes into 1, forest data (evergreen, deciduous, mixed) into 2, open space developed land into 3,
 and all other land cover uses into 0. Use the NLCD Land Cover Legend attached below.
-</p>
 
-<p>
 *Exercise 2 (Advanced):* The Yellowstone Park System is conducting a study on land cover change between the years 2003 to 2023 to visualize 
 changes in the Yellowstone Park network. Using the two raster datasets from 2003 and 2023, reclassify the pixels based on the land cover change 
 seen. If a pixel was converted from developed to forest, reclassify it to 'Forest Growth'. If a pixel was converted from forest to developed land, reclassify it
 as 'Deforestation'. If there is no change, keep it empty.
-</p>
+
     
 
 **4.0 [Actual Step #2] Reprojection of Census Vector Data**
@@ -444,12 +442,12 @@ The above function updates the *out_meta* variable to reflect the new metadata o
 This print statement prints out the input_path and output_path names every time a loop is completed. For our study, the loop will be completed three times.
 
 **6.4 Exercises**
-<p>
+
 *Exercise 1 (Easy):* A member of a community activist group is awaiting their result for the 2023 copy of the land cover dataset <br>
 to assess how the census tract has changed in the past year and the impacts it might have to the local nature preserve at the <br>
 northern end of the census tract. However, the dataset arrived unmasked and includes a larger area than the census tract. Mask <br>
 the land cover dataset to only include data from within the census tract.
-</p>
+
  
 *Exercise 2 (Advanced):* State Representative Margaret Croke and Congressman Mike Quigley have established a joint cooperative to improve tree canopy cover within their respective districts. However, their districts don’t entirely overlap with each other and some areas would require finance from a different member of legislature. Mask the tree canopy dataset using both Margaret’s and Mike’s districts to only include areas that fall under both of their districts. 
  
