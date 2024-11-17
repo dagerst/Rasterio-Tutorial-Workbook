@@ -7,10 +7,10 @@
 
 **1.0 Introduction**
 <p>
-This tutorial will showcase tools from the Rasterio library for Python. To showcase the basic use cases of Rasterio we are doing a mock analysis for the City of Philadelphia Planning Department and Sustinability Office on heat island issues comapred to current land cover & tree canpoy rates across the city.
+This tutorial will showcase tools from the Rasterio library for Python. To showcase the basics of Rasterio, we are doing a mock analysis for the City of Philadelphia Planning Department and Sustinability Office on Urban Heat Island Effect. This study will be done by comparing the current land cover & tree canopy rates across the city.
 Rasterio is a Python library designed for reading and writing geospatial raster data. It provides a high-level API to interact with raster datasets, particularly those stored in formats like GeoTIFF. Raster data typically represents satellite imagery, aerial photography, or any spatially continuous variable (e.g., elevation or temperature) as a grid of pixels or cells.
 
-It also handles reading and writing new GeoTIFFs and associated geographic metadata. Rasterio integrates well with the Geospatial Data Abstraction Library (GDAL), allowing access to spatial reference systems, projections, and other geospatial metadata. It enables easy reading of specific windows or blocks of large raster datasets without loading the entire file into memory. The raster data can be loaded directly into NumPy arrays for efficient numerical operations. Rasterio allows reading and transforming coordinate systems, making it easy to project raster data into different spatial reference systems.
+The Rasterio library handles reading and writing GeoTIFFs and other associated forms of geographic metadata. It integrates well with the Geospatial Data Abstraction Library (GDAL), allowing access to spatial reference systems, projections, and other geospatial metadata. It enables easy reading of specific windows or blocks of large raster datasets without loading the entire file into memory. The raster data can be loaded directly into NumPy arrays for efficient numerical operations. Rasterio also allows reading and transforming coordinate reference systems, making it easy to project raster data into different spatial reference systems.
 
 In this tutorial we will cover reprojection, masking by using polygons, reclassifying rasters, zonal statistics, color coding, and using matplotlib to prepare a final map for the output raster. 
 
@@ -23,7 +23,7 @@ Key features of Rasterio include:
 - Coordinate Reference Systems: Rasterio allows reading and transforming coordinate systems, making it easy to project raster data into different spatial reference systems.<br>
 
 
-Our tutorial main analysis will use rasterio and geopandas for processing of the data, and numPy for doing statistical analysis, and then matplotlib for output of map
+Our tutorial will use Rasterio and Geopandas to process the data, NumPy to conduct statistical analysis, and then Matplotlib for data visualization.
 *Script Sections are Out of Order for Easy Explanation and Exercise Purposes*
 
 ***Datasets Used***
@@ -43,14 +43,11 @@ Land_Surface_Temperature_Lansat_2021.tif
 
 **1.0.1 Rasterio Installation & Data Preparation**
 
-We recommend installing Rasterio using anaconda within the Pysal geospatial library. We recommend you
-you install , you might
-want to use the gus5031 env.) To install, open the Miniconda prompt, navigate to the proper
+We recommend installing Rasterio using anaconda within the Pysal geospatial library (We recommend that you install Rasterio using the Gus5031 env). To install, open the Miniconda prompt, navigate to the proper
 environment, and use the following commands:
 
-
-conda create -n gus5031 -c conda-forge pysal geopandas #Installs Pysal which include Rasterio and Geopandas<br>
-conda activate gus5031 #The environment our class is using for tutorials
+    conda create -n gus5031 -c conda-forge pysal geopandas  #Installs Pysal which include Rasterio and Geopandas
+    conda activate gus5031  #The environment our class is using for tutorials
 
 *1.1 Importing all neccessary libraries and specific functions*
 
