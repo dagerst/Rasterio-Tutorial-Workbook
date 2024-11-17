@@ -277,7 +277,7 @@ as 'Deforestation'. If there is no change, keep it empty.
 </p>
     
 
-###**4.0 [Actual Step #2] Reprojection of Census Vector Data**
+**4.0 [Actual Step #2] Reprojection of Census Vector Data**
 
      gdf = gpd.read_file(census_tracts)
 
