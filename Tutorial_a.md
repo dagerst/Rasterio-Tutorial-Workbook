@@ -149,6 +149,7 @@ As shown by the histogram output of the final processed data, all of the data is
 
 Land Cover was reclassified this way because values 21 to 24 indicate developed land, varying in development intensity (21 is the lowest intenity, 24 is the highest). Values of 1 to 5 were added to reclassified raster, with a high value indicating higher density and higher risk to urban heat island effect.
 
+![land_cover](https://github.com/user-attachments/assets/801c02f8-aa7a-4321-897c-51d7e17bffdc)
 
 *3.2 Reclassifying Tree Cover Raster*
 
@@ -173,6 +174,10 @@ Land Cover was reclassified this way because values 21 to 24 indicate developed 
 
 Tree cover raster was split using the 5-class Jenks (Natural Breaks) method. Since lower tree cover increases risk to urban heat island effect, values were reclassified from 5 to 1. 
 
+![treecover](https://github.com/user-attachments/assets/a94ae9c5-9315-4a8d-ab2e-ed0b44c190e9)
+
+
+
 *3.3 Reclassifying Landsat Data Raster*
 
     # Opening masked landsat data raster
@@ -195,6 +200,9 @@ Tree cover raster was split using the 5-class Jenks (Natural Breaks) method. Sin
       dst.write(reclassified_data, 1)
 
 Landsat data was reclassified into a 6-class method, where the highest and lowest class contain the outlier data while the interior 4 classes are split by 10 degrees. Higher temperature was given a higher reclassified value.
+
+![land_surf_temp](https://github.com/user-attachments/assets/7b96bd9c-6ed5-4c9e-b6ea-e25158d20661)
+
 
 *Exercise 1 (Easy):* Lucas County in Northwest Ohio wants to expand its urban forest network to double its current size by 2050. <br>
 To reach this goal, the city government plans on converting some of the existing open space throughout the city into forest. For this <br>
