@@ -429,114 +429,33 @@ Landsat data was reclassified into a 6-class method, where the highest and lowes
 
 **Rasterio Exercises** 
 
-    Here are a few simple exercises to get familiar with using the rasterio library in Python for working with raster data:
+Reprojection:
+Exercise 1 (Easy): The City of Philadelphia is planning on conducting a study on how much of the city is covered by car infrastructure. <br>
+A raster dataset containing impervious surface cover will be used, however the dataset is in a different projection than the city’s other <br>
+datasets. Convert the Impervious Surface Cover dataset into NAD 1983 State Plane Pennsylvania South, EPSG: 2272.
     
-    1. Open and Inspect a Raster File
-    Objective: Learn how to open a raster file and inspect its properties.
-    Instructions:
-    python
-    Copy code
-    import rasterio
-
-    Q1. Open a raster file and print the CRS, Width, Height, Bounds and Number of bands in that file.
-    # Replace 'your_raster_file.tif' with the path to your raster file
-    with rasterio.open('your_raster_file.tif') as src:
-        print("CRS:", src.crs)  # Coordinate Reference System
-        print("Width:", src.width)
-        print("Height:", src.height)
-        print("Bounds:", src.bounds)
-        print("Number of bands:", src.count)
-        
-    2. Read and Display Raster Bands
-    Objective: Read a specific band and display it as an array.
-    Instructions:
-    python
-    Copy code
-    import matplotlib.pyplot as plt
-    
-    # Read and plot the first band
-    with rasterio.open('your_raster_file.tif') as src:
-        band1 = src.read(1)  # Reading the first band
-    
-    plt.imshow(band1, cmap='gray')
-    plt.title("Band 1")
-    plt.colorbar()
-    plt.show()
-    
-    3. Extract Raster Metadata
-    Objective: Extract and print metadata of the raster file.
-    Instructions:
-    python
-    Copy code
-    with rasterio.open('your_raster_file.tif') as src:
-        metadata = src.meta
-    print(metadata)
-    
-    4. Crop a Raster File by Bounding Box
-    Objective: Use a bounding box to crop the raster data.
-    Instructions:
-    python
-    Copy code
-    from rasterio.windows import Window
-    
-    # Define a bounding box and crop
-    with rasterio.open('your_raster_file.tif') as src:
-        # Define the window with start and end coordinates in pixels
-        window = Window(100, 100, 200, 200)
-        cropped_data = src.read(1, window=window)
-    
-    plt.imshow(cropped_data, cmap='gray')
-    plt.title("Cropped Data")
-    plt.colorbar()
-    plt.show()
-    
-    5. Calculate NDVI (Normalized Difference Vegetation Index)
-    Objective: If you have a multi-band raster (e.g., with Red and NIR bands), calculate NDVI.
-    Instructions:
-    python
-    Copy code
-    with rasterio.open('multiband_raster_file.tif') as src:
-        nir = src.read(4)  # NIR band
-        red = src.read(3)  # Red band
-    
-    # Calculate NDVI
-    ndvi = (nir - red) / (nir + red)
-    
-    plt.imshow(ndvi, cmap='RdYlGn')
-    plt.title("NDVI")
-    plt.colorbar()
-    plt.show()
-    
-    These exercises cover basic raster handling tasks with rasterio, giving you a hands-on way to understand and manipulate raster data. Let me know if you'd like any additional examples!
-
-    Rasterio Exercises:
-    Reprojection:
-      Exercise 1 (Easy): The City of Philadelphia is planning on conducting a study on how much of the city is covered by car infrastructure. <br>
-      A raster dataset containing impervious surface cover will be used, however the dataset is in a different projection than the city’s other <br>
-      datasets. Convert the Impervious Surface Cover dataset into NAD 1983 State Plane Pennsylvania South, EPSG: 2272.
-    
-      Exercise 2 (Challenge): On the other side of the Delaware, Camden is getting ready to conduct a study on Urban Heat Island using <br>
-      Land Cover and Tree Cover datasets. However, both of the rasters are not set to the default reference system used by the city. <br>
-      Using one of the raster datasets already in their directory, write a loop that converts the two raster datasets into WGS 84 UTM Zone 18N.
-
-      Masking Raster:
-      Exercise 1 (Easy): A member of a community activist group is awaiting their result for the 2023 copy of the land cover dataset <br>
-      to assess how the census tract has changed in the past year and the impacts it might have to the local nature preserve at the <br>
-      northern end of the census tract. However, the dataset arrived unmasked and includes a larger area than the census tract. Mask <br>
-      the land cover dataset to only include data from within the census tract.
+Exercise 2 (Challenge): On the other side of the Delaware, Camden is getting ready to conduct a study on Urban Heat Island using <br>
+Land Cover and Tree Cover datasets. However, both of the rasters are not set to the default reference system used by the city. <br>
+Using one of the raster datasets already in their directory, write a loop that converts the two raster datasets into WGS 84 UTM Zone 18N.
+ 
+Masking Raster:
+Exercise 1 (Easy): A member of a community activist group is awaiting their result for the 2023 copy of the land cover dataset <br>
+to assess how the census tract has changed in the past year and the impacts it might have to the local nature preserve at the <br>
+northern end of the census tract. However, the dataset arrived unmasked and includes a larger area than the census tract. Mask <br>
+the land cover dataset to only include data from within the census tract.
+ 
+Exercise 2 (Challenge): No description yet
+ 
+Reclassification
+Exercise 1 (Easy): Lucas County in Northwest Ohio wants to expand its urban forest network to double its current size by 2050. <br>
+To reach this goal, the city government plans on converting some of the existing open space throughout the city into forest. For this <br>
+exercise, reclassify water and wetlands classes into 1, forest data (evergreen, deciduous, mixed) into 2, open space developed land into 3, <br>
+and all other land cover uses into 0. Use the NLCD Land Cover Legend attached below.
       
-      Exercise 2 (Challenge): No description yet
-
-      Reclassification
-      Exercise 1 (Easy): Lucas County in Northwest Ohio wants to expand its urban forest network to double its current size by 2050. <br>
-      To reach this goal, the city government plans on converting some of the existing open space throughout the city into forest. For this <br>
-      exercise, reclassify water and wetlands classes into 1, forest data (evergreen, deciduous, mixed) into 2, open space developed land into 3, <br>
-      and all other land cover uses into 0. Use the NLCD Land Cover Legend attached below.
-      
-      Exercise 2 (Challenge): The Yellowstone Park System is conducting a study on land cover change between the years 2003 to 2023 to visualize <br>
-      changes in the Yellowstone Park network. Using the two raster datasets from 2003 and 2023, reclassify the pixels based on the land cover change <br>
-      seen. If a pixel converted from developed to forest, reclassify it to 1. If a pixel was converted from forest to developed land, reclassify it <br>
-      as -1. If there is no change, keep it 0.
+Exercise 2 (Challenge): The Yellowstone Park System is conducting a study on land cover change between the years 2003 to 2023 to visualize <br>
+changes in the Yellowstone Park network. Using the two raster datasets from 2003 and 2023, reclassify the pixels based on the land cover change <br>
+seen. If a pixel converted from developed to forest, reclassify it to 1. If a pixel was converted from forest to developed land, reclassify it <br>
+as -1. If there is no change, keep it 0.
     
 
 
