@@ -469,6 +469,21 @@ The **reproject** function below reprojects raster data. The first argument used
             resampling=Resampling.nearest  # You can use other methods like bilinear, cubic, etc.
         )
 
+The final section of the reprojection is structured in a similar way as in Chapter 5.2, however the name of the output file name is changed to the variable name used to define the output file path names in the loop.
+
+    with rasterio.open(
+        output_raster_path,
+        'w',
+        driver='GTiff',
+        height=dest_height,
+        width=dest_width,
+        count=1,
+        dtype=src_dtype,
+        crs=dst_crs,
+        transform=dest_transform
+    ) as dest:
+        dest.write(destination, 1)
+
 **5.4 Target Rasters**
 Description on target rasters right here.
 
