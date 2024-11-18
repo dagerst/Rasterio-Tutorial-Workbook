@@ -355,42 +355,33 @@ The variable *count* is determined based on how many bands the raster dataset co
         dest.write(destination, 1)
 
 
-**5.3 Looping Rasters**
+**5.3 Reprojection Looping**
 <p>
-The for loop below loops both the *source_raster_path* and the *output_raster_path* iterable variables through the *source_rasters* and *output_raster_paths* variables simultaneously using the **zip()** function. The with statement uses the **rasterio open()** function with the variable *source_raster_path* as the argument as local variable *source_raster*. The first band of *source_raster* is read and stored in the variable *source_data*. The transform data which includes geometry and extent information is stored in the *source_transform* variable. Then the *source_raster* coordinate reference system is stored in the *source_crs* variable. Finally, the dtype data from *source_data* is stored in the *source_dtype* variable.
+There are some additional ways to optimize the reprojection process, especially when dealing with multiple rasters. One method is to use looping to reproject multiple rasters at once. To complete a reprojection loop, the original code does need to be altered in a few places. The first change is the creation of two additional variables at the start of the script: *input_raster*, and *output_raster*.
 </p>
+    input raster = input_file_path1, input_file_path2, ….
+    output raster = output_file_path1, output_file_path2, ….
 
-    # Looping through the remaining rasters with land cover as the target raster
-    for source_raster_path, output_raster_path in zip(source_rasters, output_raster_paths):
-        with rasterio.open(source_raster_path) as source_raster:
-            source_data = source_raster.read(1)
-            source_transform = source_raster.transform
-            source_crs = source_raster.crs
-            source_dtype = source_data.dtype
+<p>  
+For organization purposes, it would be recommended to add these two variables after the reprojected CRS has been defined and before the raster dataset is read.
+</p>
+A loop now needs to be constructed just before the raster dataset is opened. This can be accomplished by using a for loop that combines the input_raster and output_raster paths into a pair. For this reason, it is essential to ensure that each of the file paths match with each other (for example: land_cover (input) and land_cover_reprojected (output)).
 
+    For input_raster, output_raster in zip(input_rasters, output_rasters):
 
-The line of code below creates an empty NumPy array using the function **np.empty**, and then immediately fills it with data from the variables *dst_height* and *dst_width*. It also inputs that the dtype of the array is equal to the variable *source_dtype*.
+The with loop used earlier in the chapter is used below the for loop with minimal changes, with variable *input_raster* being opened in this case and redefined to *src*.
+ 
+    with rasterio.open(input_raster) as raster:
+        src_shape = (raster.height, raster.width)
+        raster_data = raster.read(1)
+        src_dtype = raster_data.dtype
+        src_transform = raster.transform
+        src_crs = raster.crs
 
-    # Create an empty array with the shape and dtype of the target resolution
-        destination = np.empty((dst_height, dst_width), dtype=source_dtype)
-
-The **reproject** function below reprojects raster data. The first argument used in this function is the *source* variable which is set equal to the *source_data* variable (the raster data file being reprojected). The second argument is the *destination* variable which is set equal to the *destination* variable. Third argument is the *src_transform* variable is set equal to the *source_transform* variable. Fourth argument is the *src_crs* variable is set equal to the *source_crs* variable. Fifth argument is the *dst_transform* variable set equal to the *dst_transform* variable which is the transform geometry and extent data. Sixth argument is the *dst_crs* variable is set equal to the *dst_crs* variable which contains the EPSG code for the destination coordinate reference system which is 2272. The final argument is the *resampling* variable set equal to Resampling.nearest. 
-
-        # Perform the reprojection
-        reproject(
-            source=source_data,
-            destination=destination,
-            src_transform=source_transform,
-            src_crs=source_crs,
-            dst_transform=dst_transform,
-            dst_crs=dst_crs,
-            resampling=Resampling.nearest  # You can use other methods like bilinear, cubic, etc.
-        )
-
-The final section of the reprojection is structured in a similar way as in Chapter 5.2, however the name of the output file name is changed to the variable name used to define the output file path names in the loop.
+Throughout the rest of the reprojection code, the steps remain the same until the end of the code where the reprojected data is saved into an output file. Use variable *output_raster* when opening the output file to successfully complete the loop.
 
     with rasterio.open(
-        output_raster_path,
+        output_raster,
         'w',
         driver='GTiff',
         height=dest_height,
@@ -401,10 +392,58 @@ The final section of the reprojection is structured in a similar way as in Chapt
         transform=dest_transform
     ) as dest:
         dest.write(destination, 1)
-
-**5.4 Target Rasters**
+  
+**5.4 Source Rasters**
 <p>
-Description on target rasters right here.
+An additional method that can be used is using source rasters. Source rasters are raster datasets that have already been reprojected and can be used to reproject another raster dataset. The use of source rasters can help speed up the process of reprojection by granting the user the ability to bypass using the **calculate_default_transform** function. To replace this function, both the source raster and the raster that is going to be reprojected will need to be read. Let’s suppose that in this case, *land_cover* has already been reprojected. We will use it as a source raster to reproject *tree_cover* to the same projection as *land_cover*. In this section, *land_cover* will be redefined as *src*, while *tree_cover* will be redefined as *target*.
+</p>
+
+    with rasterio.open(land_cover) as source:
+        source_shape = (source.height, source.width)
+        source_data = source.read(1)
+        source_dtype = source_data.dtype
+        source_transform = source.transform
+        source_crs = source.crs
+
+    with rasterio.open(tree_cover) as target:
+        target_shape = (target.height, target.width)
+        target_data = target.read(1)
+        target_dtype = target_data.dtype
+        target_transform = target.transform
+        target_crs = target.crs
+
+
+Since the **calculate_default_transform** function is no longer being used, we can skip that section. The destination array when using a source raster should use the height and width from the source raster, while the target raster’s data type should be used. For example:
+destination = np.empty((source_height, source_width), dtype=target_dtype)
+
+The **reprojection** function should also reflect these changes, where the source raster’s transformation and CRS should be used as the reprojected data. The target raster’s data type, transformation, and CRS should be used as the original raster datasets as shown below:
+
+        reproject(
+            source=target_data,
+            destination=destination,
+            target_transform=target_transform,
+            target_crs=target_crs,
+            reproject_transform=source_transform,
+            reproject_crs=source_crs,
+            resampling=Resampling.nearest
+        )
+
+Saving the newly reprojected raster file is similar in this instance, with minor changes made to reflect the variable names used in this section of code. Note that the height and width used for the reprojected raster is from the source raster’s height and width defined earlier in the code.
+
+     with rasterio.open(
+        treecover_reprojected,
+          'w',
+        driver='GTiff',
+        height=source_height,
+        width=source_width,
+        count=1,
+        dtype=target_dtype,
+        crs=reproject_crs,
+        transform=reproject_transform
+    ) as dest:
+        dest.write(destination, 1)
+<p>
+It is possible to use both reprojection looping and source rasters in the same script. This can be done by combining the steps mentioned above in section 5.3 and 5.4 by defining input and output paths, reading the source raster, and using reprojection looping to conduct the reprojection process. Also note that in this case, the **calculate_default_transform** should be removed from the reprojection loop and the variables be defined to reflect the steps used in section 5.4.
 </p>
 
 **5.5 Exercises**
@@ -436,6 +475,13 @@ The script below masks three raster files by using a vector shapefile's polygona
         shapes = [feature["geometry"] for feature in shapefile]
 
 The code uses the Fiona Python library to open the census reprojected shapefile and reads it into a variable named *shapefile*. Then the shapefile variable has the column for geometry called within each feature or row of the shapefile. This data is then stored in the variable *shapes*.
+
+Also note that there is an alternative method you can use to read vector geometries. This method involves the creation of an empty dictionary earlier in the script, which in this case we'll call *shapes*. The line where the variable *shapes* is defined when opening the shapefile via Fiona will be altered to **shapes.extend** to add the vector shapefile's geometry into the dictionary. This method is helpful in instances when using multiple vector shapefiles to mask a raster.
+
+    shapes = []
+
+    with fiona.open(census_reprojected, "r") as shapefile:
+        shapes.extend([feature["geometry"] for feature in shapefile])
 
 **6.2 Masking raster datasets**
 
