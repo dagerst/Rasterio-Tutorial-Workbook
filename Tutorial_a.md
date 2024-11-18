@@ -134,9 +134,12 @@ The **xlabel, ylabel, and title** functions result in the labeling for the histo
 
 As shown by the histogram output of the final processed data, all of the data is higher than 0 and less than 5 (however highest is actually less than 4). There are no null values shown or outliers. This helps confirm the accuracy of the data. 
 
+*******************************
+
 **3.0 [Actual Step #5] Reclassifying Rasters**
-*****************************
+
 **Introduction**
+
 <p>
 In this chapter, we will go over the concept of reclassifying raster datasets and explaining their use for raster analysis. Some common instances where reclassification is used include simplifying datasets with a high number of unique values, reclassifying to only include values of interest, and assessing land cover change. Throughout this chapter, the reclassification script used in the final product will be split and explained step-by-step.
 </p>
@@ -264,7 +267,7 @@ and all other land cover uses into 0. Use the NLCD Land Cover Legend attached be
 
 https://www.mrlc.gov/data/legends/national-land-cover-database-class-legend-and-description
 
-
+*******************************
 
 **4.0 [Actual Step #2] Reprojection of Census Vector Data**
 
@@ -285,16 +288,14 @@ The print statement uses the *gdf_reprojected.crs* command to print the new coor
     
     print("Reprojected CRS:", gdf_reprojected.crs)
 
-
-
 ********************
+
 **5.0 [Actual Step #3] Reprojecting Raster Data**
-<p></p>
 
 **Introduction**
-<p></p>
+
 In this chapter, we will go over the process of reprojecting raster datasets to a different CRS. This step is essential in optimization and data cleaning to ensure that researchers are getting the most accurate results in their studies. The first part of this chapter will cover how to project a raster dataset to a defined CRS. The second part will cover the use of looping to reproject multiple raster datasets and the use of source rasters as guidelines on reprojection.
-</p>
+
 
 **5.1 Defining CRS and Variables**
 <p>
@@ -457,6 +458,8 @@ Land Cover and Tree Cover datasets. However, both of the rasters are not set to 
 Using one of the raster datasets already in their directory, write a loop that converts the two raster datasets into WGS 84 UTM /
 Zone 18N. Use EPSG.io to search for the EPSG code of WGS 84 / UTM Zone 18N.
 
+*******************************
+
 **6.0 [Actual Step #4] Masking Raster Data Using Polygons from Census Data**
 
 **6.1 Defining and reading geometries**
@@ -548,9 +551,9 @@ northern end of the census tract. However, the dataset arrived unmasked and incl
 the land cover dataset to only include data from within the census tract.
 
  
-*Exercise 2 (Advanced):* State Representative Margaret Croke and Congressman Mike Quigley have established a joint cooperative to improve tree canopy cover within their respective districts. However, their districts don’t entirely overlap with each other and some areas would require finance from a different member of legislature. Mask the tree canopy dataset using both Margaret’s and Mike’s districts to only include areas that fall under both of their districts. 
+*Exercise 2 (Advanced):* State Representative Margaret Croke and Congressman Mike Quigley have established a joint cooperative to improve tree canopy cover within their respective districts. However, their districts don’t entirely overlap with each other and some areas would require finance from a different member of legislature. Mask the tree canopy dataset using both Margaret’s and Mike’s districts to only include areas that fall under both of their districts. Hint: Look to section 6.4 for guidance.
  
-
+*******************************
   
 **7.0 [Actual Step #6] Zonal Statistics on Raster Outputs Using NumPy**
 
@@ -608,6 +611,7 @@ This code updates the *meta* variable, while confirming the dtype data type is a
     print(f"Averaged raster saved as {output_path_zonal}")
 This print function outputs the message along with the variable file name for *output_path_zonal*.
 
+*******************************
 
 **8.0 [Actual Step #8] Chloropleth Final Output**
 
