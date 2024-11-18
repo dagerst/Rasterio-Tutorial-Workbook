@@ -459,8 +459,6 @@ Zone 18N. Use EPSG.io to search for the EPSG code of WGS 84 / UTM Zone 18N.
 
 **6.0 [Actual Step #4] Masking Raster Data Using Polygons from Census Data**
 
-**Introduction**
-
 **6.1 Defining and reading geometries**
 
 The script below masks three raster files by using a vector shapefile's polygonal outline. The census file below contains an outline for Philadelphia County, the study area for this analysis. The first two lines of code create two lists: *input_files* and *output_files*.
