@@ -404,9 +404,8 @@ with rasterio.open(land_cover) as raster:
     src_crs = raster.crs
 
 **5.2 Reprojecting the raster**
-<p>
+<br>
 Once the necessary variables are defined, reprojection can be completed. The reprojection process is conducted using the **rasterio.warp.calculate_default_transform** function. This function converts a raster dataset to a newly defined CRS, which we have done at the beginning with variable *dst_crs*. The *dst_crs* is added into the calculate_default_transform function alongside variables like *src_crs*, *raster.width*, *raster.height*, and *raster.bounds* to define three new variables.
-</p>
 
     dst_transform, dst_width, dst_height = rasterio.warp.calculate_default_transform(
         source_crs, dst_crs, target_raster.width, target_raster.height, *target_raster.bounds)
