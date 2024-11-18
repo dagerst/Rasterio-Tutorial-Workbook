@@ -519,12 +519,12 @@ If you want to construct a script where multiple vector shapefiles are used to m
 
 The for looping mentioned in 6.2 would be moved up a few extra lines to include the reading geometry section of the code. Variable *shapes* would also be added into the for loop and **zip()** function. The rest of the script remains the same, with the exception of census_reprojected from the previous code being changed to *shapes* to successfully complete the loop.
 
-    for input_path, output_path, shapes in zip(input_files, output_files, shapes):
+    for input_files, output_files, shapes in zip(input_files, output_files, shapes):
         with fiona.open(shapes, "r") as shapefile:
             shapes = ([feature["geometry"] for feature in shapefile])
 
+        # Apply mask to raster
         with rasterio.open(input_path) as src:
-        # Mask the raster with the shapefile geometries
             out_image, out_transform = rasterio.mask.mask(src, shapes, crop=True)
             out_meta = src.meta
 
