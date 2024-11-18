@@ -289,13 +289,14 @@ The print statement uses the *gdf_reprojected.crs* command to print the new coor
 
 ********************
 **5.0 [Actual Step #3] Reprojecting Raster Data**
-<br>
+<p></p>
+
 **Introduction**
 <p></p>
 In this chapter, we will go over the process of reprojecting raster datasets to a different CRS. This step is essential in optimization and data cleaning to ensure that researchers are getting the most accurate results in their studies. The first part of this chapter will cover how to project a raster dataset to a defined CRS. The second part will cover the use of looping to reproject multiple raster datasets and the use of source rasters as guidelines on reprojection.
 </p>
 
-**5.1 Defining CRS and variables**
+**5.1 Defining CRS and Variables**
 <p>
 Before reprojecting, it is essential to determine what CRS you are planning to reprojection a raster dataset to. By using sites like EPSG.io, you can determine the EPSG code for your raster dataset and define it using:
 </p>
@@ -304,14 +305,13 @@ Before reprojecting, it is essential to determine what CRS you are planning to r
 
 
 The section below opens the raster dataset, in this case the land cover dataset, and defines a wide variety of variables that will be used to reproject the raster dataset. Once the land cover dataset is opened, it is redefined as variable *raster*. The 5 variables defined from the contents of the land cover raster include *src_shape*, *raster_data*, *src_dtype*, *src_transform*, and *src_crs*. Variable *src_shape* is defined by collecting the height and width of the raster dataset. *Raster_data* is defined by reading and collecting the first band, which is then used to determine the variable *src_dtype* by observing the data format used to visualize the first band. *Src_transform* is defined by the affine transformation of the dataset, which <>. And lastly, variable *src_crs* is defined by the land cover raster’s existing CRS.
-with rasterio.open(land_cover) as raster:
 
-
-    src_shape = (raster.height, raster.width)
-    raster_data = raster.read(1)
-    src_dtype = raster_data.dtype
-    src_transform = raster.transform
-    src_crs = raster.crs
+    with rasterio.open(land_cover) as raster:
+        src_shape = (raster.height, raster.width)
+        raster_data = raster.read(1)
+        src_dtype = raster_data.dtype
+        src_transform = raster.transform
+        src_crs = raster.crs
 
 **5.2 Reprojecting the raster**
 
@@ -337,7 +337,7 @@ After the destination array is created, the reprojection process can be complete
     )
 
 The final step in reprojection is saving the results from the **reproject** function into an output file. Much like in previous steps in the reprojection process, multiple variables are utilized when the output file *landcover_reprojected* is opened. Many of the reprojected variables determined in previous steps are saved into the output file including height, width, CRS, and Transformation. The one exception is the data type as we want to keep the same data type from the original raster for precision. 
-The variable *count* is determined based on how many bands the raster dataset contains. Most raster datasets contain only 1 band, hence in most cases the count will remain 1. But in rare instances where RBG or multi-spectral imaging is used, the variable will need to be changed to either 2 or 3. Lastly, the data will be saved by adding the destination array into the output raster by using *dest.write*.  The number in this function once again will be determined based on how many bands the raster contains.
+The variable *count* is determined based on how many bands the raster dataset contains. Most raster datasets contain only 1 band, hence in most cases the count will remain 1. But in rare instances where RBG or multi-spectral imaging is used, the variable will need to be changed to either 2 or 3. Lastly, the data will be saved by adding the destination array into the output raster by using *dest.write*. The number in this function once again will be determined based on how many bands the raster contains.
 
     with rasterio.open(
         landcover_reprojected,
@@ -411,7 +411,8 @@ An additional method that can be used is using source rasters. Source rasters ar
 
 
 Since the **calculate_default_transform** function is no longer being used, we can skip that section. The destination array when using a source raster should use the height and width from the source raster, while the target raster’s data type should be used. For example:
-destination = np.empty((source_height, source_width), dtype=target_dtype)
+
+    destination = np.empty((source_height, source_width), dtype=target_dtype)
 
 The **reprojection** function should also reflect these changes, where the source raster’s transformation and CRS should be used as the reprojected data. The target raster’s data type, transformation, and CRS should be used as the original raster datasets as shown below:
 
@@ -439,16 +440,17 @@ Saving the newly reprojected raster file is similar in this instance, with minor
         transform=reproject_transform
     ) as dest:
         dest.write(destination, 1)
-<p>
+<p></p>
+
 It is possible to use both reprojection looping and source rasters in the same script. This can be done by combining the steps mentioned above in section 5.3 and 5.4 by defining input and output paths, reading the source raster, and using reprojection looping to conduct the reprojection process. Also note that in this case, the **calculate_default_transform** should be removed from the reprojection loop and the variables be defined to reflect the steps used in section 5.4.
-</p>
+
 
 **5.5 Exercises**
-<p>
+<p></p>
+
 *Exercise 1 (Easy):* The City of Philadelphia is planning on conducting a study on how much of the city is covered by car infrastructure. 
 A raster dataset containing impervious surface cover will be used, however the dataset is in a different projection than the city’s other 
 datasets. Convert the Impervious Surface Cover dataset into NAD 1983 State Plane Pennsylvania South.
-</p>
     
 *Exercise 2 (Advanced):* On the other side of the Delaware, Camden is getting ready to conduct a study on Urban Heat Island using
 Land Cover and Tree Cover datasets. However, both of the rasters are not set to the default reference system used by the city.
