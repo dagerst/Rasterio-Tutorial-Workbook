@@ -411,12 +411,13 @@ Description on target rasters right here.
 <p>
 *Exercise 1 (Easy):* The City of Philadelphia is planning on conducting a study on how much of the city is covered by car infrastructure. 
 A raster dataset containing impervious surface cover will be used, however the dataset is in a different projection than the city’s other 
-datasets. Convert the Impervious Surface Cover dataset into NAD 1983 State Plane Pennsylvania South, EPSG: 2272.
+datasets. Convert the Impervious Surface Cover dataset into NAD 1983 State Plane Pennsylvania South.
 </p>
     
-*Exercise 2 (Advanced):* On the other side of the Delaware, Camden is getting ready to conduct a study on Urban Heat Island using <br>
-Land Cover and Tree Cover datasets. However, both of the rasters are not set to the default reference system used by the city. <br>
-Using one of the raster datasets already in their directory, write a loop that converts the two raster datasets into WGS 84 UTM Zone 18N.
+*Exercise 2 (Advanced):* On the other side of the Delaware, Camden is getting ready to conduct a study on Urban Heat Island using
+Land Cover and Tree Cover datasets. However, both of the rasters are not set to the default reference system used by the city.
+Using one of the raster datasets already in their directory, write a loop that converts the two raster datasets into WGS 84 UTM /
+Zone 18N. Use EPSG.io to search for the EPSG code of WGS 84 / UTM Zone 18N.
 
 **6.0 [Actual Step #4] Masking Raster Data Using Polygons from Census Data**
 **Introduction**
