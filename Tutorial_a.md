@@ -456,6 +456,7 @@ Using one of the raster datasets already in their directory, write a loop that c
 Zone 18N. Use EPSG.io to search for the EPSG code of WGS 84 / UTM Zone 18N.
 
 **6.0 [Actual Step #4] Masking Raster Data Using Polygons from Census Data**
+
 **Introduction**
 
 **6.1 Defining and reading geometries**
@@ -472,13 +473,6 @@ The script below masks three raster files by using a vector shapefile's polygona
         shapes = [feature["geometry"] for feature in shapefile]
 
 The code uses the Fiona Python library to open the census reprojected shapefile and reads it into a variable named *shapefile*. Then the shapefile variable has the column for geometry called within each feature or row of the shapefile. This data is then stored in the variable *shapes*.
-
-Also note that there is an alternative method you can use to read vector geometries. This method involves the creation of an empty dictionary earlier in the script, which in this case we'll call *shapes*. The line where the variable *shapes* is defined when opening the shapefile via Fiona will be altered to **shapes.extend** to add the vector shapefile's geometry into the dictionary. This method is helpful in instances when using multiple vector shapefiles to mask a raster.
-
-    shapes = []
-
-    with fiona.open(census_reprojected, "r") as shapefile:
-        shapes.extend([feature["geometry"] for feature in shapefile])
 
 **6.2 Masking raster datasets**
 
@@ -515,7 +509,38 @@ The above function updates the *out_meta* variable to reflect the new metadata o
     print(f'{input_path} has been masked and saved to {output_path}')
 This print statement prints out the input_path and output_path names every time a loop is completed. For our study, the loop will be completed three times.
 
-**6.4 Exercises**
+**6.4 Masking with multiple shapefiles**
+
+If you want to construct a script where multiple vector shapefiles are used to mask a raster dataset, you are able to do so by adding *shapes* as a variable at the beginning of the script.
+
+    input_files = [landcover_reprojected, treecover_reprojected, landsat_reprojected]
+    output_files = ["land_cover_mask.tif", "tree_cover_mask.tif", "land_surface_temp_mask.tif"]
+    shapes = [census_reprojected, blockgroup_reprojected, block_reprojected]
+
+The for looping mentioned in 6.2 would be moved up a few extra lines to include the reading geometry section of the code. Variable *shapes* would also be added into the for loop and **zip()** function. The rest of the script remains the same, with the exception of census_reprojected from the previous code being changed to *shapes* to successfully complete the loop.
+
+    for input_path, output_path, shapes in zip(input_files, output_files, shapes):
+        with fiona.open(shapes, "r") as shapefile:
+            shapes = ([feature["geometry"] for feature in shapefile])
+
+        with rasterio.open(input_path) as src:
+        # Mask the raster with the shapefile geometries
+            out_image, out_transform = rasterio.mask.mask(src, shapes, crop=True)
+            out_meta = src.meta
+
+            # Update metadata to reflect the new dimensions and transform
+            out_meta.update({
+                "driver": "GTiff",
+                "height": out_image.shape[1],
+                "width": out_image.shape[2],
+                "transform": out_transform
+            })
+
+        # Save the masked raster to the output file
+        with rasterio.open(output_path, "w", **out_meta) as dest:
+            dest.write(out_image)
+
+**6.5 Exercises**
 
 *Exercise 1 (Easy):* A member of a community activist group is awaiting their result for the 2023 copy of the land cover dataset <br>
 to assess how the census tract has changed in the past year and the impacts it might have to the local nature preserve at the <br>
