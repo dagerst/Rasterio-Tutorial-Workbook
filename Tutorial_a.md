@@ -76,10 +76,6 @@ Below code sets current directory as the workspace using the os library **getcwd
     treecover_reprojected = 'TCC_2021.tif'
     census_prj = 'census_nad_83.shp'
 
-Below line of code sets a variable called *dst_crs* which is equal to the EPSG code of the destination reprojection which is NAD1983, State Plane US PA South
-   
-    dst_crs = 2272
-
 *Script Sections are Out of Order for Easy Explanation and Exercise Purposes*
 
 *******************************
