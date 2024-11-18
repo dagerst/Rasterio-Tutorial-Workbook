@@ -130,10 +130,9 @@ The **xlabel, ylabel, and title** functions result in the labeling for the histo
     plt.title('Heat_Index_Philly')
     plt.show()
 
-![Fig2_hist](https://github.com/user-attachments/assets/02d0cbb9-a284-46b9-a1dd-b6aecfa5411f)
+![Figure_2](https://github.com/user-attachments/assets/886653cf-54d0-4a5b-b2e7-a1b04d0226ae)
 
 As shown by the histogram output of the final processed data, all of the data is higher than 0 and less than 5 (however highest is actually less than 4). There are no null values shown or outliers. This helps confirm the accuracy of the data. 
-
 
 **3.0 [Actual Step #5] Reclassifying Rasters**
 *****************************
