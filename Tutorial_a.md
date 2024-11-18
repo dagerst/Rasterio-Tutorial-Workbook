@@ -263,6 +263,8 @@ To reach this goal, the city government plans on converting some of the existing
 exercise, reclassify water and wetlands classes into 1, forest data (evergreen, deciduous, mixed) into 2, open space developed land into 3,
 and all other land cover uses into 0. Use the NLCD Land Cover Legend attached below.
 
+https://www.mrlc.gov/data/legends/national-land-cover-database-class-legend-and-description
+
 
 
 **4.0 [Actual Step #2] Reprojection of Census Vector Data**
