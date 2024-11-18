@@ -417,6 +417,24 @@ The for loop below loops both the *source_raster_path* and the *output_raster_pa
             source_dtype = source_data.dtype
 
 
+The line of code below creates an empty NumPy array using the function **np.empty**, and then immediately fills it with data from the variables *dst_height* and *dst_width*. It also inputs that the dtype of the array is equal to the variable *source_dtype*.
+
+    # Create an empty array with the shape and dtype of the target resolution
+        destination = np.empty((dst_height, dst_width), dtype=source_dtype)
+
+The **reproject** function below reprojects raster data. The first argument used in this function is the *source* variable which is set equal to the *source_data* variable (the raster data file being reprojected). The second argument is the *destination* variable which is set equal to the *destination* variable. Third argument is the *src_transform* variable is set equal to the *source_transform* variable. Fourth argument is the *src_crs* variable is set equal to the *source_crs* variable. Fifth argument is the *dst_transform* variable set equal to the *dst_transform* variable which is the transform geometry and extent data. Sixth argument is the *dst_crs* variable is set equal to the *dst_crs* variable which contains the EPSG code for the destination coordinate reference system which is 2272. The final argument is the *resampling* variable set equal to Resampling.nearest. 
+
+        # Perform the reprojection
+        reproject(
+            source=source_data,
+            destination=destination,
+            src_transform=source_transform,
+            src_crs=source_crs,
+            dst_transform=dst_transform,
+            dst_crs=dst_crs,
+            resampling=Resampling.nearest  # You can use other methods like bilinear, cubic, etc.
+        )
+
 
 *Exercise 1 (Easy):* The City of Philadelphia is planning on conducting a study on how much of the city is covered by car infrastructure. 
 A raster dataset containing impervious surface cover will be used, however the dataset is in a different projection than the city’s other 
