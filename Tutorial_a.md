@@ -320,9 +320,8 @@ Once the necessary variables are defined, new reprojection variables need to be 
 
     dest_transform, dest_width, dest_height = rasterio.warp.calculate_default_transform(
         source_crs, dst_crs, target_raster.width, target_raster.height, *target_raster.bounds)
-<p>
+        
 The three new variables *dest_transform*, *dest_width*, and *dest_height* are all defined by reprojecting the width, height, and bounding box of the raster dataset into the new CRS. After the three variables are defined, an empty destination array named *destination* is created to contain the height and width of the reprojected raster using the defined data type from the original raster dataset. Listed below is the destination array:
-</p>
 
     destination = np.empty((dest_height, dest_width), dtype=src_dtype)
 
