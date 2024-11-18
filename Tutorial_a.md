@@ -385,10 +385,10 @@ Before reprojecting, it is essential to determine what CRS you are planning to r
 
     dst_crs = 2272 (This is the EPSG code for NAD 1983 State Plane Pennsylvania South, the CRS used for this study)
 
-<p>
+
 The section below opens the raster dataset, in this case the land cover dataset, and defines a wide variety of variables that will be used to reproject the raster dataset. Once the land cover dataset is opened, it is redefined as variable *raster*. The 5 variables defined from the contents of the land cover raster include *src_shape*, *raster_data*, *src_dtype*, *src_transform*, and *src_crs*. Variable *src_shape* is defined by collecting the height and width of the raster dataset. *Raster_data* is defined by reading and collecting the first band, which is then used to determine the variable *src_dtype* by observing the data format used to visualize the first band. *Src_transform* is defined by the affine transformation of the dataset, which <>. And lastly, variable *src_crs* is defined by the land cover raster’s existing CRS.
 with rasterio.open(land_cover) as raster:
-</p>
+
 
     src_shape = (raster.height, raster.width)
     raster_data = raster.read(1)
@@ -404,6 +404,16 @@ Once the necessary variables are defined, reprojection can be completed. The rep
         source_crs, dst_crs, target_raster.width, target_raster.height, *target_raster.bounds)
 
 The three new variables  
+
+    # Looping through the remaining rasters with land cover as the target raster
+The for loop below loops both the *source_raster_path* and the *output_raster_path* iterable variables through the *source_rasters* and *output_raster_paths* variables simultaneously using the **zip()** function. The with statement uses the **rasterio open()** function with the variable *source_raster_path* as the argument as local variable *source_raster*. The first band of *source_raster* is read and stored in the variable *source_data*. The transform data which includes geometry and extent information is stored in the *source_transform* variable. Then the *source_raster* coordinate reference system is stored in the *source_crs* variable. Finally, the dtype data from *source_data* is stored in the *source_dtype* variable.
+
+    for source_raster_path, output_raster_path in zip(source_rasters, output_raster_paths):
+        with rasterio.open(source_raster_path) as source_raster:
+            source_data = source_raster.read(1)
+            source_transform = source_raster.transform
+            source_crs = source_raster.crs
+            source_dtype = source_data.dtype
 
 
 
