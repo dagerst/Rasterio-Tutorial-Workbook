@@ -286,94 +286,10 @@ The print statement uses the *gdf_reprojected.crs* command to print the new coor
     
     print("Reprojected CRS:", gdf_reprojected.crs)
 
-**5.0 [Actual Step #3] Reprojection Loop for Raster Data**
 
-    source_rasters = tree_cover, land_surf_temp
-    output_raster_paths = treecover_reprojected, landsat_reprojected
-    output_first_raster_path = landcover_reprojected
-    
-    # Open the first raster and get its specifications
-    with rasterio.open(land_cover) as target_raster:
-        target_shape = (target_raster.height, target_raster.width)
-        target_data = target_raster.read(1)
-        source_dtype = target_data.dtype
-        target_transform = target_raster.transform
-        source_crs = target_raster.crs
-    
-    # Define the target CRS and resolution
-    dst_transform, dst_width, dst_height = rasterio.warp.calculate_default_transform(
-        source_crs, dst_crs, target_raster.width, target_raster.height, *target_raster.bounds)
-    
-    # Create a destination array for the reprojected target
-    destination_target = np.empty((dst_height, dst_width), dtype=source_dtype)
-    
-    # Perform the reprojection
-    reproject(
-        source=target_data,
-        destination=destination_target,
-        src_transform=target_transform,
-        src_crs=source_crs,
-        dst_transform=dst_transform,
-        dst_crs=dst_crs,
-        resampling=Resampling.nearest
-    )
-    
-    # Save the reprojected target raster
-    with rasterio.open(
-        landcover_reprojected,
-        'w',
-        driver='GTiff',
-        height=dst_height,
-        width=dst_width,
-        count=1,
-        dtype=source_dtype,
-        crs=dst_crs,
-        transform=dst_transform
-    ) as dst:
-        dst.write(destination_target, 1)
-    
-    print(f"Reprojected target raster saved as {landcover_reprojected}")
-    
-    # Looping through the remaining rasters with land cover as the target raster
-    for source_raster_path, output_raster_path in zip(source_rasters, output_raster_paths):
-        with rasterio.open(source_raster_path) as source_raster:
-            source_data = source_raster.read(1)
-            source_transform = source_raster.transform
-            source_crs = source_raster.crs
-            source_dtype = source_data.dtype
-    
-    # Create an empty array with the shape and dtype of the target resolution
-            destination = np.empty((dst_height, dst_width), dtype=source_dtype)
-    
-            # Perform the reprojection
-            reproject(
-                source=source_data,
-                destination=destination,
-                src_transform=source_transform,
-                src_crs=source_crs,
-                dst_transform=dst_transform,
-                dst_crs=dst_crs,
-                resampling=Resampling.nearest  # You can use other methods like bilinear, cubic, etc.
-            )
-    
-        # Save the reprojected raster to a new file
-        with rasterio.open(
-            output_raster_path,
-            'w',
-            driver='GTiff',
-            height=dst_height,
-            width=dst_width,
-            count=1,
-            dtype=source_dtype,
-            crs=dst_crs,
-            transform=dst_transform
-        ) as dst:
-            dst.write(destination, 1)
-    
-    print(f"Reprojected source raster saved as {output_raster_path}")
 
 ********************
-**Reprojection**
+**5.0 [Actual Step #3] Reprojecting Raster Data**
 <br>
 **Introduction**
 <p></p>
@@ -487,12 +403,16 @@ The final section of the reprojection is structured in a similar way as in Chapt
         dest.write(destination, 1)
 
 **5.4 Target Rasters**
+<p>
 Description on target rasters right here.
+</p>
 
 **5.5 Exercises**
+<p>
 *Exercise 1 (Easy):* The City of Philadelphia is planning on conducting a study on how much of the city is covered by car infrastructure. 
 A raster dataset containing impervious surface cover will be used, however the dataset is in a different projection than the city’s other 
 datasets. Convert the Impervious Surface Cover dataset into NAD 1983 State Plane Pennsylvania South, EPSG: 2272.
+</p>
     
 *Exercise 2 (Advanced):* On the other side of the Delaware, Camden is getting ready to conduct a study on Urban Heat Island using <br>
 Land Cover and Tree Cover datasets. However, both of the rasters are not set to the default reference system used by the city. <br>
