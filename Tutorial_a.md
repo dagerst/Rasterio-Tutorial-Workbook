@@ -293,7 +293,7 @@ The print statement uses the *gdf_reprojected.crs* command to print the new coor
 <br>
 **Introduction**
 <p></p>
-In this chapter, we will go over the process of reprojecting raster datasets to a different CRS. This step is essential in optimization and data cleaning to ensure that researchers are getting the most accurate results in their studies. The first part of this chapter will cover how to project a raster dataset to a defined CRS. The second part will cover the use of looping to reproject multiple raster datasets and the use of target rasters as guidelines on reprojection.
+In this chapter, we will go over the process of reprojecting raster datasets to a different CRS. This step is essential in optimization and data cleaning to ensure that researchers are getting the most accurate results in their studies. The first part of this chapter will cover how to project a raster dataset to a defined CRS. The second part will cover the use of looping to reproject multiple raster datasets and the use of source rasters as guidelines on reprojection.
 </p>
 
 **5.1 Defining CRS and variables**
@@ -359,6 +359,7 @@ The variable *count* is determined based on how many bands the raster dataset co
 <p>
 There are some additional ways to optimize the reprojection process, especially when dealing with multiple rasters. One method is to use looping to reproject multiple rasters at once. To complete a reprojection loop, the original code does need to be altered in a few places. The first change is the creation of two additional variables at the start of the script: *input_raster*, and *output_raster*.
 </p>
+    
     input raster = input_file_path1, input_file_path2, ….
     output raster = output_file_path1, output_file_path2, ….
 
