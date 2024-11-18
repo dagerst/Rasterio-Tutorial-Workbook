@@ -295,13 +295,6 @@ The print statement uses the *gdf_reprojected.crs* command to print the new coor
         target_shape = (target_raster.height, target_raster.width)
         target_data = target_raster.read(1)
         source_dtype = target_data.dtype
-    
-    # Create an empty array for the reprojected target raster data
-    destination_target = np.empty(target_shape, dtype=source_dtype)
-    
-    # Reproject the target raster
-    with rasterio.open(land_cover_raster) as target_raster:
-        target_data = target_raster.read(1)
         target_transform = target_raster.transform
         source_crs = target_raster.crs
     
