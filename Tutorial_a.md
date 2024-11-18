@@ -405,9 +405,10 @@ Once the necessary variables are defined, reprojection can be completed. The rep
 
 The three new variables  
 
-    # Looping through the remaining rasters with land cover as the target raster
+    
 The for loop below loops both the *source_raster_path* and the *output_raster_path* iterable variables through the *source_rasters* and *output_raster_paths* variables simultaneously using the **zip()** function. The with statement uses the **rasterio open()** function with the variable *source_raster_path* as the argument as local variable *source_raster*. The first band of *source_raster* is read and stored in the variable *source_data*. The transform data which includes geometry and extent information is stored in the *source_transform* variable. Then the *source_raster* coordinate reference system is stored in the *source_crs* variable. Finally, the dtype data from *source_data* is stored in the *source_dtype* variable.
 
+    # Looping through the remaining rasters with land cover as the target raster
     for source_raster_path, output_raster_path in zip(source_rasters, output_raster_paths):
         with rasterio.open(source_raster_path) as source_raster:
             source_data = source_raster.read(1)
