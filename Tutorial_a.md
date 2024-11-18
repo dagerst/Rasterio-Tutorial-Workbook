@@ -370,7 +370,7 @@ A loop now needs to be constructed just before the raster dataset is opened. Thi
 
     For input_raster, output_raster in zip(input_rasters, output_rasters):
 
-The with loop used earlier in the chapter is used below the for loop with minimal changes, with variable *input_raster* being opened in this case and redefined to *src*.
+The with loop used earlier in the chapter is used below the for loop with minimal changes, with variable *input_raster* being opened and defined in this case.
  
     with rasterio.open(input_raster) as raster:
         src_shape = (raster.height, raster.width)
@@ -379,7 +379,7 @@ The with loop used earlier in the chapter is used below the for loop with minima
         src_transform = raster.transform
         src_crs = raster.crs
 
-Throughout the rest of the reprojection code, the steps remain the same until the end of the code where the reprojected data is saved into an output file. Use variable *output_raster* when opening the output file to successfully complete the loop.
+Throughout the rest of the reprojection code, the steps remain the same until the end where the reprojected data is saved into an output file. Use variable *output_raster* when opening the output file to successfully complete the loop.
 
     with rasterio.open(
         output_raster,
