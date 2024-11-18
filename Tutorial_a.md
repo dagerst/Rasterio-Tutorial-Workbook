@@ -398,15 +398,49 @@ with rasterio.open(land_cover) as raster:
 
 **5.2 Reprojecting the raster**
 <br>
-Once the necessary variables are defined, reprojection can be completed. The reprojection process is conducted using the **rasterio.warp.calculate_default_transform** function. This function converts a raster dataset to a newly defined CRS, which we have done at the beginning with variable *dst_crs*. The *dst_crs* is added into the calculate_default_transform function alongside variables like *src_crs*, *raster.width*, *raster.height*, and *raster.bounds* to define three new variables.
+Once the necessary variables are defined, new reprojection variables need to be defined under the *dst_crs*. This process is conducted using the **rasterio.warp.calculate_default_transform** function. This function converts a raster dataset to a newly defined CRS, which we have done at the beginning with variable *dst_crs*. The *dst_crs* is added into the calculate_default_transform function alongside variables like *src_crs*, *raster.width*, *raster.height*, and *raster.bounds* to define three new variables.
 
-    dst_transform, dst_width, dst_height = rasterio.warp.calculate_default_transform(
+    dest_transform, dest_width, dest_height = rasterio.warp.calculate_default_transform(
         source_crs, dst_crs, target_raster.width, target_raster.height, *target_raster.bounds)
+<p>
+The three new variables *dest_transform*, *dest_width*, and *dest_height* are all defined by reprojecting the width, height, and bounding box of the raster dataset into the new CRS. After the three variables are defined, an empty destination array named *destination* is created to contain the height and width of the reprojected raster using the defined data type from the original raster dataset. Listed below is the destination array:
+</p>
 
-The three new variables  
+    destination = np.empty((dest_height, dest_width), dtype=src_dtype)
 
-    
+After the destination array is created, the reprojection process can be completed. Using the **reprojection** function, the first band is entered into the function under variable *source*. The recently created destination array is also added into the reprojection under the same name. From both the original raster and reprojected rasters, the Affine transformation and CRS are added into the reprojection function under variables *src_transform*, *src_crs*, *dest_transform*, and *dst_crs*. Lastly, the variable *resampling* is defined by using the *Resampling* function to resample the raster pixel values based on their nearest neighbors. Other resampling methods including bilinear and cubic (using either **Resampling.bilinear** or **Resampling.cubic**) can be substituted to produce more accurate results, but will take longer to process.
+
+    reproject(
+        source=raster_data,
+        destination=destination,
+        src_transform=src_transform,
+        src_crs=src_crs,
+        dest_transform=dest_transform,
+        dst_crs=dst_crs,
+        resampling=Resampling.nearest
+    )
+
+The final step in reprojection is saving the results from the **reproject** function into an output file. Much like in previous steps in the reprojection process, multiple variables are utilized when the output file *landcover_reprojected* is opened. Many of the reprojected variables determined in previous steps are saved into the output file including height, width, CRS, and Transformation. The one exception is the data type as we want to keep the same data type from the original raster for precision. 
+The variable *count* is determined based on how many bands the raster dataset contains. Most raster datasets contain only 1 band, hence in most cases the count will remain 1. But in rare instances where RBG or multi-spectral imaging is used, the variable will need to be changed to either 2 or 3. Lastly, the data will be saved by adding the destination array into the output raster by using *dest.write*.  The number in this function once again will be determined based on how many bands the raster contains.
+
+    with rasterio.open(
+        landcover_reprojected,
+        'w',
+        driver='GTiff',
+        height=dest_height,
+        width=dest_width,
+        count=1,
+        dtype=src_dtype,
+        crs=dst_crs,
+        transform=dest_transform
+    ) as dest:
+        dest.write(destination, 1)
+
+
+**5.3 Looping Rasters**
+<p>
 The for loop below loops both the *source_raster_path* and the *output_raster_path* iterable variables through the *source_rasters* and *output_raster_paths* variables simultaneously using the **zip()** function. The with statement uses the **rasterio open()** function with the variable *source_raster_path* as the argument as local variable *source_raster*. The first band of *source_raster* is read and stored in the variable *source_data*. The transform data which includes geometry and extent information is stored in the *source_transform* variable. Then the *source_raster* coordinate reference system is stored in the *source_crs* variable. Finally, the dtype data from *source_data* is stored in the *source_dtype* variable.
+</p>
 
     # Looping through the remaining rasters with land cover as the target raster
     for source_raster_path, output_raster_path in zip(source_rasters, output_raster_paths):
@@ -435,7 +469,10 @@ The **reproject** function below reprojects raster data. The first argument used
             resampling=Resampling.nearest  # You can use other methods like bilinear, cubic, etc.
         )
 
+**5.4 Target Rasters**
+Description on target rasters right here.
 
+**5.5 Exercises**
 *Exercise 1 (Easy):* The City of Philadelphia is planning on conducting a study on how much of the city is covered by car infrastructure. 
 A raster dataset containing impervious surface cover will be used, however the dataset is in a different projection than the city’s other 
 datasets. Convert the Impervious Surface Cover dataset into NAD 1983 State Plane Pennsylvania South, EPSG: 2272.
