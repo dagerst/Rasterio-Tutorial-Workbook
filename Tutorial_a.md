@@ -315,7 +315,7 @@ with rasterio.open(land_cover) as raster:
     src_crs = raster.crs
 
 **5.2 Reprojecting the raster**
-<p></p>
+
 Once the necessary variables are defined, new reprojection variables need to be defined under the *dst_crs*. This process is conducted using the **rasterio.warp.calculate_default_transform** function. This function converts a raster dataset to a newly defined CRS, which we have done at the beginning with variable *dst_crs*. The *dst_crs* is added into the calculate_default_transform function alongside variables like *src_crs*, *raster.width*, *raster.height*, and *raster.bounds* to define three new variables.
 
     dest_transform, dest_width, dest_height = rasterio.warp.calculate_default_transform(
@@ -355,7 +355,7 @@ The variable *count* is determined based on how many bands the raster dataset co
 
 
 **5.3 Reprojection Looping**
-<p> </p>
+
 There are some additional ways to optimize the reprojection process, especially when dealing with multiple rasters. One method is to use looping to reproject multiple rasters at once. To complete a reprojection loop, the original code does need to be altered in a few places. The first change is the creation of two additional variables at the start of the script: *input_raster*, and *output_raster*.
     
     input raster = input_file_path1, input_file_path2, ….
@@ -393,7 +393,7 @@ Throughout the rest of the reprojection code, the steps remain the same until th
         dest.write(destination, 1)
   
 **5.4 Source Rasters**
-<p></p>
+
 An additional method that can be used is using source rasters. Source rasters are raster datasets that have already been reprojected and can be used to reproject another raster dataset. The use of source rasters can help speed up the process of reprojection by granting the user the ability to bypass using the **calculate_default_transform** function. To replace this function, both the source raster and the raster that is going to be reprojected will need to be read. Let’s suppose that in this case, *land_cover* has already been reprojected. We will use it as a source raster to reproject *tree_cover* to the same projection as *land_cover*. In this section, *land_cover* will be redefined as *src*, while *tree_cover* will be redefined as *target*.
 
     with rasterio.open(land_cover) as source:
