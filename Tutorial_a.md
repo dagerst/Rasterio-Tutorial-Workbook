@@ -55,12 +55,9 @@ environment, and use the following commands:
     import numpy as np
     import rasterio
     import fiona
-    import subprocess
     import rasterio.mask
     import matplotlib.pyplot as plt
     from rasterio.warp import calculate_default_transform, reproject, Resampling
-    from rasterio.transform import from_origin
-
 
 *1.2 Setting Workspace and Labeling of Initial Variables*
 
