@@ -245,16 +245,15 @@ Listed below are the rulesets used to reclassify the land cover and tree cover d
 Land Cover was reclassified this way because values 21 to 24 indicate developed land, varying in development intensity (21 is the lowest intenity, 24 is the highest). Values of 1 to 5 were added to reclassified raster, with a high value indicating higher density and higher risk to urban heat island effect.
 </p>
 
-![land_cover_1](https://github.com/user-attachments/assets/60dc17dc-45bd-420d-a4b7-9a2d8655ef00)
-
+<img src="https://github.com/user-attachments/assets/3a5e5e52-bb7b-42e4-8eec-abc43a50d832"  width="500" height="500">
 
 Tree cover raster was split using the 5-class Jenks (Natural Breaks) method. Since previous journal articles state come to the conclusion that lower tree cover increases risk to urban heat island effect, values were reclassified from 5 to 1. 
 
-![treecover](https://github.com/user-attachments/assets/a94ae9c5-9315-4a8d-ab2e-ed0b44c190e9)
+<img src="https://github.com/user-attachments/assets/a94ae9c5-9315-4a8d-ab2e-ed0b44c190e9"  width="500" height="500">
 
 Landsat data was reclassified into a 5-class method, where the highest and lowest class contain the outlier data while the interior 4 classes are split by 10 degrees. Higher temperature was given a higher reclassified value.
 
-![land_surf_temp](https://github.com/user-attachments/assets/7b96bd9c-6ed5-4c9e-b6ea-e25158d20661)
+<img src="https://github.com/user-attachments/assets/7b96bd9c-6ed5-4c9e-b6ea-e25158d20661"  width="500" height="500">
 
 **3.5 Exercise**
 
