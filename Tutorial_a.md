@@ -610,7 +610,8 @@ The **show()** function displays the image and color bar in a visualization wind
     
     plt.show()
 
-![Figure_1_chloropleth](https://github.com/user-attachments/assets/e661bbd7-29c2-4bd5-b935-23285da00d2f)
+![Figure_1_chloropleth](https://github.com/user-attachments/assets/6e11c5e6-d586-4ee5-a8aa-04f56bd5ebb8)
+
 
 ***********************
 
