@@ -381,6 +381,35 @@ The print statement uses the *gdf_reprojected.crs* command to print the new coor
     
     print(f"Reprojected source raster saved as {output_raster_path}")
 
+********************
+**Reprojection**
+<br>
+**Introduction**
+<p></p>
+In this chapter, we will go over the process of reprojecting raster datasets to a different CRS. This step is essential in optimization and data cleaning to ensure that researchers are getting the most accurate results in their studies. The first part of this chapter will cover how to project a raster dataset to a defined CRS. The second part will cover the use of looping to reproject multiple raster datasets and the use of target rasters as guidelines on reprojection.
+</p>
+
+**5.1 Defining CRS and variables**
+<p>
+Before reprojecting, it is essential to determine what CRS you are planning to reprojection a raster dataset to. By using sites like EPSG.io, you can determine the EPSG code for your raster dataset and define it using:
+</p>
+
+    dst_crs = 2272 (This is the EPSG code for NAD 1983 State Plane Pennsylvania South, the CRS used for this study)
+
+<p>
+The section below opens the raster dataset, in this case the land cover dataset, and defines a wide variety of variables that will be used to reproject the raster dataset. Once the land cover dataset is opened, it is redefined as variable *raster*. The 5 variables defined from the contents of the land cover raster include *src_shape*, *raster_data*, *src_dtype*, *src_transform*, and *src_crs*. Variable *src_shape* is defined by collecting the height and width of the raster dataset. *Raster_data* is defined by reading and collecting the first band, which is then used to determine the variable *src_dtype* by observing the data format used to visualize the first band. *Src_transform* is defined by the affine transformation of the dataset, which <>. And lastly, variable *src_crs* is defined by the land cover raster’s existing CRS.
+with rasterio.open(land_cover) as raster:
+</p>
+
+    src_shape = (raster.height, raster.width)
+    raster_data = raster.read(1)
+    src_dtype = raster_data.dtype
+    src_transform = raster.transform
+    src_crs = raster.crs
+
+**5.2**
+
+
 *Exercise 1 (Easy):* The City of Philadelphia is planning on conducting a study on how much of the city is covered by car infrastructure. 
 A raster dataset containing impervious surface cover will be used, however the dataset is in a different projection than the city’s other 
 datasets. Convert the Impervious Surface Cover dataset into NAD 1983 State Plane Pennsylvania South, EPSG: 2272.
