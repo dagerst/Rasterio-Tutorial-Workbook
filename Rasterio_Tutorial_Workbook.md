@@ -81,8 +81,10 @@ Below code sets current directory as the workspace using the os library **getcwd
 
 The code below defines the variable output path for the Geotif file.
     
-    # Define output path
-    output_path = 'heat_island_color.tif'
+``` python
+# Define output path
+output_path_color = 'heat_island_color.tif'
+```
 
 The code uses rasterio to open the *output_path_zonal* raster file as the local variable *src*. Then *src*’s first band is read and stored in the variable data. Then the meta data from *src* is stored in the variable *meta*.
     
