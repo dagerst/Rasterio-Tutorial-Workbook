@@ -147,8 +147,8 @@ For this chapter, we will be observing the reclassification code used for the la
 </p>
 
     with rasterio.open("land_surf_temp_mask.tif") as lc: 
-    raster_data = lc.read(1) 
-    profile = lc.profile
+        raster_data = lc.read(1) 
+        profile = lc.profile
 
 The ‘with’ statement is used to open the raster dataset with the use of the **rasterio.open** function, where it is then defined as variable *lc*. The variable *lc* is used in the following two lines to read the first band and metadata of the raster dataset. Variable *raster_data* is used to store the first band within the *lc* dataset, while variable *profile* is used to store its profile metadata. Both variables will be used later in the script and thus, are important to define.
 
@@ -215,7 +215,7 @@ The final step in the reclassification process is to save the reclassified data 
 
   
     with rasterio.open(landsat_reclass, 'w', **profile) as dest: 
-    dest.write(reclassified_data, 1)
+        dest.write(reclassified_data, 1)
 
 
 
